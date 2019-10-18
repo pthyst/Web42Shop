@@ -10,7 +10,7 @@ using Web42Shop.Data;
 namespace Web42Shop.Migrations
 {
     [DbContext(typeof(Web42ShopDbContext))]
-    [Migration("20191018040141_RunOnce")]
+    [Migration("20191018132858_RunOnce")]
     partial class RunOnce
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewData["Title"] = "OrdersOverview";
+    Layout = "~/Views/Admin/_AdminIndexLayout.cshtml";
+}
+
+<div class="container-fluid overview">
+    <p class="overview__title">Đơn đặt hàng</p>
+    <table class="overview__table overview__table--orders">
+        <tr>
+            <th>Mã đơn hàng</th>
+            <th>Mã khách hàng</th>
+            <th>Thời điểm đặt hàng</th>
+            <th>Cập nhật mới nhất</th>
+            <th>Tình trạng</th>
+            <th></th>
+        </tr>
+        <tr class="orders--waiting">
+            <td>01265</td>
+            <td>991251</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>Chờ xử lý</td>
+            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
+        </tr>
+        <tr class="orders--waiting">
+            <td>01266</td>
+            <td>991252</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>Chờ xử lý</td>
+            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
+        </tr>
+        <tr class="orders--waiting">
+            <td>01265</td>
+            <td>991251</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>Chờ xử lý</td>
+            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
+        </tr>
+        <tr class="orders--waiting">
+            <td>01267</td>
+            <td>991254</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>Chờ xử lý</td>
+            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
+        </tr>
+        <tr class="orders--deliverying">
+            <td>01262</td>
+            <td>991251</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>Đang giao</td>
+            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
+        </tr>
+        <tr class="orders--deliverying">
+            <td>01261</td>
+            <td>991251</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>Đang giao</td>
+            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
+        </tr>
+        <tr class="orders--delivered">
+            <td>01260</td>
+            <td>991251</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>Đã giao</td>
+            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
+        </tr>
+        <tr class="orders--delivered">
+            <td>01259</td>
+            <td>991251</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>Đã giao</td>
+            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
+        </tr>
+        <tr class="orders--delivered">
+            <td>01258</td>
+            <td>991251</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>Đã giao</td>
+            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
+        </tr>
+        <tr class="orders--delivered">
+            <td>01257</td>
+            <td>991251</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>18:00:20 18/10/2019</td>
+            <td>Đã giao</td>
+            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
+        </tr>
+    </table>
+</div>
