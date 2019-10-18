@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="author" content="Huỳnh Trương Chí Quân">
+    <meta name="description" content="Website bán hàng">
+    <link rel="icon" href="#">
+    <link rel="stylesheet" href="~/bootstrap4/css/bootstrap.css">
+    <link rel="stylesheet" href="~/fas/css/all.css">
+    <link rel="stylesheet" href="~/css/atomic.css">
+    <link rel="stylesheet" href="~/css/site.css">
+    
+</head>
+<body>
+    <div class="container-fluid body relative">
+        <partial name="~/Views/Shared/Users/_HeaderPartial.cshtml" />
+        <partial name="~/Views/Shared/Users/_CarouselsPartial.cshtml"/>
+        <partial name="~/Views/Shared/Users/_TopMenuPartial.cshtml"/>
+        @RenderBody()
+        <partial name="~/Views/Shared/Users/_FooterPartial.cshtml" />
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+        // Script này để sửa lỗi "fn" trong file util.js và đảm bảo carousel hoạt động
+    </script>
+    <script src="~/bootstrap4/js/bootstrap.min.js"></script>
+    <script src="~/fas/js/all.js"></script>
+    <script src="~/js/site.js"></script>
+</body>
+</html>

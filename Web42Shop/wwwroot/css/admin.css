@@ -1,0 +1,44 @@
+﻿body
+{
+    position: relative;
+    font-family: Quicksand;
+    background: #cdcdcd;
+}
+.login_form
+{
+    display: block;
+    margin-top: 7rem;
+    padding: 2rem;
+    border: 1px solid #cdcdcd;
+    border-radius: 1rem;
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.2)
+}
+.sidemenu
+{
+    padding: 1rem 2rem;
+}
+.sidemenu__link 
+{
+    display: block;
+    min-width: 100%;
+    padding: 1rem 1.25rem;
+    color: #fff;
+    background-color: #313131;
+    transition: all 0.25s ease-in-out;
+    box-shadow: 1px 1px 0px 0px rgba(0,0,0,0.2);
+}
+.sidemenu__link:hover 
+{
+    text-decoration: none;
+    color: #fff;
+    background-color: #FD1961;
+    transform: translate(2rem,0rem);
+}
+.sidemenu__link--website {
+  
+    background-color: #FCB70A;
+}
+.sidemenu__link--logout {
+
+    background-color: #0A6786;
+}

@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/Users/_IndexLayout.cshtml";
+}
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Chỉnh sửa thông tin mua hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Cart" asp-action="index" method="post">
+                    <div class="form-group">
+                        <label for="soLuong">Số lượng</label>
+                        <input type="number" class="form-control" id="soLuong">
+                    </div>
+                    <div class="form-group">
+                        <label for="ghiChu">Ghi Chú</label>
+                        <input type="text" class="form-control" id="ghiChu">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xóa mặt hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>Bạn có chắc chắn muốn xóa mặt hàng này ?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid section">
+    <div class="container">
+        <h1 class="section__title">
+            Giỏ hàng <i class="fas fa-shopping-cart"></i>
+        </h1>
+        <br />
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tên hàng</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Thành tiền</th>
+                    <th scope="col">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Macbook 2019</td>
+                    <td>1</td>
+                    <td>17500000</td>
+                    <td>
+                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editModal"><i class="fas fa-cog"></i></button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-times"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Laptop Dell</td>
+                    <td>1</td>
+                    <td>15000000</td>
+                    <td>
+                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editModal"><i class="fas fa-cog"></i></button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-times"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Laptop ASUS</td>
+                    <td>1</td>
+                    <td>15500000</td>
+                    <td>
+                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editModal"><i class="fas fa-cog"></i></button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-times"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <div class="row">
+            <div class="col-9"><h2 style="padding:20px">Tổng cộng : 48000000 VND cho 3 mặt hàng.</h2></div>
+            <div class="col-sm"><button type="button" class="btn btn-block btn-primary"><h2>Thanh toán</h2></button></div>
+        </div>
+    </div>
+</div>
