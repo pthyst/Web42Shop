@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Web42Shop\\Web42Shop\\Web42Shop.csproj": {}
+    "H:\\Web42Shop\\Web42Shop\\Web42Shop.csproj": {}
   },
   "projects": {
-    "G:\\Web42Shop\\Web42Shop\\Web42Shop.csproj": {
+    "H:\\Web42Shop\\Web42Shop\\Web42Shop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
+        "projectUniqueName": "H:\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
         "projectName": "Web42Shop",
-        "projectPath": "G:\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
-        "packagesPath": "C:\\Users\\SONY\\.nuget\\packages\\",
-        "outputPath": "G:\\Web42Shop\\Web42Shop\\obj\\",
+        "projectPath": "H:\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "H:\\Web42Shop\\Web42Shop\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\SONY\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

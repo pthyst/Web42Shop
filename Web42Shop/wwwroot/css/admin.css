@@ -94,6 +94,10 @@
 {
     padding: 0.75rem 1rem;
     text-align: center;
+    border-bottom: 1px white solid;
+}
+.overview__table td a {
+    color: #fff;
 }
 .overview__table tr:first-child
 {
@@ -120,5 +124,21 @@
 }
 .orders--delivered {
     background-color: #0A6786;
+    color: #fff;
+}
+.pagi
+{
+    padding: 0.5rem 1rem;
+    color: #313131;
+    margin: 1rem 0rem 0rem 0rem;
+}
+.pagi:hover 
+{
+    background-color: #505050;
+    color: #fff;
+}
+.pagi--active
+{
+    background-color: #FD1961;
     color: #fff;
 }
