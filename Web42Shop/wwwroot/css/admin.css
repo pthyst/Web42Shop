@@ -169,3 +169,11 @@
     background: #FCB70A;
     color: #313131;
 }
+.overview__table--users tr
+{
+    border: 1px #5c5c5c solid;
+}
+.overview__table--users tr:first-child,.overview__table--users tr:first-child:hover{
+    background: #107C48;
+    color: #fff;
+}
