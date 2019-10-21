@@ -1,8 +1,85 @@
 ﻿
 @{
-    ViewData["Title"] = "AdminsOverview";
+    ViewData["Title"] = "Quản trị viên";
     Layout = "~/Views/Admin/_AdminIndexLayout.cshtml";
 }
 
-<h1>Trang tổng quan các quản trị viên của website K42Shop</h1>
+<div class="container-fluid overview">
+    <p class="overview__title">Sản phẩm của K42Shop</p>
+    <a asp-controller="Admin" asp-action="AdminsOverview" class="overview__button overview__button--new"><i class="fas fa-plus"></i>Thêm quản trị viên</a>
+    <table class="overview__table overview__table--admins">
+        <tr>
+           <th>Tài khoản</th>
+           <th>Email</th>
+           <th>Quyền</th>
+           <th>Ngày tạo</th>
+           <th>Ngày chỉnh sửa</th>
+           <th></th>
+        </tr>
+        <tr>
+            <td><a asp-controller="Admin" asp-action="AdminsOverview">pthyst</a></td>
+            <td>pthyst@gmail.com</td>
+            <td>Quản trị viên</td>
+            <td>18:00:00 21/10/2019</td>
+            <td>19:00:00 22/10/2019</td>
+            <td><a asp-controller="Admin" asp-action="AdminsOverview" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa tài khoản</a></td>
+        </tr>
+        <tr>
+            <td><a asp-controller="Admin" asp-action="AdminsOverview">phamlap</a></td>
+            <td>phamlap.rikan@gmail.com</td>
+            <td>Quản trị viên</td>
+            <td>18:00:00 21/10/2019</td>
+            <td>19:00:00 22/10/2019</td>
+            <td><a asp-controller="Admin" asp-action="AdminsOverview" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa tài khoản</a></td>
+        </tr>
+        <tr>
+            <td><a asp-controller="Admin" asp-action="AdminsOverview">zcaoquang64</a></td>
+            <td>caoquang.064@gmail.com</td>
+            <td>Người đăng bài</td>
+            <td>18:00:00 21/10/2019</td>
+            <td>19:00:00 22/10/2019</td>
+            <td><a asp-controller="Admin" asp-action="AdminsOverview" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa tài khoản</a></td>
+        </tr>
+        <tr>
+            <td><a asp-controller="Admin" asp-action="AdminsOverview">leeminhee</a></td>
+            <td>minhee@gmail.com</td>
+            <td>Người đăng bài</td>
+            <td>18:00:00 21/10/2019</td>
+            <td>19:00:00 22/10/2019</td>
+            <td><a asp-controller="Admin" asp-action="AdminsOverview" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa tài khoản</a></td>
+        </tr>
+        <tr>
+            <td><a asp-controller="Admin" asp-action="AdminsOverview">nguyenphuong</a></td>
+            <td>nguyenphuong@gmail.com</td>
+            <td>Người đăng bài</td>
+            <td>18:00:00 21/10/2019</td>
+            <td>19:00:00 22/10/2019</td>
+            <td><a asp-controller="Admin" asp-action="AdminsOverview" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa tài khoản</a></td>
+        </tr>
+        <tr>
+            <td><a asp-controller="Admin" asp-action="AdminsOverview">phuongdung</a></td>
+            <td>phuongdung@gmail.com</td>
+            <td>Nguòi đăng bài</td>
+            <td>18:00:00 21/10/2019</td>
+            <td>19:00:00 22/10/2019</td>
+            <td><a asp-controller="Admin" asp-action="AdminsOverview" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa tài khoản</a></td>
+        </tr>
+    </table>
+
+    <div class="row">
+        <div class="container txt-center w100">
+            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi pagi--active">1</a>
+            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">2</a>
+            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">3</a>
+            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">4</a>
+            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">5</a>
+            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">6</a>
+            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">7</a>
+            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">8</a>
+            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">9</a>
+        </div>
+    </div>
+</div>
+
+
 

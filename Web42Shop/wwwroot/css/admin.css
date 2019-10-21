@@ -161,7 +161,7 @@
 {
     background-color: #FD1961;
 }
-.overview__table--products tr
+.overview__table--products tr,.overview__table--users tr,.overview__table--admins tr
 {
     border: 1px #5c5c5c solid;
 }
@@ -169,11 +169,15 @@
     background: #FCB70A;
     color: #313131;
 }
-.overview__table--users tr
-{
-    border: 1px #5c5c5c solid;
-}
 .overview__table--users tr:first-child,.overview__table--users tr:first-child:hover{
     background: #107C48;
     color: #fff;
+}
+.overview__button--delete
+{
+    background-color: #ff0000;
+    color: #fff;
+    border-radius: 0rem;
+    font-size: 1rem;
+    padding: 0.35rem 0.5rem;
 }
