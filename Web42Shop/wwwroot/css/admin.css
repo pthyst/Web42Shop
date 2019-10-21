@@ -94,9 +94,12 @@
 {
     padding: 0.75rem 1rem;
     text-align: center;
+}
+.overview__table--orders td,.overview__table--orders th
+{
     border-bottom: 1px white solid;
 }
-.overview__table td a {
+.overview__table--orders td a {
     color: #fff;
 }
 .overview__table tr:first-child
@@ -108,11 +111,13 @@
     background-color: #313131;
     transition: all 0.5s ease-in-out;
     transform: translate(-10px,-10px);
+    color: #fff;
 }
 .overview__table tr:first-child:hover 
 {
     background: #fff;
     transform: translate(0px,0px);
+    color: #000;
 }
 .orders--waiting {
     background-color: #FF6B00;
@@ -141,4 +146,26 @@
 {
     background-color: #FD1961;
     color: #fff;
+}
+.overview__button
+{
+    display: inline-block;
+    clear:both;
+    padding: 0.5rem 1rem;
+    background-color: #313131;
+    color:#fff;
+    border-radius: 1rem 0rem;
+    box-shadow:  2px 2px 1px 0px rgba(0,0,0,0.2);
+}
+.overview__button--new
+{
+    background-color: #FD1961;
+}
+.overview__table--products tr
+{
+    border: 1px #5c5c5c solid;
+}
+.overview__table--products tr:first-child,.overview__table--products tr:first-child:hover{
+    background: #FCB70A;
+    color: #313131;
 }
