@@ -181,3 +181,27 @@
     font-size: 1rem;
     padding: 0.35rem 0.5rem;
 }
+.create
+{
+    padding: 1rem 2rem;
+    background-color: #fff;
+    min-height: 40rem;
+}
+.create__title
+{
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    background-color: #FD1961;
+    color: #fff;
+    box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.2);
+    border-radius: 1rem 0rem;
+}
+.create input:focus,.create select:focus,.create textarea:focus
+{
+    border: 1px solid #FCB70A;
+    box-shadow: 0px 0px 2px 2px #FCB70A;
+}
+.create .custom-file
+{
+    margin-top: 1rem;
+}

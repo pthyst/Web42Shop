@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "Thêm sản phẩm mới";
+    Layout = "~/Views/Admin/_AdminIndexLayout.cshtml";
+}
+
+<div class="container-fluid create">
+    <p class="create__title">Sản phẩm mới</p>
+    <form asp-controller="Admin" asp-action="ProductsNew" method="post">
+        <div class="form-row">
+            <div class="col">
+
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Tên sản phẩm" />
+                </div>
+
+                <div class="form-row">
+                    <div class="col form-group">
+                        <select class="form-control">
+                            <option value="1">Máy tính xách tay</option>
+                            <option value="2">Điện thoại di động</option>
+                            <option value="3">Máy tính bảng</option>
+                            <option value="4">Chuột</option>
+                            <option value="5">Bàn phím</option>
+                        </select>
+                    </div>
+                    <div class="col form-group">
+                        <input type="text" class="form-control" placeholder="Loại sản phẩm mới" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col form-group">
+                        <select class="form-control">
+                            <option value="1">ASUS</option>
+                            <option value="2">SONY</option>
+                            <option value="3">Dell</option>
+                            <option value="4">Samsung</option>
+                            <option value="5">Microsoft</option>
+                        </select>
+                    </div>
+                    <div class="col form-group">
+                        <input type="text" class="form-control" placeholder="Nhãn hàng mới" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col form-group">
+                        <input type="text" class="form-control" placeholder="Đơn giá" />
+                    </div>
+                    <div class="col form-group">
+                        <input type="text" class="form-control" placeholder="% giảm giá" />
+                    </div>
+                    <div class="col form-group">
+                        <input type="text" class="form-control" placeholder="Giá bán ra" readonly/>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <textarea rows="5" cols="300" class="form-control">Mô tả sản phẩm
+                    </textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="custom-file">
+                        <input id="Thumbnail" type="file" class="custom-file-input form-control"/>
+                        <label class="custom-file-label" for="Thumbnail">Ảnh sản phẩm</label>
+                        <script>
+                        // Hiển thị tên file đang được chọn
+                        $(".custom-file-input").on("change", function() {
+                            var fileName = $(this).val().split("\\").pop();
+                            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                        });
+                        </script>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="col form-group">
+                        <button type="button" class="create__button create__button--upload">Tải ảnh lên</button>
+                    </div>
+                    <div class="col form-group">
+                        <button type="button" class="create__button create__button--preview">Xem thử</button>
+                    </div>
+                    <div class="col form-group">
+                        <button type="button" class="create__button create__button--release">Đăng sản phẩm</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <img id="ThumbnailReview" src="#" width="100" height="100"/>
+            </div>
+        </div>
+    </form>
+</div>

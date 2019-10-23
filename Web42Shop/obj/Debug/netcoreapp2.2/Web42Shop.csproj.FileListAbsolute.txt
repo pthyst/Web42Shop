@@ -139,3 +139,4 @@ H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.Views.pdb
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.dll
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.pdb
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.csproj.CopyComplete
+G:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\ProductsNew.g.cshtml.cs

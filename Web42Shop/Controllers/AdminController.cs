@@ -33,11 +33,19 @@ namespace Web42Shop.Controllers
             return View();
         }
 
+        #region Nhóm trang sản phẩm
         // Trang tổng quát sản phẩm
         public IActionResult ProductsOverview()
         {
             return View();
         }
+        // Trang thêm sản phẩm
+        public IActionResult ProductsNew()
+        {
+            return View();
+        }
+        #endregion
+
 
         // Trang tổng quan quản trị
         public IActionResult AdminsOverview()
