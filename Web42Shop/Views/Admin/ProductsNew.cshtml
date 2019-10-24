@@ -57,8 +57,21 @@
                 </div>
 
                 <div class="form-row">
-                    <textarea rows="5" cols="300" class="form-control">Mô tả sản phẩm
-                    </textarea>
+                    
+                    <textarea rows="10" cols="300" class="form-control" id="changethis">Mô tả sản phẩm</textarea>
+                    <!-- Đổi textarea thành ckeditor -->
+                   
+                    <script src="~/js/ckeditor.js"></script>
+                    <script>
+                        ClassicEditor
+                            .create( document.querySelector('#changethis' ) )
+                            .then( editor => {
+                                window.editor = editor;
+                            } )
+                            .catch( err => {
+                                console.error( err.stack );
+                            } );
+                    </script>
                 </div>
 
                 <div class="form-row">
@@ -83,7 +96,7 @@
                         <button type="button" class="create__button create__button--preview">Xem thử</button>
                     </div>
                     <div class="col form-group">
-                        <button type="button" class="create__button create__button--release">Đăng sản phẩm</button>
+                        <button type="button" class="create__button create__button--release">Đăng bán</button>
                     </div>
                 </div>
             </div>
