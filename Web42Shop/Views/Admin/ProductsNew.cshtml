@@ -1,4 +1,4 @@
-﻿
+﻿@model Web42Shop.ViewModels.ProductsNewViewModel
 @{
     ViewData["Title"] = "Thêm sản phẩm mới";
     Layout = "~/Views/Admin/_AdminIndexLayout.cshtml";
@@ -6,22 +6,23 @@
 
 <div class="container-fluid create">
     <p class="create__title">Sản phẩm mới</p>
-    <form asp-controller="Admin" asp-action="ProductsNew" method="post">
+    <form asp-controller="Admin" asp-action="ProductsCreate" method="post">
         <div class="form-row">
             <div class="col">
 
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Tên sản phẩm" />
+                    <input asp-for="Product.Name" type="text" class="form-control" placeholder="Tên sản phẩm" />
                 </div>
 
                 <div class="form-row">
                     <div class="col form-group">
-                        <select class="form-control">
-                            <option value="1">Máy tính xách tay</option>
-                            <option value="2">Điện thoại di động</option>
-                            <option value="3">Máy tính bảng</option>
-                            <option value="4">Chuột</option>
-                            <option value="5">Bàn phím</option>
+                        <select asp-for="Product.ProductType_Id" class="form-control">       
+                            @foreach(var item in Model.ProductTypes)
+                            {
+                                <option value="@item.Id">
+                                    @item.Type
+                                </option>
+                            }     
                         </select>
                     </div>
                     <div class="col form-group">
@@ -31,12 +32,13 @@
 
                 <div class="form-row">
                     <div class="col form-group">
-                        <select class="form-control">
-                            <option value="1">ASUS</option>
-                            <option value="2">SONY</option>
-                            <option value="3">Dell</option>
-                            <option value="4">Samsung</option>
-                            <option value="5">Microsoft</option>
+                        <select asp-for="Product.ProductBrand_Id" class="form-control">
+                            @foreach(var item in Model.ProductBrands)
+                            {
+                                <option value="@item.Id">
+                                    @item.Name
+                                </option>
+                            }
                         </select>
                     </div>
                     <div class="col form-group">

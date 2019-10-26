@@ -4,19 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Web42Shop.Models;
+using Web42Shop.ViewModels;
 
 namespace Web42Shop.Data
 { 
     public class Web42ShopDbContext:DbContext
     {
         public Web42ShopDbContext(DbContextOptions<Web42ShopDbContext> options) : base(options) { }
-        
-        public DbSet<Role> Roles { get; set; }
         public DbSet<Admin> Admins { get; set; }
-        public DbSet<Setting> Settings { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Cart> Carts{get;set;}
+        public DbSet<CartDetail> CartDetails{get;set;}
+        public DbSet<CartStatus> CartStatuses{get;set;}
+        public DbSet<Comment> Comments{get;set;}
+        public DbSet<CommentReply> CommentReplies{get;set;}
+        public DbSet<Order> Orders{get;set;}
+        public DbSet<OrderDetail> OrderDetails{get;set;}
+        public DbSet<OrderStatus> OrderStatuses{get;set;}
+        public DbSet<Product> Products {get;set;}
         public DbSet<ProductBrand> ProductBrands { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<PayStatus> PayStatuses{get;set;}
+        public DbSet<PayType> PayTypes{get;set;}
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Slug> Slugs{get;set;}      
+        public DbSet<User> Users { get; set; }
 
         // Tạo chỉ mục Unique Index cho các trường của từng bảng
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -66,5 +78,8 @@ namespace Web42Shop.Data
             // Bảng Order         không cần Unique Index
             // Bảng OrderDetail   không cần Unique Index
         }
+
+        // Public các ViewModel
+        
     }
 }
