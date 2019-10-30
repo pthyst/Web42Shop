@@ -1,4 +1,5 @@
-﻿@{ 
+﻿@model Web42Shop.Models.Admin
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -13,20 +14,25 @@
     <link rel="stylesheet" href="~/css/atomic.css">
     <link rel="stylesheet" href="~/css/admin.css">
 </head>
-<body>
+<body style="background-image: url('https://nhandaovadoisong.com.vn/wp-content/uploads/2019/05/hinh-anh-em-be-de-thuong-14.jpg'); background-size: cover; box-sizing:border-box;">
     <div class="container">
         <div class="row">
             <div class="col-4 offset-4">
                 <form asp-controller="#" asp-action="#" class="login_form">
                     <h3>K42Shop</h3>
                     <div class="form-group">
-                        <label for="Username"><i class="fas fa-user"></i> Tên đăng nhập</label>
-                        <input class="form-control" type="text" id="Username" placeholder="pthyst">
+                         <label for="Username"><i class="fas fa-user"></i> Tên đăng nhập</label>
+                       
+                        @Html.TextBoxFor(x => x.Username, new { @class = "form-control", @placeholder = "Username" ,@type = "text", @id = "Username" })
+                        @Html.ValidationMessageFor(x => x.Username)
                     </div>
                     <div class="form-group">
                         <label for="Password"><i class="fas fa-lock"></i> Mật khẩu</label>
-                        <input class="form-control" type="password" id="Password">
+                      
+                        @Html.TextBoxFor(x => x.Password, new { @type = "password", @id = "Password", @class = "form-control", @placeholder = "Password" })
+                        @Html.ValidationMessageFor(x => x.Password)
                     </div>
+                    
                     <button type="submit">Đăng nhập</button>
                 </form>
             </div>

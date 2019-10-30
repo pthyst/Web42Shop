@@ -27,11 +27,32 @@ namespace Web42Shop.Controllers
         {
             return View();
         }
+        
 
         // Trang đăng nhập
         public IActionResult Login()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult Login(Admin admin)
+        {
+
+            var Auth = _context.Admins.Where(ad => ad.Username == admin.Username && ad.Password == admin.Password).FirstOrDefault();
+            if (Auth == null)
+            {
+                @ViewBag.error = "Please Enter Correct Username And Password";
+                return View("Login");
+            }
+            else if(Auth.Role_Id ==1)
+            {
+
+                return RedirectToAction("Index", "Admin");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         // Trang tổng quát các đơn hàng
