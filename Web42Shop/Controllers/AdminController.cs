@@ -63,13 +63,29 @@ namespace Web42Shop.Controllers
         // Trang tổng quát các đơn hàng
         public IActionResult OrdersOverview()
         {
-            return View();
+            if (f)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+
+            }
         }
 
         // Trang tổng quát người dùng
         public IActionResult UsersOverview()
         {
-            return View();
+            if (f)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+
+            }
         }
 
         #region Nhóm trang sản phẩm
@@ -120,19 +136,43 @@ namespace Web42Shop.Controllers
         // Trang tổng quan quản trị
         public IActionResult AdminsOverview()
         {
-            return View();
+            if (f)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+
+            }
         }
 
         // Trang thống kê
         public IActionResult Report()
         {
-            return View();
+            if (f)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+
+            }
         }
 
         // Trang cài đặt
         public IActionResult Setting()
         {
-            return View();
+            if (f)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+
+            }
         }
         public IActionResult Index()
         {
