@@ -43,7 +43,7 @@ namespace Web42Shop.Controllers
             var Auth = _context.Admins.Where(ad => ad.Username == admin.Username && ad.Password == admin.Password).FirstOrDefault();
             if (Auth == null)
             {
-                @ViewBag.error = "Please Enter Correct Username And Password";
+                ViewBag.Error = "Please Enter Correct Username And Password";
                 return View("Login");
             }
             else if(Auth.Role_Id ==1)
