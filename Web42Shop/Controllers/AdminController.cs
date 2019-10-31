@@ -8,30 +8,32 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Web42Shop.Models;
 using Web42Shop.Data;
-using Web42Shop.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Web42Shop.ViewModels;
+
+
 
 namespace Web42Shop.Controllers
 {
     public class AdminController : Controller
     {
         private readonly Web42ShopDbContext _context;
+        public static Boolean f = false;
+
         public AdminController(Web42ShopDbContext context)
         {
             _context = context;
         }
         // Trang phân công
-        public IActionResult Index()
-        {
-            return View();
-        }
+      
         
 
         // Trang đăng nhập
         public IActionResult Login()
         {
+            f = false;
             return View();
         }
         [HttpPost]
@@ -46,11 +48,14 @@ namespace Web42Shop.Controllers
             }
             else if(Auth.Role_Id ==1)
             {
-
-                return RedirectToAction("Index", "Admin");
+                f = true;
+                return View("Index");
             }
             else
             {
+               
+               
+                //HttpContext.Current.Session["Admin_ID"] = Auth.Id;
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -129,5 +134,18 @@ namespace Web42Shop.Controllers
         {
             return View();
         }
+        public IActionResult Index()
+        {
+            if (f)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+               
+            }
+        }
+        
     }
 }
