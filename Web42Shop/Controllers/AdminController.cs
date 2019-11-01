@@ -33,7 +33,7 @@ namespace Web42Shop.Controllers
         // Trang đăng nhập
         public IActionResult Login()
         {
-            f = false;
+            //HttpContext.Session.SetString("Admin_ID", null);
             return View();
         }
         [HttpPost]
@@ -48,7 +48,9 @@ namespace Web42Shop.Controllers
             }
             else if(Auth.Role_Id ==1)
             {
-                f = true;
+               
+                HttpContext.Session.SetString("Admin_ID", Auth.Role_Id.ToString());
+                
                 return View("Index");
             }
             else
@@ -63,7 +65,7 @@ namespace Web42Shop.Controllers
         // Trang tổng quát các đơn hàng
         public IActionResult OrdersOverview()
         {
-            if (f)
+            if (HttpContext.Session.GetInt32("Admin_ID") != null)
             {
                 return View();
             }
@@ -77,7 +79,7 @@ namespace Web42Shop.Controllers
         // Trang tổng quát người dùng
         public IActionResult UsersOverview()
         {
-            if (f)
+            if (HttpContext.Session.GetInt32("Admin_ID") != null)
             {
                 return View();
             }
@@ -92,7 +94,16 @@ namespace Web42Shop.Controllers
         // Trang tổng quát sản phẩm
         public IActionResult ProductsOverview()
         {
-            return View();
+
+            if (HttpContext.Session.GetInt32("Admin_ID") != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+
+            }
         }
         // Trang thêm sản phẩm
         public IActionResult ProductsNew()
@@ -136,7 +147,7 @@ namespace Web42Shop.Controllers
         // Trang tổng quan quản trị
         public IActionResult AdminsOverview()
         {
-            if (f)
+            if (HttpContext.Session.GetInt32("Admin_ID") != null)
             {
                 return View();
             }
@@ -150,7 +161,7 @@ namespace Web42Shop.Controllers
         // Trang thống kê
         public IActionResult Report()
         {
-            if (f)
+            if (HttpContext.Session.GetInt32("Admin_ID") != null)
             {
                 return View();
             }
@@ -164,7 +175,7 @@ namespace Web42Shop.Controllers
         // Trang cài đặt
         public IActionResult Setting()
         {
-            if (f)
+            if (HttpContext.Session.GetInt32("Admin_ID") != null)
             {
                 return View();
             }
@@ -176,7 +187,7 @@ namespace Web42Shop.Controllers
         }
         public IActionResult Index()
         {
-            if (f)
+            if (HttpContext.Session.GetInt32("Admin_ID") !=null)
             {
                 return View();
             }
