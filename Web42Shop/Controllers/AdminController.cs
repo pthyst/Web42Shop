@@ -109,6 +109,19 @@ namespace Web42Shop.Controllers
             _context.SaveChanges();
             return RedirectToAction("ProductsOverview","Admin");
         }
+
+        // Trang tổng quát các nhãn hàng
+        public IActionResult ProductBrandsOverview()
+        {
+            ProductBrandsViewModel viewmodel = new ProductBrandsViewModel()
+            { ProductBrands = _context.ProductBrands.ToList() };
+            return View(viewmodel);
+        }
+        // Trang tổng quát loại sản phẩm
+        public IActionResult ProductTypes()
+        {
+            return View();
+        }
         #endregion
 
 

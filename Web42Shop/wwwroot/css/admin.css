@@ -54,10 +54,10 @@
     background-color: #fff;
     box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.2);
 }
-    .index table th, .index table td {
-        padding: 0.5rem 1rem;
-        border: 1px solid #6f6f6f;
-    }
+.index table th, .index table td {
+    padding: 0.5rem 1rem;
+    border: 1px solid #6f6f6f;
+}
 .index table th
 {
     text-align:center;
@@ -67,7 +67,6 @@
 .index table td {
     color: #0A6786;
     background-color: #fff;
-        
 }
 .overview
 {
@@ -75,15 +74,31 @@
     background-color: #fff;
     min-height: 42rem;
 }
-.overview__title
-{
+.overview__title {
     display: inline-block;
-    font-size: 1.3rem;
-    color: #fff;
+    float: left;
+    font-size: 1.2rem;
+    color: #000;
     padding: 0.5rem 1rem;
-    background-color: #313131;
-    border-radius: 1rem 0rem;
+    background-color: #DDDDDD;
     box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.2);
+    margin: 1rem 0.2rem 1rem 0rem;
+    border-radius: 0.1rem;
+    transition: all 0.5s ease-in-out;
+}
+.overview__title--active
+{
+    background: #000;
+    color:#fff;
+}
+.overview__title:hover {
+    text-decoration: none;
+    background: #295886;
+    color: #fff;
+}
+.overview__title--active:hover 
+{
+    background:#000;
 }
 .overview__table {
     display: table;
@@ -95,8 +110,7 @@
     padding: 0.75rem 1rem;
     text-align: center;
 }
-.overview__table--orders td,.overview__table--orders th
-{
+.overview__table--orders td, .overview__table--orders {
     border-bottom: 1px white solid;
 }
 .overview__table--orders td a {
@@ -154,15 +168,14 @@
     padding: 0.5rem 1rem;
     background-color: #313131;
     color:#fff;
-    border-radius: 1rem 0rem;
     box-shadow:  2px 2px 1px 0px rgba(0,0,0,0.2);
+    margin: 0rem 0rem 0.5rem 0rem;
 }
 .overview__button--new
 {
     background-color: #FD1961;
 }
-.overview__table--products tr,.overview__table--users tr,.overview__table--admins tr
-{
+.overview__table--products tr, .overview__table--users tr, .overview__table--admins tr, .overview__table--brands tr{
     border: 1px #5c5c5c solid;
 }
 .overview__table--products tr:first-child,.overview__table--products tr:first-child:hover{
@@ -187,14 +200,14 @@
     background-color: #fff;
     min-height: 40rem;
 }
-.create__title
-{
+.create__title {
     padding: 0.5rem 1rem;
     display: inline-block;
-    background-color: #FD1961;
+    background-color: #4CC62D;
     color: #fff;
-    box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.2);
-    border-radius: 1rem 0rem;
+    font-size: 1.2rem;
+    border-radius: 0.1rem;
+    box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.2);
 }
 .create input:focus,.create select:focus,.create textarea:focus
 {
@@ -233,4 +246,45 @@
 .create__button--release
 {
     background: #0A6786;
+}
+#ThumbnailReview{padding: 0rem 2rem 1rem 2rem;}
+#ThumbnailReview img
+{
+    display:inline-block;
+    width: 100%;
+    height: 100%;
+    box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.2);
+}
+
+.overview__table--brands tr:first-child
+{
+    background: #0A6786;
+    color: #fff;
+}
+.overview__table--brands tr:hover{
+    transform:translate(0px,0px);
+    background: #fff;
+    color: #000;
+}
+.overview__table--brands td a
+{
+    font-weight: bold;
+    color: #0A6786;
+}
+.brands__button
+{
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    color: #fff;
+    border:none;
+    box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.2);
+}
+.brands__button--edit
+{
+    background:#FF6B00;
+}
+.brands__button--delete
+{
+    background:#313131;
 }

@@ -5,7 +5,13 @@
 }
 
 <div class="container-fluid overview">
-    <p class="overview__title">Sản phẩm của K42Shop</p>
+    <div class="row">
+        <div class="container-fluid">
+            <a asp-controller="Admin" asp-action="ProductsOverview" class="overview__title overview__title--products overview__title--active">Sản phẩm</a>
+            <a asp-controller="Admin" asp-action="ProductBrandsOverview" class="overview__title overview__title--brands">Nhãn hàng</a>
+            <a asp-controller="Admin" asp-action="ProductsOverview" class="overview__title overview__title--types">Loại sản phẩm</a>
+        </div>
+    </div>
     <a asp-controller="Admin" asp-action="ProductsNew" class="overview__button overview__button--new"><i class="fas fa-plus"></i>Thêm sản phẩm</a>
     <table class="overview__table overview__table--products">
         <tr>
@@ -111,15 +117,15 @@
 
     <div class="row">
         <div class="container txt-center w100">
-            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi pagi--active">1</a>
-            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">2</a>
-            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">3</a>
-            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">4</a>
-            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">5</a>
-            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">6</a>
-            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">7</a>
-            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">8</a>
-            <a asp-controller="Admin" asp-action="OrdersOverview" class="iblck pagi">9</a>
+            <a asp-controller="Admin" asp-action="ProductsOverview" class="iblck pagi pagi--active">1</a>
+            <a asp-controller="Admin" asp-action="ProductsOverview" class="iblck pagi">2</a>
+            <a asp-controller="Admin" asp-action="ProductsOverview" class="iblck pagi">3</a>
+            <a asp-controller="Admin" asp-action="ProductsOverview" class="iblck pagi">4</a>
+            <a asp-controller="Admin" asp-action="ProductsOverview" class="iblck pagi">5</a>
+            <a asp-controller="Admin" asp-action="ProductsOverview" class="iblck pagi">6</a>
+            <a asp-controller="Admin" asp-action="ProductsOverview" class="iblck pagi">7</a>
+            <a asp-controller="Admin" asp-action="ProductsOverview" class="iblck pagi">8</a>
+            <a asp-controller="Admin" asp-action="ProductsOverview" class="iblck pagi">9</a>
         </div>
     </div>
 </div>
