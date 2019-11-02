@@ -22,9 +22,10 @@ namespace Web42Shop.Controllers
         private readonly IHostingEnvironment _hostingEnviroment;
 
         
-        public AdminController(Web42ShopDbContext context)
+        public AdminController(Web42ShopDbContext context,IHostingEnvironment hostingEnvironment)
         {
             _context = context;
+            _hostingEnviroment = hostingEnvironment;
         }
   
 
@@ -82,10 +83,21 @@ namespace Web42Shop.Controllers
         // Trang thêm sản phẩm
         public IActionResult ProductsNew()
         {
-           
+            // Tạo slug mới
+            var new_slug = new Slug();
+
+            new_slug.Url = DateTime.Now.ToString();
+            new_slug.DateCreate = DateTime.Now;
+            new_slug.DateModify = DateTime.Now;
+            _context.Slugs.Add(new_slug);
+            _context.SaveChanges();
+
             ProductsNewViewModel viewmodel = new ProductsNewViewModel()
             {
-                Product = new Product(),
+                Product = new Product()
+                {
+                    Slug_Id = _context.Slugs.LastOrDefault().Id
+                },
                 ProductBrands = _context.ProductBrands.ToList(),
                 ProductTypes = _context.ProductTypes.ToList()
             };
@@ -98,17 +110,17 @@ namespace Web42Shop.Controllers
         {
             // Thêm sản phẩm vào database
             Product new_product = viewmodel.Product;
-            new_product.Thumbnail = viewmodel.Thumbnail.FileName;
+            new_product.Thumbnail = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
             _context.Products.Add(new_product);
             _context.SaveChanges();
 
             // Tải hình ảnh sản phẩm lên thư mục wwwroot/uploads
             if (viewmodel.Thumbnail != null)
-            {
-                string uniqueName = DateTime.Now.ToString(); // Tạo tên hình ảnh theo chuỗi ngày tháng lúc đăng ảnh
-                string newpath = Path.Combine(_hostingEnviroment.WebRootPath,"uploads"); // Trỏ đường dẫn đến thư mục wwwroot/uploads
+            {           
+                string uniqueName = new_product.Thumbnail; // Tạo tên hình ảnh theo chuỗi ngày tháng lúc đăng ảnh
+                string newpath = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","uploads"); // Trỏ đường dẫn đến thư mục wwwroot/uploads
                 newpath = Path.Combine(newpath,uniqueName); // Trỏ đường dẫn đến tên hình ảnh
-                newpath = Path.Combine(newpath,Path.GetExtension(viewmodel.Thumbnail.FileName)); // Gắn đuôi (loại file) cho hình
+                newpath = newpath+Path.GetExtension(viewmodel.Thumbnail.FileName); // Gắn đuôi (loại file) cho hình
                 viewmodel.Thumbnail.CopyTo(new FileStream(newpath,FileMode.Create)); // Copy hình từ nguồn sang wwwroot/uploads
             }
 
