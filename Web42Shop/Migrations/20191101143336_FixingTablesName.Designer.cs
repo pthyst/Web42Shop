@@ -10,8 +10,8 @@ using Web42Shop.Data;
 namespace Web42Shop.Migrations
 {
     [DbContext(typeof(Web42ShopDbContext))]
-    [Migration("20191018132858_RunOnce")]
-    partial class RunOnce
+    [Migration("20191101143336_FixingTablesName")]
+    partial class FixingTablesName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -81,7 +81,7 @@ namespace Web42Shop.Migrations
 
                     b.HasIndex("User_Id");
 
-                    b.ToTable("Cart");
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("Web42Shop.Models.CartDetail", b =>
@@ -110,7 +110,7 @@ namespace Web42Shop.Migrations
 
                     b.HasIndex("Product_Id");
 
-                    b.ToTable("CartDetail");
+                    b.ToTable("CartDetails");
                 });
 
             modelBuilder.Entity("Web42Shop.Models.CartStatus", b =>
@@ -127,7 +127,7 @@ namespace Web42Shop.Migrations
                         .IsUnique()
                         .HasFilter("[Status] IS NOT NULL");
 
-                    b.ToTable("CartStatus");
+                    b.ToTable("CartStatuses");
                 });
 
             modelBuilder.Entity("Web42Shop.Models.Comment", b =>
@@ -154,7 +154,7 @@ namespace Web42Shop.Migrations
 
                     b.HasIndex("User_Id");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Web42Shop.Models.CommentReply", b =>
@@ -179,7 +179,7 @@ namespace Web42Shop.Migrations
 
                     b.HasIndex("User_Id");
 
-                    b.ToTable("CommentReply");
+                    b.ToTable("CommentReplies");
                 });
 
             modelBuilder.Entity("Web42Shop.Models.Order", b =>
@@ -239,7 +239,7 @@ namespace Web42Shop.Migrations
 
                     b.HasIndex("User_Id");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Web42Shop.Models.OrderDetail", b =>
@@ -264,7 +264,7 @@ namespace Web42Shop.Migrations
 
                     b.HasIndex("Product_Id");
 
-                    b.ToTable("OrderDetail");
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("Web42Shop.Models.OrderStatus", b =>
@@ -281,7 +281,7 @@ namespace Web42Shop.Migrations
                         .IsUnique()
                         .HasFilter("[Status] IS NOT NULL");
 
-                    b.ToTable("OrderStatus");
+                    b.ToTable("OrderStatuses");
                 });
 
             modelBuilder.Entity("Web42Shop.Models.PayStatus", b =>
@@ -298,7 +298,7 @@ namespace Web42Shop.Migrations
                         .IsUnique()
                         .HasFilter("[Status] IS NOT NULL");
 
-                    b.ToTable("PayStatus");
+                    b.ToTable("PayStatuses");
                 });
 
             modelBuilder.Entity("Web42Shop.Models.PayType", b =>
@@ -315,7 +315,7 @@ namespace Web42Shop.Migrations
                         .IsUnique()
                         .HasFilter("[Type] IS NOT NULL");
 
-                    b.ToTable("PayType");
+                    b.ToTable("PayTypes");
                 });
 
             modelBuilder.Entity("Web42Shop.Models.Product", b =>
@@ -368,7 +368,7 @@ namespace Web42Shop.Migrations
                     b.HasIndex("Slug_Id")
                         .IsUnique();
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Web42Shop.Models.ProductBrand", b =>
@@ -485,7 +485,7 @@ namespace Web42Shop.Migrations
                     b.HasIndex("Url")
                         .IsUnique();
 
-                    b.ToTable("Slug");
+                    b.ToTable("Slugs");
                 });
 
             modelBuilder.Entity("Web42Shop.Models.User", b =>

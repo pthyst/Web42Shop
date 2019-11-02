@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,10 +19,15 @@ namespace Web42Shop.Controllers
     public class AdminController : Controller
     {
         private readonly Web42ShopDbContext _context;
+        private readonly IHostingEnvironment _hostingEnviroment;
+
+        
         public AdminController(Web42ShopDbContext context)
         {
             _context = context;
         }
+  
+
         // Trang phân công
         public IActionResult Index()
         {
@@ -88,25 +94,24 @@ namespace Web42Shop.Controllers
         }
         // Lấy dữ liệu từ form và đưa vào database
         [HttpPost]
-        public IActionResult ProductsCreate(Product data)
+        public IActionResult ProductsCreate(ProductsNewViewModel viewmodel)
         {
-            Product newproduct = new Product()
-            {
-                ProductBrand_Id = data.ProductBrand_Id,
-                ProductType_Id = data.ProductType_Id,
-                Slug_Id = data.Slug_Id,
-                Admin_Id = data.Admin_Id,
-                Name = data.Name,
-                Description = data.Description,
-                Price = data.Price,
-                Thumbnail = data.Thumbnail,
-                Saleoff = data.Saleoff,
-                Instore = data.Instore,
-                Stars = data.Stars,
-                BuyPoints = data.BuyPoints
-            };
-            _context.Products.Add(newproduct);
+            // Thêm sản phẩm vào database
+            Product new_product = viewmodel.Product;
+            new_product.Thumbnail = viewmodel.Thumbnail.FileName;
+            _context.Products.Add(new_product);
             _context.SaveChanges();
+
+            // Tải hình ảnh sản phẩm lên thư mục wwwroot/uploads
+            if (viewmodel.Thumbnail != null)
+            {
+                string uniqueName = DateTime.Now.ToString(); // Tạo tên hình ảnh theo chuỗi ngày tháng lúc đăng ảnh
+                string newpath = Path.Combine(_hostingEnviroment.WebRootPath,"uploads"); // Trỏ đường dẫn đến thư mục wwwroot/uploads
+                newpath = Path.Combine(newpath,uniqueName); // Trỏ đường dẫn đến tên hình ảnh
+                newpath = Path.Combine(newpath,Path.GetExtension(viewmodel.Thumbnail.FileName)); // Gắn đuôi (loại file) cho hình
+                viewmodel.Thumbnail.CopyTo(new FileStream(newpath,FileMode.Create)); // Copy hình từ nguồn sang wwwroot/uploads
+            }
+
             return RedirectToAction("ProductsOverview","Admin");
         }
 

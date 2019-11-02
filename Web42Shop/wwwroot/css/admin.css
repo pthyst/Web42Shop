@@ -200,6 +200,7 @@
     background-color: #fff;
     min-height: 40rem;
 }
+.create .form-row .col{padding: 0rem}
 .create__title {
     padding: 0.5rem 1rem;
     display: inline-block;

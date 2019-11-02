@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Web42Shop.Migrations
 {
-    public partial class RunOnce : Migration
+    public partial class FixingTablesName : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "CartStatus",
+                name: "CartStatuses",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -18,11 +18,11 @@ namespace Web42Shop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartStatus", x => x.Id);
+                    table.PrimaryKey("PK_CartStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderStatus",
+                name: "OrderStatuses",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -31,11 +31,11 @@ namespace Web42Shop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderStatus", x => x.Id);
+                    table.PrimaryKey("PK_OrderStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PayStatus",
+                name: "PayStatuses",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -44,11 +44,11 @@ namespace Web42Shop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PayStatus", x => x.Id);
+                    table.PrimaryKey("PK_PayStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PayType",
+                name: "PayTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -57,7 +57,7 @@ namespace Web42Shop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PayType", x => x.Id);
+                    table.PrimaryKey("PK_PayTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,7 +74,7 @@ namespace Web42Shop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Slug",
+                name: "Slugs",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -85,7 +85,7 @@ namespace Web42Shop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Slug", x => x.Id);
+                    table.PrimaryKey("PK_Slugs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,7 +213,7 @@ namespace Web42Shop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cart",
+                name: "Carts",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -227,15 +227,15 @@ namespace Web42Shop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cart", x => x.Id);
+                    table.PrimaryKey("PK_Carts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cart_CartStatus_CartStatus_Id",
+                        name: "FK_Carts_CartStatuses_CartStatus_Id",
                         column: x => x.CartStatus_Id,
-                        principalTable: "CartStatus",
+                        principalTable: "CartStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Cart_Users_User_Id",
+                        name: "FK_Carts_Users_User_Id",
                         column: x => x.User_Id,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -243,7 +243,7 @@ namespace Web42Shop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
+                name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -266,27 +266,27 @@ namespace Web42Shop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Order_OrderStatus_OrderStatus_Id",
+                        name: "FK_Orders_OrderStatuses_OrderStatus_Id",
                         column: x => x.OrderStatus_Id,
-                        principalTable: "OrderStatus",
+                        principalTable: "OrderStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Order_PayStatus_PayStatus_Id",
+                        name: "FK_Orders_PayStatuses_PayStatus_Id",
                         column: x => x.PayStatus_Id,
-                        principalTable: "PayStatus",
+                        principalTable: "PayStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Order_PayType_PayType_Id",
+                        name: "FK_Orders_PayTypes_PayType_Id",
                         column: x => x.PayType_Id,
-                        principalTable: "PayType",
+                        principalTable: "PayTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Order_Users_User_Id",
+                        name: "FK_Orders_Users_User_Id",
                         column: x => x.User_Id,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -294,7 +294,7 @@ namespace Web42Shop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product",
+                name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -318,35 +318,35 @@ namespace Web42Shop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Product_Admins_Admin_Id",
+                        name: "FK_Products_Admins_Admin_Id",
                         column: x => x.Admin_Id,
                         principalTable: "Admins",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Product_ProductBrands_ProductBrand_Id",
+                        name: "FK_Products_ProductBrands_ProductBrand_Id",
                         column: x => x.ProductBrand_Id,
                         principalTable: "ProductBrands",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Product_ProductTypes_ProductType_Id",
+                        name: "FK_Products_ProductTypes_ProductType_Id",
                         column: x => x.ProductType_Id,
                         principalTable: "ProductTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Product_Slug_Slug_Id",
+                        name: "FK_Products_Slugs_Slug_Id",
                         column: x => x.Slug_Id,
-                        principalTable: "Slug",
+                        principalTable: "Slugs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CartDetail",
+                name: "CartDetails",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -361,23 +361,23 @@ namespace Web42Shop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartDetail", x => x.Id);
+                    table.PrimaryKey("PK_CartDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CartDetail_Cart_Cart_Id",
+                        name: "FK_CartDetails_Carts_Cart_Id",
                         column: x => x.Cart_Id,
-                        principalTable: "Cart",
+                        principalTable: "Carts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_CartDetail_Product_Product_Id",
+                        name: "FK_CartDetails_Products_Product_Id",
                         column: x => x.Product_Id,
-                        principalTable: "Product",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -391,15 +391,15 @@ namespace Web42Shop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_Product_Product_Id",
+                        name: "FK_Comments_Products_Product_Id",
                         column: x => x.Product_Id,
-                        principalTable: "Product",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Comment_Users_User_Id",
+                        name: "FK_Comments_Users_User_Id",
                         column: x => x.User_Id,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -407,7 +407,7 @@ namespace Web42Shop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderDetail",
+                name: "OrderDetails",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -420,23 +420,23 @@ namespace Web42Shop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderDetail", x => x.Id);
+                    table.PrimaryKey("PK_OrderDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderDetail_Order_Order_Id",
+                        name: "FK_OrderDetails_Orders_Order_Id",
                         column: x => x.Order_Id,
-                        principalTable: "Order",
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_OrderDetail_Product_Product_Id",
+                        name: "FK_OrderDetails_Products_Product_Id",
                         column: x => x.Product_Id,
-                        principalTable: "Product",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CommentReply",
+                name: "CommentReplies",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -449,15 +449,15 @@ namespace Web42Shop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CommentReply", x => x.Id);
+                    table.PrimaryKey("PK_CommentReplies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CommentReply_Comment_Comment_Id",
+                        name: "FK_CommentReplies_Comments_Comment_Id",
                         column: x => x.Comment_Id,
-                        principalTable: "Comment",
+                        principalTable: "Comments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_CommentReply_Users_User_Id",
+                        name: "FK_CommentReplies_Users_User_Id",
                         column: x => x.User_Id,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -482,123 +482,102 @@ namespace Web42Shop.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cart_CartStatus_Id",
-                table: "Cart",
-                column: "CartStatus_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Cart_User_Id",
-                table: "Cart",
-                column: "User_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CartDetail_Cart_Id",
-                table: "CartDetail",
+                name: "IX_CartDetails_Cart_Id",
+                table: "CartDetails",
                 column: "Cart_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartDetail_Product_Id",
-                table: "CartDetail",
+                name: "IX_CartDetails_Product_Id",
+                table: "CartDetails",
                 column: "Product_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartStatus_Status",
-                table: "CartStatus",
+                name: "IX_Carts_CartStatus_Id",
+                table: "Carts",
+                column: "CartStatus_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_User_Id",
+                table: "Carts",
+                column: "User_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartStatuses_Status",
+                table: "CartStatuses",
                 column: "Status",
                 unique: true,
                 filter: "[Status] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_Product_Id",
-                table: "Comment",
-                column: "Product_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comment_User_Id",
-                table: "Comment",
-                column: "User_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CommentReply_Comment_Id",
-                table: "CommentReply",
+                name: "IX_CommentReplies_Comment_Id",
+                table: "CommentReplies",
                 column: "Comment_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CommentReply_User_Id",
-                table: "CommentReply",
+                name: "IX_CommentReplies_User_Id",
+                table: "CommentReplies",
                 column: "User_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_OrderStatus_Id",
-                table: "Order",
-                column: "OrderStatus_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Order_PayStatus_Id",
-                table: "Order",
-                column: "PayStatus_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Order_PayType_Id",
-                table: "Order",
-                column: "PayType_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Order_User_Id",
-                table: "Order",
-                column: "User_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderDetail_Order_Id",
-                table: "OrderDetail",
-                column: "Order_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderDetail_Product_Id",
-                table: "OrderDetail",
+                name: "IX_Comments_Product_Id",
+                table: "Comments",
                 column: "Product_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderStatus_Status",
-                table: "OrderStatus",
+                name: "IX_Comments_User_Id",
+                table: "Comments",
+                column: "User_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_Order_Id",
+                table: "OrderDetails",
+                column: "Order_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_Product_Id",
+                table: "OrderDetails",
+                column: "Product_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_OrderStatus_Id",
+                table: "Orders",
+                column: "OrderStatus_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_PayStatus_Id",
+                table: "Orders",
+                column: "PayStatus_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_PayType_Id",
+                table: "Orders",
+                column: "PayType_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_User_Id",
+                table: "Orders",
+                column: "User_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderStatuses_Status",
+                table: "OrderStatuses",
                 column: "Status",
                 unique: true,
                 filter: "[Status] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PayStatus_Status",
-                table: "PayStatus",
+                name: "IX_PayStatuses_Status",
+                table: "PayStatuses",
                 column: "Status",
                 unique: true,
                 filter: "[Status] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PayType_Type",
-                table: "PayType",
+                name: "IX_PayTypes_Type",
+                table: "PayTypes",
                 column: "Type",
                 unique: true,
                 filter: "[Type] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Product_Admin_Id",
-                table: "Product",
-                column: "Admin_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Product_ProductBrand_Id",
-                table: "Product",
-                column: "ProductBrand_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Product_ProductType_Id",
-                table: "Product",
-                column: "ProductType_Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Product_Slug_Id",
-                table: "Product",
-                column: "Slug_Id",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductBrands_Admin_Id",
@@ -609,6 +588,27 @@ namespace Web42Shop.Migrations
                 name: "IX_ProductBrands_Name",
                 table: "ProductBrands",
                 column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_Admin_Id",
+                table: "Products",
+                column: "Admin_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ProductBrand_Id",
+                table: "Products",
+                column: "ProductBrand_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ProductType_Id",
+                table: "Products",
+                column: "ProductType_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_Slug_Id",
+                table: "Products",
+                column: "Slug_Id",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -640,8 +640,8 @@ namespace Web42Shop.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Slug_Url",
-                table: "Slug",
+                name: "IX_Slugs_Url",
+                table: "Slugs",
                 column: "Url",
                 unique: true);
 
@@ -667,40 +667,40 @@ namespace Web42Shop.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CartDetail");
+                name: "CartDetails");
 
             migrationBuilder.DropTable(
-                name: "CommentReply");
+                name: "CommentReplies");
 
             migrationBuilder.DropTable(
-                name: "OrderDetail");
+                name: "OrderDetails");
 
             migrationBuilder.DropTable(
                 name: "Settings");
 
             migrationBuilder.DropTable(
-                name: "Cart");
+                name: "Carts");
 
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "CartStatus");
+                name: "CartStatuses");
 
             migrationBuilder.DropTable(
-                name: "Product");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "OrderStatus");
+                name: "OrderStatuses");
 
             migrationBuilder.DropTable(
-                name: "PayStatus");
+                name: "PayStatuses");
 
             migrationBuilder.DropTable(
-                name: "PayType");
+                name: "PayTypes");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -712,7 +712,7 @@ namespace Web42Shop.Migrations
                 name: "ProductTypes");
 
             migrationBuilder.DropTable(
-                name: "Slug");
+                name: "Slugs");
 
             migrationBuilder.DropTable(
                 name: "Admins");
