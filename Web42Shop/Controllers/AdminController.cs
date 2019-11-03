@@ -230,7 +230,7 @@ namespace Web42Shop.Controllers
             }
         }
 
-        // them xoa sua admin
+        // them xoa sua admin Suong
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
