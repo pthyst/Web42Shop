@@ -13,9 +13,11 @@ using Web42Shop.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Web42Shop.Controllers
 {
+
     public class AdminController : Controller
     {
         private readonly Web42ShopDbContext _context;
@@ -32,13 +34,24 @@ namespace Web42Shop.Controllers
         // Trang phân công
         public IActionResult Index()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+
+            }
         }
+
+        
         
 
         // Trang đăng nhập
         public IActionResult Login()
         {
+            HttpContext.Session.Remove("Admin_ID");
             return View();
         }
         [HttpPost]
@@ -53,7 +66,7 @@ namespace Web42Shop.Controllers
             }
             else if(Auth.Role_Id ==1)
             {
-
+                HttpContext.Session.SetInt32("Admin_ID", Auth.Role_Id);
                 return RedirectToAction("Index", "Admin");
             }
             else
@@ -65,20 +78,44 @@ namespace Web42Shop.Controllers
         // Trang tổng quát các đơn hàng
         public IActionResult OrdersOverview()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+
+            }
         }
 
         // Trang tổng quát người dùng
         public IActionResult UsersOverview()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+
+            }
         }
 
         #region Nhóm trang sản phẩm
         // Trang tổng quát sản phẩm
         public IActionResult ProductsOverview()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+
+            }
         }
         // Trang thêm sản phẩm
         public IActionResult ProductsNew()
@@ -137,7 +174,15 @@ namespace Web42Shop.Controllers
         // Trang tổng quát loại sản phẩm
         public IActionResult ProductTypes()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+
+            }
         }
         #endregion
 
@@ -145,19 +190,176 @@ namespace Web42Shop.Controllers
         // Trang tổng quan quản trị
         public IActionResult AdminsOverview()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            {
+                return View(_context.Admins);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+
+            }
+            
         }
 
         // Trang thống kê
         public IActionResult Report()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+
+            }
         }
 
         // Trang cài đặt
         public IActionResult Setting()
         {
+            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+
+            }
+        }
+
+        // them xoa sua admin
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var admin = await _context.Admins
+                .Include(a => a.Role)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (admin == null)
+            {
+                return NotFound();
+            }
+
+            return View(admin);
+        }
+
+        // GET: Admins/Create
+        public IActionResult Create()
+        {
+            ViewData["Role_Id"] = new SelectList(_context.Roles, "Id", "Name");
             return View();
+        }
+
+        // POST: Admins/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Role_Id,Username,Password,Email,DateCreate,DateModify")] Admin admin)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(admin);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["Role_Id"] = new SelectList(_context.Roles, "Id", "Name", admin.Role_Id);
+            return View(admin);
+        }
+
+        // GET: Admins/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var admin = await _context.Admins.FindAsync(id);
+            if (admin == null)
+            {
+                return NotFound();
+            }
+            ViewData["Role_Id"] = new SelectList(_context.Roles, "Id", "Name", admin.Role_Id);
+            return View(admin);
+        }
+
+        // POST: Admins/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Role_Id,Username,Password,Email,DateCreate,DateModify")] Admin admin)
+        {
+            if (id != admin.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(admin);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!AdminExists(admin.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["Role_Id"] = new SelectList(_context.Roles, "Id", "Name", admin.Role_Id);
+            return View(admin);
+        }
+
+        // GET: Admins/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var admin = await _context.Admins
+                .Include(a => a.Role)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (admin == null)
+            {
+                return NotFound();
+            }
+
+            return View(admin);
+        }
+
+        // POST: Admins/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var admin = await _context.Admins.FindAsync(id);
+            _context.Admins.Remove(admin);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool AdminExists(int id)
+        {
+            return _context.Admins.Any(e => e.Id == id);
         }
     }
 }
+

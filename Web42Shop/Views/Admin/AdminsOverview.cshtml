@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Web42Shop.Models.Admin>
 @{
     ViewData["Title"] = "Quản trị viên";
     Layout = "~/Views/Admin/_AdminIndexLayout.cshtml";
@@ -6,64 +6,35 @@
 
 <div class="container-fluid overview">
     <p class="overview__title">Sản phẩm của K42Shop</p>
-    <a asp-controller="Admin" asp-action="AdminsOverview" class="overview__button overview__button--new"><i class="fas fa-plus"></i>Thêm quản trị viên</a>
+    <a asp-controller="Admin" asp-action="Create" class="overview__button overview__button--new"><i class="fas fa-plus"></i>Thêm quản trị viên</a>
     <table class="overview__table overview__table--admins">
         <tr>
-           <th>Tài khoản</th>
-           <th>Email</th>
-           <th>Quyền</th>
-           <th>Ngày tạo</th>
-           <th>Ngày chỉnh sửa</th>
-           <th></th>
+            <th>Tài khoản</th>
+            <th>Email</th>
+            <th>Quyền</th>
+            <th>Ngày tạo</th>
+            <th>Ngày chỉnh sửa</th>
+            <th></th>
         </tr>
+        @foreach (var admin in Model)
+        {
+            String @a = "Nhân Viên";
+            if (@admin.Role_Id == 1) @a = "Quản Lý";
         <tr>
-            <td><a asp-controller="Admin" asp-action="AdminsOverview">pthyst</a></td>
-            <td>pthyst@gmail.com</td>
-            <td>Quản trị viên</td>
-            <td>18:00:00 21/10/2019</td>
-            <td>19:00:00 22/10/2019</td>
-            <td><a asp-controller="Admin" asp-action="AdminsOverview" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa</a></td>
+            <td><a asp-action="Details" asp-route-id="@admin.Id" >@admin.Username</a></td>
+            <td>@admin.Email</td>
+            <td>@a</td>
+            <td>@admin.DateCreate</td>
+            <td>@admin.DateModify</td>
+
+
+            @*<td><a asp-action="Details" asp-route-id="@admin.Id" class="overview__button overview__button--new " ><i class="far fa-address-book"></i>Details</a> </td>*@
+            <td>
+                <a asp-action="Edit" class="overview__button overview__button-- " asp-route-id="@admin.Id"><i class="fas fa-edit"></i>Edit</a>
+            </td>
+            <td><a asp-action="Delete" class="overview__button overview__button--delete" asp-route-id="@admin.Id"><i class="fas fa-trash-alt"></i>Delete</a></td>
         </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="AdminsOverview">phamlap</a></td>
-            <td>phamlap.rikan@gmail.com</td>
-            <td>Quản trị viên</td>
-            <td>18:00:00 21/10/2019</td>
-            <td>19:00:00 22/10/2019</td>
-            <td><a asp-controller="Admin" asp-action="AdminsOverview" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa</a></td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="AdminsOverview">zcaoquang64</a></td>
-            <td>caoquang.064@gmail.com</td>
-            <td>Người đăng bài</td>
-            <td>18:00:00 21/10/2019</td>
-            <td>19:00:00 22/10/2019</td>
-            <td><a asp-controller="Admin" asp-action="AdminsOverview" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa</a></td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="AdminsOverview">leeminhee</a></td>
-            <td>minhee@gmail.com</td>
-            <td>Người đăng bài</td>
-            <td>18:00:00 21/10/2019</td>
-            <td>19:00:00 22/10/2019</td>
-            <td><a asp-controller="Admin" asp-action="AdminsOverview" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa</a></td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="AdminsOverview">nguyenphuong</a></td>
-            <td>nguyenphuong@gmail.com</td>
-            <td>Người đăng bài</td>
-            <td>18:00:00 21/10/2019</td>
-            <td>19:00:00 22/10/2019</td>
-            <td><a asp-controller="Admin" asp-action="AdminsOverview" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa</a></td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="AdminsOverview">phuongdung</a></td>
-            <td>phuongdung@gmail.com</td>
-            <td>Nguòi đăng bài</td>
-            <td>18:00:00 21/10/2019</td>
-            <td>19:00:00 22/10/2019</td>
-            <td><a asp-controller="Admin" asp-action="AdminsOverview" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa</a></td>
-        </tr>
+        }
     </table>
 
     <div class="row">

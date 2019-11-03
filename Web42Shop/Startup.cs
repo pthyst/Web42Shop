@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Web42Shop.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Web42Shop
 {
@@ -36,6 +37,19 @@ namespace Web42Shop
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<Web42ShopDbContext>(dbContextOptionBuilder => dbContextOptionBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddSession(p =>
+            {
+                p.IdleTimeout = TimeSpan.FromMinutes(5);
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(opt =>
+                {
+                    opt.LoginPath = "/Admin/Login";
+                    opt.AccessDeniedPath = "/Home/AccessDenied";
+                    opt.LogoutPath = "/KhachHang/Logout";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +65,7 @@ namespace Web42Shop
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
