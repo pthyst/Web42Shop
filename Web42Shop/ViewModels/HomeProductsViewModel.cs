@@ -6,7 +6,8 @@ namespace Web42Shop.ViewModels
 {
     public class HomeProductsViewModel
     {
-        public int Count {get; set;}
+        public int CurrentPage { get; set; }
+        public int TotalPage {get; set;}
         public IEnumerable<ItemProductsViewModel> ItemProducts {get;set;}
 
     }
