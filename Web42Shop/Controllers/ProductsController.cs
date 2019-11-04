@@ -19,14 +19,12 @@ namespace Web42Shop.Controllers
         {
             _context = context;
         }
-        public IActionResult Index(int? page)
+        public IActionResult Index(int id)
         {
-            int p = (!page.HasValue) ? 1 : page.Value;
-            if (page <= 0) return NotFound();
-            HomeProductsViewModel homeProducts = new HomeProductsViewModel
-            {
-                CurrentPage = p,
-                TotalPage = GetTotalPage(),
+            //int p = (!page.HasValue) ? 0 : page.Value;
+            int p = (id==null) ? 0 : id;
+            HomeProductsViewModel homeProducts = new HomeProductsViewModel{
+                Count = GetCountProducts(),
                 ItemProducts = GetAllProducts(p)
             };
             return View(homeProducts);
@@ -39,13 +37,12 @@ namespace Web42Shop.Controllers
 
 
         //hàm cho phần phân trang
-        private int GetTotalPage(){
+        private int GetCountProducts(){
             int sl = _context.Products.Count();
-            int total = (sl % 8 == 0) ? (sl / 8) : (sl / 8) + 1; 
-            return total;
+            return sl;
         }
         private List<ItemProductsViewModel> GetAllProducts(int page){
-            page--;
+            Console.WriteLine(page);
             List<ItemProductsViewModel> pro = new List<ItemProductsViewModel>();
             var query = (from p in _context.Products 
                     orderby p.Name
@@ -60,7 +57,7 @@ namespace Web42Shop.Controllers
                         Views = p.Views,
                         Orders = p.Orders
                     });
-            pro = query.Skip(page*8).Take(8).ToList();
+            pro = query.Skip(page*12).Take(12).ToList();
             return pro;
         }
     }
