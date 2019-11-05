@@ -20,7 +20,7 @@ namespace Web42Shop.Controllers
             _context = context;
         }
 
-        // GET: ProductBrands
+        // GET: ProductBrands suong1
        
 
         // GET: ProductBrands/Details/5
