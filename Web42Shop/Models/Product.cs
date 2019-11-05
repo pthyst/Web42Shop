@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Web42Shop.Models
 {
+   
     public class Product
     {
         [Key]
@@ -76,6 +77,7 @@ namespace Web42Shop.Models
         public ICollection<Comment> Comments { get; set; }
         public ICollection<CartDetail> CartDetails { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
+       // public ICollection<ProductBrand> ProductBrands { get; set; }
         #endregion
     }
 }

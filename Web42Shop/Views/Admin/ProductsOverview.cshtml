@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Web42Shop.Models.Product>
 @{
     ViewData["Title"] = "Sản phẩm của K42Shop";
     Layout = "~/Views/Admin/_AdminIndexLayout.cshtml";
@@ -13,106 +13,40 @@
         </div>
     </div>
     <a asp-controller="Admin" asp-action="ProductsNew" class="overview__button overview__button--new"><i class="fas fa-plus"></i>Thêm sản phẩm</a>
+    
     <table class="overview__table overview__table--products">
         <tr>
             <th>Tên</th>
             <th>Giá gốc</th>
             <th>Khuyến mãi</th>
             <th>Giá bán ra</th>
-            <th>Số lượng</br>trong kho</th>
+            <th>Số lượng <br />trong kho</th>
             <th><i class="fas fa-eye"></i></th>
             <th><i class="fas fa-shopping-cart"></i></th>
+            <th>Xóa</th>
+            <th>Sửa</th>
         </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="ProductsOverview">Laptop ASUS</a></td>
-            <td>13,000,000 VNĐ</td>
-            <td>0%</td>
-            <td>13,000,000 VNĐ</td>
-            <td>100</td>
-            <td>1233</td>
-            <td>850</td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="ProductsOverview">Laptop SONY</a></td>
-            <td>23,000,000 VNĐ</td>
-            <td>0%</td>
-            <td>23,000,000 VNĐ</td>
-            <td>100</td>
-            <td>1233</td>
-            <td>850</td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="ProductsOverview">Laptop DELL</a></td>
-            <td>33,000,000 VNĐ</td>
-            <td>0%</td>
-            <td>33,000,000 VNĐ</td>
-            <td>100</td>
-            <td>1233</td>
-            <td>850</td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="ProductsOverview">Laptop Macbook</a></td>
-            <td>43,000,000 VNĐ</td>
-            <td>0%</td>
-            <td>43,000,000 VNĐ</td>
-            <td>100</td>
-            <td>1233</td>
-            <td>850</td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="ProductsOverview">Laptop Lenovo</a></td>
-            <td>10,000,000 VNĐ</td>
-            <td>0%</td>
-            <td>10,000,000 VNĐ</td>
-            <td>100</td>
-            <td>1233</td>
-            <td>850</td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="ProductsOverview">ASUS Zenphone</a></td>
-            <td>13,000,000 VNĐ</td>
-            <td>0%</td>
-            <td>13,000,000 VNĐ</td>
-            <td>100</td>
-            <td>233</td>
-            <td>50</td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="ProductsOverview">Motorzolla</a></td>
-            <td>3,000,000 VNĐ</td>
-            <td>0%</td>
-            <td>3,000,000 VNĐ</td>
-            <td>100</td>
-            <td>233</td>
-            <td>50</td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="ProductsOverview">BPhone Plus</a></td>
-            <td>25,000,000 VNĐ</td>
-            <td>0%</td>
-            <td>25,000,000 VNĐ</td>
-            <td>100</td>
-            <td>233</td>
-            <td>50</td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="ProductsOverview">Samsung Galaxy J7</a></td>
-            <td>5,000,000 VNĐ</td>
-            <td>0%</td>
-            <td>5,000,000 VNĐ</td>
-            <td>100</td>
-            <td>233</td>
-            <td>50</td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Admin" asp-action="ProductsOverview">Nokia Lumia 1280</a></td>
-            <td>3,000,000 VNĐ</td>
-            <td>0%</td>
-            <td>3,000,000 VNĐ</td>
-            <td>100</td>
-            <td>233</td>
-            <td>50</td>
-        </tr>
+        @foreach (var item in Model)
+        {
+            Int32 @gia = @item.Price;
+            Int32 @salse = Int32.Parse(@item.Saleoff.ToString());
+            Int32 @tong = @item.Price - (@gia * @salse) / 100;
+            <tr>
+                <td><a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">@item.Name</a></td>
+                <td>@item.Price</td>
+                <td>@item.Saleoff</td>
+                <td>@tong</td>
+                <td>@item.Instore</td>
+                <td>@item.Views</td>
+                <td>@item.Orders</td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Products" asp-route-id="@item.Id" class="overview__button overview__button-- "><i class="fas fa-edit"></i>Edit</a>
+
+                </td>
+                <td><a asp-action="Delete" asp-controller="Products" asp-route-id="@item.Id" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i>Delete</a></td>
+            </tr>
+
+        }
     </table>
 
     <div class="row">

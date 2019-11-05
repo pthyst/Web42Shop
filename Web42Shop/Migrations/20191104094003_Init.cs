@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Web42Shop.Migrations
 {
-    public partial class FixingTablesName : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -594,6 +594,12 @@ namespace Web42Shop.Migrations
                 name: "IX_Products_Admin_Id",
                 table: "Products",
                 column: "Admin_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_Name",
+                table: "Products",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_ProductBrand_Id",

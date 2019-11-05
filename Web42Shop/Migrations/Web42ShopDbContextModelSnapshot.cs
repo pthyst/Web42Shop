@@ -359,6 +359,9 @@ namespace Web42Shop.Migrations
 
                     b.HasIndex("Admin_Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.HasIndex("ProductBrand_Id");
 
                     b.HasIndex("ProductType_Id");

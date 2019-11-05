@@ -285,8 +285,6 @@ C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Ra
 C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Cart\Index.g.cshtml.cs
 C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.g.cshtml.cs
 C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Home\Privacy.g.cshtml.cs
-C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\Index.g.cshtml.cs
-C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\Single.g.cshtml.cs
 C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.g.cshtml.cs
 C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Users\_BannerPartial.g.cshtml.cs
 C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Users\_CarouselsPartial.g.cshtml.cs
@@ -312,3 +310,10 @@ C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Ra
 C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\Edit.g.cshtml.cs
 C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\Delete.g.cshtml.cs
 C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\Details.g.cshtml.cs
+C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\Delete.g.cshtml.cs
+C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\Details.g.cshtml.cs
+C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\Edit.g.cshtml.cs
+C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductBrands\Create.g.cshtml.cs
+C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductBrands\Delete.g.cshtml.cs
+C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductBrands\Details.g.cshtml.cs
+C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductBrands\Edit.g.cshtml.cs

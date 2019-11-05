@@ -1,18 +1,20 @@
 ﻿@model Web42Shop.ViewModels.ProductsNewViewModel
+
 @{
     ViewData["Title"] = "Thêm sản phẩm mới";
     Layout = "~/Views/Admin/_AdminIndexLayout.cshtml";
 }
-
+@using Microsoft.AspNetCore.Http;
+@using Web42Shop.Controllers;
 <div class="container-fluid create">
     <div class="container">
         <p class="create__title">Sản phẩm mới</p>
         <form asp-controller="Admin" asp-action="ProductsCreate" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label asp-for="Product.Name">Tên sản phẩm</label>
-                <input asp-for="Product.Name" type="text" class="form-control"/>
+                <input asp-for="Product.Name" type="text" class="form-control" />
             </div>
-            
+
             <div class="form-row">
                 <div class="col form-group">
                     <label asp-for="Product.ProductType_Id">Loại sản phẩm</label>
@@ -45,43 +47,42 @@
             <div class="form-row">
                 <div class="col form-group">
                     <label asp-for="Product.Price">Đơn giá</label>
-                    <input asp-for="Product.Price" type="text" class="form-control"/>
+                    <input asp-for="Product.Price" type="text" class="form-control" />
                 </div>
                 <div class="col form-group">
                     <label asp-for="Product.Saleoff">Phần trăm giảm giá</label>
-                    <input asp-for="Product.Saleoff" type="text" class="form-control"/>
+                    <input asp-for="Product.Saleoff" type="text" class="form-control" />
                 </div>
                 <div class="col form-group">
                     <label for="SalePrice">Giá bán ra</label>
-                    <input id="SalePrice" type="text" class="form-control" value="0" readonly/>
+                    <input id="SalePrice" type="text" class="form-control" value="0" readonly />
                 </div>
             </div>
 
             <div class="form-group">
                 <textarea rows="10" cols="300" class="form-control" asp-for="Product.Description">Mô tả sản phẩm</textarea>
                 <!-- Đổi textarea thành ckeditor -->
-                
+
                 <script src="~/js/ckeditor.js"></script>
                 <script>
                     ClassicEditor
-                        .create( document.querySelector('#Product_Description' ) )
-                        .then( editor => {
+                        .create(document.querySelector('#Product_Description'))
+                        .then(editor => {
                             window.editor = editor;
-                        } )
-                        .catch( err => {
-                            console.error( err.stack );
-                        } );
+                        })
+                        .catch(err => {
+                            console.error(err.stack);
+                        });
                 </script>
             </div>
 
             <div class="form-row">
                 <div class="custom-file">
-                    <input asp-for="Thumbnail" type="file" class="custom-file-input form-control"/>
+                    <input asp-for="Thumbnail" type="file" class="custom-file-input form-control" />
                     <label class="custom-file-label" asp-for="Thumbnail">Ảnh sản phẩm</label>
                     <script>
                         // Hiển thị tên file đang được chọn
-                        $(".custom-file-input").on("change", function ()
-                        {
+                        $(".custom-file-input").on("change", function () {
                             var fileName = $(this).val().split("\\").pop();
                             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
                         });
@@ -98,12 +99,15 @@
                 </div>
             </div>
 
-                <!-- Những thông tin tự động điền vào -->
+            <!-- Những thông tin tự động điền vào -->
             <div class="form-row">
                 <div class="form-group">
+                    
                     <label asp-for="Product.Admin_Id">Admin_Id</label>
-                    <input type="text" asp-for="Product.Admin_Id" value="1" readonly>
+                    <input type="text" asp-for="Product.Admin_Id" value="@Model.Product.Admin_Id" readonly>
+
                 </div>
+
                 <div class="form-group">
                     <label asp-for="Product.Slug_Id">Slug_Id</label>
                     <input type="text" asp-for="Product.Slug_Id" value="@Model.Product.Slug_Id" readonly>
@@ -118,7 +122,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Product.Orders">Orders</label>
-                    <input type="text" asp-for="Product.Orders" value="1" readonly>
+                    <input type="text" asp-for="Product.Orders" value="1" >
                 </div>
                 <div class="form-group">
                     <label asp-for="Product.DateCreate">DateCreate</label>
