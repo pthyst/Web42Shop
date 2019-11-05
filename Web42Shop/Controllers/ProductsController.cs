@@ -23,7 +23,7 @@ namespace Web42Shop.Controllers
         {
             int p = (!page.HasValue) ? 1 : page.Value;
             if (page <= 0) return NotFound();
-            HomeProductsViewModel homeProducts = new HomeProductsViewModel
+            ListItemProductsViewModel homeProducts = new ListItemProductsViewModel
             {
                 CurrentPage = p,
                 TotalPage = GetTotalPage(),

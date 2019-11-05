@@ -4,7 +4,7 @@ using Web42Shop.Models;
 using System.Collections.Generic;
 namespace Web42Shop.ViewModels
 {
-    public class HomeProductsViewModel
+    public class ListItemProductsViewModel
     {
         public int CurrentPage { get; set; }
         public int TotalPage {get; set;}
