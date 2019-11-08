@@ -10,8 +10,8 @@ using Web42Shop.Data;
 namespace Web42Shop.Migrations
 {
     [DbContext(typeof(Web42ShopDbContext))]
-    [Migration("20191101143336_FixingTablesName")]
-    partial class FixingTablesName
+    [Migration("20191104094003_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -360,6 +360,9 @@ namespace Web42Shop.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Admin_Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.HasIndex("ProductBrand_Id");
 

@@ -10,6 +10,7 @@ namespace Web42Shop.ViewModels
         public Product Product { get; set; }
         public IEnumerable<ProductBrand> ProductBrands { get; set; }
         public IEnumerable<ProductType> ProductTypes { get; set; }
+        public IEnumerable<Admin> Admins { get; set; }
         public IFormFile Thumbnail {get;set;}
     }
 }

@@ -67,6 +67,7 @@ namespace Web42Shop.Controllers
             else if(Auth.Role_Id ==1)
             {
                 HttpContext.Session.SetInt32("Admin_ID", Auth.Role_Id);
+         
                 return RedirectToAction("Index", "Admin");
             }
             else
@@ -109,7 +110,8 @@ namespace Web42Shop.Controllers
         {
             if (HttpContext.Session.GetInt32("Admin_ID") == 1)
             {
-                return View();
+
+                return View(_context.Products);
             }
             else
             {
@@ -117,6 +119,9 @@ namespace Web42Shop.Controllers
 
             }
         }
+        [HttpGet]
+        // GET: /Link/
+       
         // Trang thêm sản phẩm
         public IActionResult ProductsNew()
         {
@@ -133,7 +138,8 @@ namespace Web42Shop.Controllers
             {
                 Product = new Product()
                 {
-                    Slug_Id = _context.Slugs.LastOrDefault().Id
+                    Slug_Id = _context.Slugs.LastOrDefault().Id,
+                    Admin_Id = _context.Admins.LastOrDefault().Id
                 },
                 ProductBrands = _context.ProductBrands.ToList(),
                 ProductTypes = _context.ProductTypes.ToList()
@@ -146,6 +152,7 @@ namespace Web42Shop.Controllers
         public IActionResult ProductsCreate(ProductsNewViewModel viewmodel)
         {
             // Thêm sản phẩm vào database
+            
             Product new_product = viewmodel.Product;
             new_product.Thumbnail = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
             _context.Products.Add(new_product);
@@ -201,6 +208,7 @@ namespace Web42Shop.Controllers
             }
             
         }
+
 
         // Trang thống kê
         public IActionResult Report()

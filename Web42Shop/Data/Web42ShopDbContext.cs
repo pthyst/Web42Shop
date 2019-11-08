@@ -20,7 +20,7 @@ namespace Web42Shop.Data
         public DbSet<Order> Orders{get;set;}
         public DbSet<OrderDetail> OrderDetails{get;set;}
         public DbSet<OrderStatus> OrderStatuses{get;set;}
-        public DbSet<Product> Products {get;set;}
+        public DbSet<Product> Products{ get;set;}
         public DbSet<ProductBrand> ProductBrands { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<PayStatus> PayStatuses{get;set;}
@@ -39,7 +39,7 @@ namespace Web42Shop.Data
             // Bảng Admin
             modelBuilder.Entity<Admin>().HasIndex(a => a.Username).IsUnique();
             modelBuilder.Entity<Admin>().HasIndex(a => a.Email).IsUnique();
-
+          //  modelBuilder.Entity<Product>().HasIndex(a => a.Name).IsUnique();
             // Bảng Setting
             modelBuilder.Entity<Setting>().HasIndex(s => s.Name).IsUnique();
 

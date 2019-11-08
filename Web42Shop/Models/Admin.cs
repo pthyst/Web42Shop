@@ -9,6 +9,7 @@ namespace Web42Shop.Models
 {
     public class Admin
     {
+
         [Key]
         public int Id { get; set; }
 
