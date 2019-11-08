@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web42Shop.Data;
 using Web42Shop.Models;
+using Web42Shop.ViewModels;
 
 namespace Web42Shop.Controllers
 {
@@ -18,7 +19,6 @@ namespace Web42Shop.Controllers
         {
             _context = context;
         }
-<<<<<<< HEAD
 
         // GET: Products
        
@@ -44,8 +44,8 @@ namespace Web42Shop.Controllers
             return View(product);
         }
 
-      
-       
+
+
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -64,7 +64,7 @@ namespace Web42Shop.Controllers
             ViewData["ProductType_Id"] = new SelectList(_context.ProductTypes, "Id", "Type", product.ProductType_Id);
             ViewData["Slug_Id"] = new SelectList(_context.Slugs, "Id", "Url", product.Slug_Id);
             return View(product);
-=======
+        }
         public IActionResult Index(int? page)
         {
             int p = (!page.HasValue) ? 1 : page.Value;
@@ -76,7 +76,7 @@ namespace Web42Shop.Controllers
                 ItemProducts = GetAllProducts(p)
             };
             return View(homeProducts);
->>>>>>> b5b2bd83814bb84eeb4b2386143bb30da64c540f
+
         }
 
         // POST: Products/Edit/5
@@ -137,7 +137,7 @@ namespace Web42Shop.Controllers
                 return NotFound();
             }
 
-<<<<<<< HEAD
+
             return View(product);
         }
 
@@ -155,7 +155,7 @@ namespace Web42Shop.Controllers
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.Id == id);
-=======
+        }
         //hàm cho phần phân trang
         private int GetTotalPage(){
             int sl = _context.Products.Count();
@@ -180,7 +180,7 @@ namespace Web42Shop.Controllers
                     });
             pro = query.Skip(page*8).Take(8).ToList();
             return pro;
->>>>>>> b5b2bd83814bb84eeb4b2386143bb30da64c540f
+
         }
     }
 }

@@ -9,13 +9,14 @@
         <div class="container-fluid">
             <a asp-controller="Admin" asp-action="ProductsOverview" class="overview__title overview__title--products overview__title--active">Sản phẩm</a>
             <a asp-controller="Admin" asp-action="ProductBrandsOverview" class="overview__title overview__title--brands">Nhãn hàng</a>
-            <a asp-controller="Admin" asp-action="ProductsOverview" class="overview__title overview__title--types">Loại sản phẩm</a>
+            <a asp-controller="ProductTyPes" asp-action="index" class="overview__title overview__title--types">Loại sản phẩm</a>
         </div>
     </div>
     <a asp-controller="Admin" asp-action="ProductsNew" class="overview__button overview__button--new"><i class="fas fa-plus"></i>Thêm sản phẩm</a>
     
     <table class="overview__table overview__table--products">
         <tr>
+          
             <th>Tên</th>
             <th>Giá gốc</th>
             <th>Khuyến mãi</th>
@@ -26,12 +27,15 @@
             <th>Xóa</th>
             <th>Sửa</th>
         </tr>
+      
         @foreach (var item in Model)
         {
             Int32 @gia = @item.Price;
             Int32 @salse = Int32.Parse(@item.Saleoff.ToString());
             Int32 @tong = @item.Price - (@gia * @salse) / 100;
+
             <tr>
+                
                 <td><a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">@item.Name</a></td>
                 <td>@item.Price</td>
                 <td>@item.Saleoff</td>
