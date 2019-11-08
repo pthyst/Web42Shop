@@ -48,8 +48,8 @@ namespace Web42Shop.Controllers
             page--;
             List<ItemProductsViewModel> pro = new List<ItemProductsViewModel>();
             var query = (from p in _context.Products 
-                    orderby p.Name
-                    select new ItemProductsViewModel
+                         orderby p.DateCreate descending
+                         select new ItemProductsViewModel
                     {
                         Id = p.Id,
                         Name = p.Name,
