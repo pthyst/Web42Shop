@@ -156,7 +156,7 @@ namespace Web42Shop.Controllers
         {
             return _context.Products.Any(e => e.Id == id);
         }
-        //hàm cho phần phân trang
+        //hàm cho phần phân trang12
         private int GetTotalPage(){
             int sl = _context.Products.Count();
             int total = (sl % 8 == 0) ? (sl / 8) : (sl / 8) + 1; 
@@ -166,8 +166,8 @@ namespace Web42Shop.Controllers
             page--;
             List<ItemProductsViewModel> pro = new List<ItemProductsViewModel>();
             var query = (from p in _context.Products 
-                    orderby p.Name
-                    select new ItemProductsViewModel
+                         orderby p.DateCreate descending
+                         select new ItemProductsViewModel
                     {
                         Id = p.Id,
                         Name = p.Name,
