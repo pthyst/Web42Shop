@@ -119,7 +119,6 @@ H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Cart\Index.g.cshtml.c
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.g.cshtml.cs
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Home\Privacy.g.cshtml.cs
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\Index.g.cshtml.cs
-H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\Single.g.cshtml.cs
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.g.cshtml.cs
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Users\_BannerPartial.g.cshtml.cs
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Users\_CarouselsPartial.g.cshtml.cs
@@ -384,3 +383,14 @@ C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcorea
 C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.RazorTargetAssemblyInfo.cs
 C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.Views.pdb
 C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.csproj.CopyComplete
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\Create.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\Delete.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\Details.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\Edit.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductBrands\Create.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductBrands\Delete.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductBrands\Details.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductBrands\Edit.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\Delete.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\Details.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\Edit.g.cshtml.cs
