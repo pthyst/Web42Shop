@@ -156,7 +156,7 @@ namespace Web42Shop.Controllers
         {
             return _context.Products.Any(e => e.Id == id);
         }
-        //hàm cho phần phân trang12
+        //hàm cho phần phân trang
         private int GetTotalPage(){
             int sl = _context.Products.Count();
             int total = (sl % 8 == 0) ? (sl / 8) : (sl / 8) + 1; 
