@@ -1,0 +1,470 @@
+@font-face {
+  font-family: 'phongvu-icon';
+  src:  url('fonts/phongvu-icon.eot?ktpva9');
+  src:  url('fonts/phongvu-icon.eot?ktpva9#iefix') format('embedded-opentype'),
+    url('fonts/phongvu-icon.ttf?ktpva9') format('truetype'),
+    url('fonts/phongvu-icon.woff?ktpva9') format('woff'),
+    url('fonts/phongvu-icon.svg?ktpva9#phongvu-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="pvi-"], [class*=" pvi-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'phongvu-icon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.pvi-Menuicon_SampleProduct:before {
+  content: "\e900";
+}
+.pvi-Menuicon_SONY:before {
+  content: "\e901";
+}
+.pvi-Menuicon_Sound:before {
+  content: "\e902";
+}
+.pvi-Menuicon_TCL:before {
+  content: "\e903";
+}
+.pvi-Menuicon_Tivi:before {
+  content: "\e904";
+}
+.pvi-Menuicon_TSB:before {
+  content: "\e905";
+}
+.pvi-Menuicon_Viewsonic:before {
+  content: "\e906";
+}
+.pvi-password:before {
+  content: "\e907";
+  color: #8d8d8d;
+}
+.pvi-Userinfo_iconFavourite:before {
+  content: "\e908";
+}
+.pvi-Userinfo_iconHome:before {
+  content: "\e909";
+}
+.pvi-Userinfo_iconLogout:before {
+  content: "\e90a";
+}
+.pvi-Userinfo_iconPC:before {
+  content: "\e90b";
+}
+.pvi-Userinfo_iconProfile:before {
+  content: "\e90c";
+}
+.pvi-Userinfo_iconTracking:before {
+  content: "\e90d";
+}
+.pvi-icon_Messenger:before {
+  content: "\e90e";
+}
+.pvi-arrowLeft:before {
+  content: "\e90f";
+  color: #6d6d6d;
+}
+.pvi-arrowRight:before {
+  content: "\e910";
+  color: #6d6d6d;
+}
+.pvi-CartEmpty:before {
+  content: "\e911";
+}
+.pvi-Contact_Checked:before {
+  content: "\e912";
+  color: #32c525;
+}
+.pvi-Contact_Envelope:before {
+  content: "\e913";
+}
+.pvi-Contact_PhoneCall:before {
+  content: "\e914";
+}
+.pvi-Contact_Setting:before {
+  content: "\e915";
+}
+.pvi-Coupon:before {
+  content: "\e916";
+}
+.pvi-Delivery:before {
+  content: "\e917";
+}
+.pvi-Exchange:before {
+  content: "\e918";
+}
+.pvi-facebook:before {
+  content: "\e919";
+  color: #3b5ca0;
+}
+.pvi-facebook-white:before {
+  content: "\e91a";
+  color: #fff;
+}
+.pvi-Filter:before {
+  content: "\e91b";
+  color: #9e9e9e;
+}
+.pvi-Headericon_Cart:before {
+  content: "\e91c";
+}
+.pvi-Headericon_Promotion:before {
+  content: "\e91d";
+}
+.pvi-Headericon_TrackingOrder:before {
+  content: "\e91e";
+}
+.pvi-icon_1212:before {
+  content: "\e91f";
+}
+.pvi-icon_ArrowBack:before {
+  content: "\e920";
+}
+.pvi-icon_ArrowDown:before {
+  content: "\e921";
+}
+.pvi-icon_ArrowLeft:before {
+  content: "\e922";
+}
+.pvi-icon_ArrowLeftStick:before {
+  content: "\e923";
+}
+.pvi-icon_ArrowNext:before {
+  content: "\e924";
+}
+.pvi-icon_ArrowRight:before {
+  content: "\e925";
+}
+.pvi-icon_ArrowRightStick:before {
+  content: "\e926";
+}
+.pvi-icon_BackToTop:before {
+  content: "\e927";
+}
+.pvi-icon_Bag:before {
+  content: "\e928";
+}
+.pvi-icon_Bar:before {
+  content: "\e929";
+}
+.pvi-icon_Bell:before {
+  content: "\e92a";
+}
+.pvi-icon_Buffet:before {
+  content: "\e92b";
+}
+.pvi-icon_BuildPC:before {
+  content: "\e92c";
+}
+.pvi-icon_BuildPC_2:before {
+  content: "\e92d";
+}
+.pvi-icon_Cash:before {
+  content: "\e92e";
+}
+.pvi-icon_CatHot:before {
+  content: "\e92f";
+}
+.pvi-icon_CatNew:before {
+  content: "\e930";
+}
+.pvi-icon_Chat:before {
+  content: "\e931";
+}
+.pvi-icon_Clock:before {
+  content: "\e932";
+}
+.pvi-icon_Close:before {
+  content: "\e933";
+  color: #707070;
+}
+.pvi-icon_ComingSoon:before {
+  content: "\e934";
+}
+.pvi-icon_Commitment:before {
+  content: "\e935";
+}
+.pvi-icon_Contact:before {
+  content: "\e936";
+}
+.pvi-icon_Copy:before {
+  content: "\e937";
+}
+.pvi-icon_Coupon:before {
+  content: "\e938";
+}
+.pvi-icon_CurvedTV:before {
+  content: "\e939";
+}
+.pvi-icon_Deal:before {
+  content: "\e93a";
+}
+.pvi-icon_Delivery:before {
+  content: "\e93b";
+}
+.pvi-icon_Diamond:before {
+  content: "\e93c";
+}
+.pvi-icon_Dollar:before {
+  content: "\e93d";
+}
+.pvi-icon_Dots:before {
+  content: "\e93e";
+}
+.pvi-icon_Envelope:before {
+  content: "\e93f";
+}
+.pvi-icon_Facebook:before {
+  content: "\e940";
+  color: #485992;
+}
+.pvi-icon_Filter:before {
+  content: "\e941";
+}
+.pvi-icon_FlashSale:before {
+  content: "\e942";
+}
+.pvi-icon_FlyingEmail:before {
+  content: "\e943";
+}
+.pvi-icon_FullHeart:before {
+  content: "\e944";
+}
+.pvi-icon_Gift:before {
+  content: "\e945";
+}
+.pvi-icon_Heart:before {
+  content: "\e946";
+}
+.pvi-icon_Home:before {
+  content: "\e947";
+}
+.pvi-icon_Hotline:before {
+  content: "\e948";
+  color: #cf2200;
+}
+.pvi-icon_Installment:before {
+  content: "\e949";
+}
+.pvi-icon_InternetBanking:before {
+  content: "\e94a";
+}
+.pvi-icon_InternetTV:before {
+  content: "\e94b";
+}
+.pvi-icon_LCDTV:before {
+  content: "\e94c";
+}
+.pvi-icon_Lighting:before {
+  content: "\e94d";
+}
+.pvi-icon_Logo:before {
+  content: "\e94e";
+}
+.pvi-icon_Menu:before {
+  content: "\e94f";
+}
+.pvi-icon_Menu_Cat:before {
+  content: "\e950";
+}
+.pvi-icon_MenuAll:before {
+  content: "\e951";
+}
+.pvi-icon_MenuMobile:before {
+  content: "\e952";
+}
+.pvi-icon_Monitor:before {
+  content: "\e953";
+}
+.pvi-icon_NewProducts:before {
+  content: "\e954";
+}
+.pvi-icon_Notify:before {
+  content: "\e955";
+}
+.pvi-icon_OutOfStock:before {
+  content: "\e956";
+}
+.pvi-icon_PaymentOnline:before {
+  content: "\e957";
+}
+.pvi-icon_PreOrder:before {
+  content: "\e958";
+}
+.pvi-icon_Promotion:before {
+  content: "\e959";
+}
+.pvi-icon_QA:before {
+  content: "\e95a";
+}
+.pvi-icon_QLEDTV:before {
+  content: "\e95b";
+}
+.pvi-icon_QRCode:before {
+  content: "\e95c";
+}
+.pvi-icon_QRCodeDetail:before {
+  content: "\e95d";
+  color: #666;
+}
+.pvi-icon_Rating:before {
+  content: "\e95e";
+}
+.pvi-icon_Return:before {
+  content: "\e95f";
+}
+.pvi-icon_Sale:before {
+  content: "\e960";
+}
+.pvi-icon_Search:before {
+  content: "\e961";
+}
+.pvi-icon_Security:before {
+  content: "\e962";
+}
+.pvi-icon_Share:before {
+  content: "\e963";
+}
+.pvi-icon_Shoppingcart:before {
+  content: "\e964";
+}
+.pvi-icon_Showroom:before {
+  content: "\e965";
+}
+.pvi-icon_SmartTV:before {
+  content: "\e966";
+}
+.pvi-icon_Social:before {
+  content: "\e967";
+}
+.pvi-icon_SuccessCheck:before {
+  content: "\e968";
+  color: #0cab75;
+}
+.pvi-icon_Support:before {
+  content: "\e969";
+}
+.pvi-icon_UHDTV:before {
+  content: "\e96a";
+}
+.pvi-icon_User:before {
+  content: "\e96b";
+}
+.pvi-icon_UserCircle:before {
+  content: "\e96c";
+}
+.pvi-icon_Users:before {
+  content: "\e96d";
+  color: #5a5a5a;
+}
+.pvi-icon_V4_FlashSale:before {
+  content: "\e96e";
+}
+.pvi-icon_Viewed:before {
+  content: "\e96f";
+}
+.pvi-icon_Warranty1:before {
+  content: "\e970";
+}
+.pvi-icon_Warranty2:before {
+  content: "\e971";
+}
+.pvi-icon_Warranty3:before {
+  content: "\e972";
+}
+.pvi-icon_Youtube:before {
+  content: "\e973";
+  color: #cf2200;
+}
+.pvi-id:before {
+  content: "\e974";
+  color: #8d8d8d;
+}
+.pvi-Menuicon_AAG:before {
+  content: "\e975";
+}
+.pvi-Menuicon_Accessories:before {
+  content: "\e976";
+}
+.pvi-Menuicon_ACER:before {
+  content: "\e977";
+}
+.pvi-Menuicon_AOC:before {
+  content: "\e978";
+}
+.pvi-Menuicon_ASUS:before {
+  content: "\e979";
+}
+.pvi-Menuicon_Brand:before {
+  content: "\e97a";
+}
+.pvi-Menuicon_BuildPC:before {
+  content: "\e97b";
+}
+.pvi-Menuicon_Chair:before {
+  content: "\e97c";
+}
+.pvi-Menuicon_ComputerComponent:before {
+  content: "\e97d";
+}
+.pvi-Menuicon_CRUCIAL:before {
+  content: "\e97e";
+}
+.pvi-Menuicon_DG:before {
+  content: "\e97f";
+}
+.pvi-Menuicon_Disk:before {
+  content: "\e980";
+}
+.pvi-Menuicon_GamingGear:before {
+  content: "\e981";
+}
+.pvi-Menuicon_HP:before {
+  content: "\e982";
+}
+.pvi-Menuicon_Laptop:before {
+  content: "\e983";
+}
+.pvi-Menuicon_Lenovo:before {
+  content: "\e984";
+}
+.pvi-Menuicon_LG:before {
+  content: "\e985";
+}
+.pvi-Menuicon_LGT:before {
+  content: "\e986";
+}
+.pvi-Menuicon_Monitor:before {
+  content: "\e987";
+}
+.pvi-Menuicon_MSI:before {
+  content: "\e988";
+}
+.pvi-Menuicon_Network:before {
+  content: "\e989";
+}
+.pvi-Menuicon_NVIDIA:before {
+  content: "\e98a";
+}
+.pvi-Menuicon_Office:before {
+  content: "\e98b";
+}
+.pvi-Menuicon_PANA:before {
+  content: "\e98c";
+}
+.pvi-Menuicon_PLEXTOR:before {
+  content: "\e98d";
+}
+.pvi-Menuicon_Sale:before {
+  content: "\e98e";
+}

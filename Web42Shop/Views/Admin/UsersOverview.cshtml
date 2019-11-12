@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Web42Shop.Models.User>
+﻿
 @{
     ViewData["Title"] = "UsersOverview";
     Layout = "~/Views/Admin/_AdminIndexLayout.cshtml";
@@ -17,20 +17,57 @@
             <th>Điểm tích lũy</th>
             <th></th>
         </tr>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td><a asp-action="Details" asp-route-id="@user.Id" asp-controller="Users" > @user.Id </a> </td>
-                <td>@user.NameLast</td>
-                <td>@user.NameMiddle</td>
-                <td>@user.NameFirst</td>
-                <td>@user.Email</td>
-                <td>@user.PhoneNumber</td>
-                <td>@user.BuyPoints</td>
-                <td><a asp-action="Delete"  asp-controller="Users"  asp-route-id="@user.Id" class="overview__button overview__button--delete" ><i class="fas fa-trash-alt"></i>Delete</a></td>
-            </tr>
-        }
-        </table>
+        <tr>
+            <td>1</td>
+            <td>Huỳnh Trương</td>
+            <td>Chí</td>
+            <td>Quân</td>
+            <td>pthyst@gmail.com</td>
+            <td>01265991251</td>
+            <td>100</td>
+            <td><a asp-controller="Admin" asp-action="UsersOverview">Chi tiết</a></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Cao</td>
+            <td>Quang</td>
+            <td>Khải</td>
+            <td>khaicq.0604@gmail.com</td>
+            <td>0967xxxxxx</td>
+            <td>99</td>
+            <td><a asp-controller="Admin" asp-action="UsersOverview">Chi tiết</a></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Phạm</td>
+            <td>Gia</td>
+            <td>Lập</td>
+            <td>phamlap.rikan@gmail.com</td>
+            <td>0834912xxx</td>
+            <td>98</td>
+            <td><a asp-controller="Admin" asp-action="UsersOverview">Chi tiết</a></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Hoàng</td>
+            <td>Công Minh</td>
+            <td>Huy</td>
+            <td>nguyenhuyhoang@gmail.com</td>
+            <td>0765657765</td>
+            <td>97</td>
+            <td><a asp-controller="Admin" asp-action="UsersOverview">Chi tiết</a></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Trần</td>
+            <td>Nguyên</td>
+            <td>Phương</td>
+            <td>phuongnguyentran@gmail.com</td>
+            <td>01265991252</td>
+            <td>96</td>
+            <td><a asp-controller="Admin" asp-action="UsersOverview">Chi tiết</a></td>
+        </tr>
+    </table>
 
     <div class="row">
         <div class="container txt-center w100">

@@ -95,7 +95,7 @@ namespace Web42Shop.Controllers
         {
             if (HttpContext.Session.GetInt32("Admin_ID") == 1)
             {
-                return View(_context.Users);
+                return View();
             }
             else
             {

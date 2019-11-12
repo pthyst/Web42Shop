@@ -17,17 +17,15 @@ namespace Web42Shop.Controllers
         {
             _context = context;
         }
-
         // Trang chủ
         public IActionResult Index()
         {
-            HomeViewModel viewmodel = new HomeViewModel()
+            HomeViewModel home = new HomeViewModel()
             {
                 NewProducts = GetListItemProducts(0),
-                ViewMoreProduct = GetListItemProducts(1),
-                ProductTypes = _context.ProductTypes.ToList()
+                ViewMoreProduct = GetListItemProducts(1)
             };
-            return View(viewmodel);
+            return View(home);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

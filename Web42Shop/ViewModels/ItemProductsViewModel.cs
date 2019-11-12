@@ -27,7 +27,7 @@ namespace Web42Shop.ViewModels
 
         [Display(Name = "Ảnh đại diện")]
         public string Thumbnail { get; set; } = "#";
-        //11
+
         [Range(0.0, 5.0)]
         [Display(Name = "Đánh giá trung bình")]
         public double Stars { get; set; } = 5.0;
