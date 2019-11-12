@@ -186,7 +186,7 @@ namespace Web42Shop.Controllers
             }
             return 0;
         }
-        private List<ItemProductsViewModel> GetAllProducts(int page)
+        private async Task<List<ItemProductsViewModel>> GetProducts(int option, int page, string key)
         {
             page--;
             List<ItemProductsViewModel> pro = new List<ItemProductsViewModel>();
