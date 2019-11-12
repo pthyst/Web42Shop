@@ -19,8 +19,24 @@ namespace Web42Shop.Controllers
         {
             _context = context;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchProducts(string key_s, int ?page)
+        {
+            int p = (!page.HasValue) ? 1 : page.Value;
+            if (page <= 0) return NotFound();
+            ListItemProductsViewModel viewmodel = new ListItemProductsViewModel
+            {
+                Value = key_s,
+                CurrentPage = p,
+                TotalPage = GetTotalPage(1, key_s),
+                ItemProducts = await GetProducts(1, p, key_s)
+            };
+            return View(viewmodel);
+        }
+
         // GET: Products
-       
+
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -64,15 +80,16 @@ namespace Web42Shop.Controllers
             ViewData["Slug_Id"] = new SelectList(_context.Slugs, "Id", "Url", product.Slug_Id);
             return View(product);
         }
-        public IActionResult Index(int? page)
+        public async Task<IActionResult> Index(int? page)
         {
             int p = (!page.HasValue) ? 1 : page.Value;
             if (page <= 0) return NotFound();
             ListItemProductsViewModel homeProducts = new ListItemProductsViewModel
             {
+                Value = "Tất cả các sản phẩm ",
                 CurrentPage = p,
-                TotalPage = GetTotalPage(),
-                ItemProducts = GetAllProducts(p)
+                TotalPage = GetTotalPage(0,""),
+                ItemProducts = await GetProducts(0,p,"")
             };
             return View(homeProducts);
         }
@@ -153,30 +170,66 @@ namespace Web42Shop.Controllers
         {
             return _context.Products.Any(e => e.Id == id);
         }
+
         //hàm cho phần phân trang
-        private int GetTotalPage(){
-            int sl = _context.Products.Count();
-            int total = (sl % 8 == 0) ? (sl / 8) : (sl / 8) + 1; 
-            return total;
+        private int GetTotalPage(int option, string key){
+            int total;
+            if(option == 0)
+            {
+                int sl = _context.Products.Count();
+                total = (sl % 8 == 0) ? (sl / 8) : (sl / 8) + 1;
+                return total;
+            } 
+            else if(option == 1)
+            {
+                int sl = (from p in _context.Products where p.Name.Contains(key.Trim()) select p).Count();
+                total = (sl % 8 == 0) ? (sl / 8) : (sl / 8) + 1;
+                return total;
+            }
+            return 0;
         }
-        private List<ItemProductsViewModel> GetAllProducts(int page){
+        private async Task<List<ItemProductsViewModel>> GetProducts(int option, int page, string key){
+            
             page--;
-            List<ItemProductsViewModel> pro = new List<ItemProductsViewModel>();
-            var query = (from p in _context.Products 
-                         orderby p.DateCreate descending
-                         select new ItemProductsViewModel
-                    {
-                        Id = p.Id,
-                        Name = p.Name,
-                        Price = p.Price,
-                        Saleoff = p.Saleoff,
-                        Thumbnail = p.Thumbnail,
-                        Stars = p.Stars,
-                        Views = p.Views,
-                        Orders = p.Orders
-                    });
-            pro = query.Skip(page*8).Take(8).ToList();
-            return pro;
+
+            List<ItemProductsViewModel> product = new List<ItemProductsViewModel>();
+            if(option == 0)
+            {
+               var  query = (from p in _context.Products
+                             orderby p.DateCreate descending
+                             select new ItemProductsViewModel
+                             {
+                                 Id = p.Id,
+                                 Name = p.Name,
+                                 Price = p.Price,
+                                 Saleoff = p.Saleoff,
+                                 Thumbnail = p.Thumbnail,
+                                 Stars = p.Stars,
+                                 Views = p.Views,
+                                 Orders = p.Orders
+                             });
+                product = await query.Skip(page * 8).Take(8).ToListAsync();
+            }
+            else if( option == 1)
+            {
+                var query = from p in _context.Products
+                            where p.Name.Contains(key.Trim())
+                            orderby p.DateCreate descending
+                            select new ItemProductsViewModel
+                            {
+                                Id = p.Id,
+                                Name = p.Name,
+                                Price = p.Price,
+                                Saleoff = p.Saleoff,
+                                Thumbnail = p.Thumbnail,
+                                Stars = p.Stars,
+                                Views = p.Views,
+                                Orders = p.Orders
+                            };
+                product = await query.Skip(page * 8).Take(8).ToListAsync();
+            }
+            
+            return product;
         }
     }
 }
