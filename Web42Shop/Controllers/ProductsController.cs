@@ -44,7 +44,7 @@ namespace Web42Shop.Controllers
             return View(product);
         }
 
-
+       
 
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -67,13 +67,14 @@ namespace Web42Shop.Controllers
         }
         public IActionResult Index(int? page)
         {
-            int p = (!page.HasValue) ? 1 : page.Value;
+            int p = page ?? 1 ;
             if (page <= 0) return NotFound();
             ListItemProductsViewModel homeProducts = new ListItemProductsViewModel
             {
                 CurrentPage = p,
                 TotalPage = GetTotalPage(),
-                ItemProducts = GetAllProducts(p)
+                ItemProducts = GetAllProducts(p),
+                ProductTypes = _context.ProductTypes.ToList()
             };
             return View(homeProducts);
 
@@ -125,7 +126,7 @@ namespace Web42Shop.Controllers
             {
                 return NotFound();
             }
-
+           
             var product = await _context.Products
                 .Include(p => p.Admin)
                 .Include(p => p.ProductBrand)
@@ -146,6 +147,7 @@ namespace Web42Shop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            //Error handling here
             var product = await _context.Products.FindAsync(id);
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
@@ -158,11 +160,14 @@ namespace Web42Shop.Controllers
         }
         //hàm cho phần phân trang
         private int GetTotalPage(){
+            //should dynamic number item of page ?
+            //what if there is no item in database. it's will return null ?
             int sl = _context.Products.Count();
             int total = (sl % 8 == 0) ? (sl / 8) : (sl / 8) + 1; 
             return total;
         }
         private List<ItemProductsViewModel> GetAllProducts(int page){
+            //Why we don't skip item in the query ?
             page--;
             List<ItemProductsViewModel> pro = new List<ItemProductsViewModel>();
             var query = (from p in _context.Products 

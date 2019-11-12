@@ -361,7 +361,7 @@ namespace Web42Shop.Controllers
             var admin = await _context.Admins.FindAsync(id);
             _context.Admins.Remove(admin);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("AdminsOverview", "Admin");
         }
 
         private bool AdminExists(int id)

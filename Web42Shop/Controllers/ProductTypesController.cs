@@ -59,6 +59,7 @@ namespace Web42Shop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Admin_Id,Type,DateCreate,DateModify")] ProductType productType)
         {
+            // error handling here 
             if (ModelState.IsValid)
             {
                 _context.Add(productType);
@@ -146,6 +147,7 @@ namespace Web42Shop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // you find the productType, what if productType not exit? it will break the system when delete the null value
             var productType = await _context.ProductTypes.FindAsync(id);
             _context.ProductTypes.Remove(productType);
             await _context.SaveChangesAsync();
