@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,19 +10,23 @@ using Web42Shop.Models;
 
 namespace Web42Shop.Controllers
 {
-    public class ProductBrandsController : Controller
+    public class ProductTypesController : Controller
     {
         private readonly Web42ShopDbContext _context;
 
-        public ProductBrandsController(Web42ShopDbContext context)
+        public ProductTypesController(Web42ShopDbContext context)
         {
             _context = context;
         }
 
-        // GET: ProductBrands suong1
+        // GET: ProductTypes
+        public async Task<IActionResult> Index()
+        {
+            var web42ShopDbContext = _context.ProductTypes.Include(p => p.Admin);
+            return View(await web42ShopDbContext.ToListAsync());
+        }
 
-
-        // GET: ProductBrands/Details/5
+        // GET: ProductTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -31,52 +34,42 @@ namespace Web42Shop.Controllers
                 return NotFound();
             }
 
-            var productBrand = await _context.ProductBrands
+            var productType = await _context.ProductTypes
                 .Include(p => p.Admin)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (productBrand == null)
+            if (productType == null)
             {
                 return NotFound();
             }
 
-            return View(productBrand);
+            return View(productType);
         }
 
-        // GET: ProductBrands/Create
+        // GET: ProductTypes/Create
         public IActionResult Create()
         {
-            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
-            {
-
-                ViewData["Admin_Id"] = new SelectList(_context.Admins, "Id", "Email");
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login", "Admin");
-
-            }
-
+            ViewData["Admin_Id"] = new SelectList(_context.Admins, "Id", "Email");
+            return View();
         }
 
-        // POST: ProductBrands/Create
+        // POST: ProductTypes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Admin_Id,Name,DateCreate,DateModify")] ProductBrand productBrand)
+        public async Task<IActionResult> Create([Bind("Id,Admin_Id,Type,DateCreate,DateModify")] ProductType productType)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(productBrand);
+                _context.Add(productType);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("ProductBrandsOverview", "Admin");
+                return RedirectToAction(nameof(Index));
             }
-            ViewData["Admin_Id"] = new SelectList(_context.Admins, "Id", "Email", productBrand.Admin_Id);
-            return View(productBrand);
+            ViewData["Admin_Id"] = new SelectList(_context.Admins, "Id", "Email", productType.Admin_Id);
+            return View(productType);
         }
 
-        // GET: ProductBrands/Edit/5
+        // GET: ProductTypes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,23 +77,23 @@ namespace Web42Shop.Controllers
                 return NotFound();
             }
 
-            var productBrand = await _context.ProductBrands.FindAsync(id);
-            if (productBrand == null)
+            var productType = await _context.ProductTypes.FindAsync(id);
+            if (productType == null)
             {
                 return NotFound();
             }
-            ViewData["Admin_Id"] = new SelectList(_context.Admins, "Id", "Email", productBrand.Admin_Id);
-            return View(productBrand);
+            ViewData["Admin_Id"] = new SelectList(_context.Admins, "Id", "Email", productType.Admin_Id);
+            return View(productType);
         }
 
-        // POST: ProductBrands/Edit/5
+        // POST: ProductTypes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Admin_Id,Name,DateCreate,DateModify")] ProductBrand productBrand)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Admin_Id,Type,DateCreate,DateModify")] ProductType productType)
         {
-            if (id != productBrand.Id)
+            if (id != productType.Id)
             {
                 return NotFound();
             }
@@ -109,12 +102,12 @@ namespace Web42Shop.Controllers
             {
                 try
                 {
-                    _context.Update(productBrand);
+                    _context.Update(productType);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductBrandExists(productBrand.Id))
+                    if (!ProductTypeExists(productType.Id))
                     {
                         return NotFound();
                     }
@@ -123,13 +116,13 @@ namespace Web42Shop.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("ProductBrandsOverview", "Admin");
+                return RedirectToAction(nameof(Index));
             }
-            ViewData["Admin_Id"] = new SelectList(_context.Admins, "Id", "Email", productBrand.Admin_Id);
-            return View(productBrand);
+            ViewData["Admin_Id"] = new SelectList(_context.Admins, "Id", "Email", productType.Admin_Id);
+            return View(productType);
         }
 
-        // GET: ProductBrands/Delete/5
+        // GET: ProductTypes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,31 +130,31 @@ namespace Web42Shop.Controllers
                 return NotFound();
             }
 
-            var productBrand = await _context.ProductBrands
+            var productType = await _context.ProductTypes
                 .Include(p => p.Admin)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (productBrand == null)
+            if (productType == null)
             {
                 return NotFound();
             }
 
-            return View(productBrand);
+            return View(productType);
         }
 
-        // POST: ProductBrands/Delete/5
+        // POST: ProductTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var productBrand = await _context.ProductBrands.FindAsync(id);
-            _context.ProductBrands.Remove(productBrand);
+            var productType = await _context.ProductTypes.FindAsync(id);
+            _context.ProductTypes.Remove(productType);
             await _context.SaveChangesAsync();
-            return RedirectToAction("ProductBrandsOverview", "Admin");
+            return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductBrandExists(int id)
+        private bool ProductTypeExists(int id)
         {
-            return _context.ProductBrands.Any(e => e.Id == id);
+            return _context.ProductTypes.Any(e => e.Id == id);
         }
     }
 }

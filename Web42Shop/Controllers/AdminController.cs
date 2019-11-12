@@ -23,13 +23,13 @@ namespace Web42Shop.Controllers
         private readonly Web42ShopDbContext _context;
         private readonly IHostingEnvironment _hostingEnviroment;
 
-        
-        public AdminController(Web42ShopDbContext context,IHostingEnvironment hostingEnvironment)
+
+        public AdminController(Web42ShopDbContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
             _hostingEnviroment = hostingEnvironment;
         }
-  
+
 
         // Trang phân công
         public IActionResult Index()
@@ -45,8 +45,8 @@ namespace Web42Shop.Controllers
             }
         }
 
-        
-        
+
+
 
         // Trang đăng nhập
         public IActionResult Login()
@@ -64,10 +64,10 @@ namespace Web42Shop.Controllers
                 ViewBag.Error = "Please Enter Correct Username And Password";
                 return View("Login");
             }
-            else if(Auth.Role_Id ==1)
+            else if (Auth.Role_Id == 1)
             {
                 HttpContext.Session.SetInt32("Admin_ID", Auth.Role_Id);
-         
+
                 return RedirectToAction("Index", "Admin");
             }
             else
@@ -95,7 +95,7 @@ namespace Web42Shop.Controllers
         {
             if (HttpContext.Session.GetInt32("Admin_ID") == 1)
             {
-                return View();
+                return View(_context.Users);
             }
             else
             {
@@ -121,7 +121,7 @@ namespace Web42Shop.Controllers
         }
         [HttpGet]
         // GET: /Link/
-       
+
         // Trang thêm sản phẩm
         public IActionResult ProductsNew()
         {
@@ -152,7 +152,7 @@ namespace Web42Shop.Controllers
         public IActionResult ProductsCreate(ProductsNewViewModel viewmodel)
         {
             // Thêm sản phẩm vào database
-            
+
             Product new_product = viewmodel.Product;
             new_product.Thumbnail = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
             _context.Products.Add(new_product);
@@ -160,15 +160,15 @@ namespace Web42Shop.Controllers
 
             // Tải hình ảnh sản phẩm lên thư mục wwwroot/uploads
             if (viewmodel.Thumbnail != null)
-            {           
+            {
                 string uniqueName = new_product.Thumbnail; // Tạo tên hình ảnh theo chuỗi ngày tháng lúc đăng ảnh
-                string newpath = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","uploads"); // Trỏ đường dẫn đến thư mục wwwroot/uploads
-                newpath = Path.Combine(newpath,uniqueName); // Trỏ đường dẫn đến tên hình ảnh
-                newpath = newpath+Path.GetExtension(viewmodel.Thumbnail.FileName); // Gắn đuôi (loại file) cho hình
-                viewmodel.Thumbnail.CopyTo(new FileStream(newpath,FileMode.Create)); // Copy hình từ nguồn sang wwwroot/uploads
+                string newpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads"); // Trỏ đường dẫn đến thư mục wwwroot/uploads
+                newpath = Path.Combine(newpath, uniqueName); // Trỏ đường dẫn đến tên hình ảnh
+                newpath = newpath + Path.GetExtension(viewmodel.Thumbnail.FileName); // Gắn đuôi (loại file) cho hình
+                viewmodel.Thumbnail.CopyTo(new FileStream(newpath, FileMode.Create)); // Copy hình từ nguồn sang wwwroot/uploads
             }
 
-            return RedirectToAction("ProductsOverview","Admin");
+            return RedirectToAction("ProductsOverview", "Admin");
         }
 
         // Trang tổng quát các nhãn hàng
@@ -206,7 +206,7 @@ namespace Web42Shop.Controllers
                 return RedirectToAction("Login");
 
             }
-            
+
         }
 
 
@@ -361,7 +361,7 @@ namespace Web42Shop.Controllers
             var admin = await _context.Admins.FindAsync(id);
             _context.Admins.Remove(admin);
             await _context.SaveChangesAsync();
-            return RedirectToAction("AdminsOverview", "Admin");
+            return RedirectToAction(nameof(Index));
         }
 
         private bool AdminExists(int id)
@@ -370,4 +370,3 @@ namespace Web42Shop.Controllers
         }
     }
 }
-

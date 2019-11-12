@@ -17,15 +17,17 @@ namespace Web42Shop.Controllers
         {
             _context = context;
         }
+
         // Trang chủ
         public IActionResult Index()
         {
-            HomeViewModel home = new HomeViewModel()
+            HomeViewModel viewmodel = new HomeViewModel()
             {
                 NewProducts = GetListItemProducts(0),
-                ViewMoreProduct = GetListItemProducts(1)
+                ViewMoreProduct = GetListItemProducts(1),
+                ProductTypes = _context.ProductTypes.ToList()
             };
-            return View(home);
+            return View(viewmodel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -38,7 +40,7 @@ namespace Web42Shop.Controllers
         private List<ItemProductsViewModel> GetListItemProducts(int type)
         {
             List<ItemProductsViewModel> products = new List<ItemProductsViewModel>();
-            if(type == 0)
+            if (type == 0)
             {
                 var query = (from p in _context.Products
                              orderby p.DateCreate descending
@@ -58,7 +60,7 @@ namespace Web42Shop.Controllers
             else if (type == 1)
             {
                 var query = (from p in _context.Products
-                             orderby p.Orders descending, p.Views descending 
+                             orderby p.Orders descending, p.Views descending
                              select new ItemProductsViewModel
                              {
                                  Id = p.Id,

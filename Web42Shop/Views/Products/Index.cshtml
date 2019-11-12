@@ -20,30 +20,30 @@
             {
                 @:<div class="row">
                 }
-                      <a href="#" class="col-3 product">
-                          @if (item.Saleoff != 0)
-                          {
-                              <p class="mrg0 iblck fl product__saleoff">-@item.Saleoff%</p>
-                          }
-                          <p class="mrg0 iblck fr product__views">
-                              <i class="fas fa-heart"></i> @item.Stars
-                              <i class="fas fa-eye"></i> @item.Views
-                              <i class="fas fa-shopping-cart"></i> @item.Orders
-                          </p>
-                          <img src="~/uploads/@item.Thumbnail" class="product__image" />
-                          <div class="product__info">
-                              <p class="mrg0 product__name">@item.Name</p>
-                              @if (item.Saleoff != 0)
-                              {
-                                  <p class="mrg0 product__oldprice">@String.Format("{0:0,0 VNĐ}", item.Price) </p>
-                                  <p class="mrg0 product__newprice">@String.Format("{0:0,0 VNĐ}", item.Price - item.Price * item.Saleoff / 100)</p>
-                              }
-                              else
-                              {
-                                  <p class="mrg0 product__newprice">@String.Format("{0:0,0 VNĐ}", item.Price)</p>
-                              }
-                          </div>
-                      </a>
+                <a href="#" class="col-3 product">
+                    @if (item.Saleoff != 0)
+                    {
+                        <p class="mrg0 iblck fl product__saleoff">-@item.Saleoff%</p>
+                    }
+                    <p class="mrg0 iblck fr product__views">
+                        <i class="fas fa-heart"></i> @item.Stars
+                        <i class="fas fa-eye"></i> @item.Views
+                        <i class="fas fa-shopping-cart"></i> @item.Orders
+                    </p>
+                    <img src="~/uploads/Products/@item.Thumbnail" class="product__image" />
+                    <div class="product__info">
+                        <p class="mrg0 product__name">@item.Name</p>
+                        @if (item.Saleoff != 0)
+                        {
+                            <p class="mrg0 product__oldprice">@String.Format("{0:0,0 VNĐ}", item.Price) </p>
+                            <p class="mrg0 product__newprice">@String.Format("{0:0,0 VNĐ}", item.Price - item.Price * item.Saleoff / 100)</p>
+                        }
+                        else
+                        {
+                            <p class="mrg0 product__newprice">@String.Format("{0:0,0 VNĐ}", item.Price)</p>
+                        }
+                    </div>
+                </a>
 
                 if (dem == 4)
                 {

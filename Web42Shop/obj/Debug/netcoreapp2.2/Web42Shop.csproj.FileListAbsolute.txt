@@ -384,3 +384,16 @@ C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcorea
 C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.RazorTargetAssemblyInfo.cs
 C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.Views.pdb
 C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.csproj.CopyComplete
+C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\Index.g.cshtml.cs
+C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\ListProducts.g.cshtml.cs
+C:\Users\ASUS\Source\Repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\SearchProducts.g.cshtml.cs
+C:\Users\ASUS\source\repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductTypes\Create.g.cshtml.cs
+C:\Users\ASUS\source\repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductTypes\Delete.g.cshtml.cs
+C:\Users\ASUS\source\repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductTypes\Details.g.cshtml.cs
+C:\Users\ASUS\source\repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductTypes\Edit.g.cshtml.cs
+C:\Users\ASUS\source\repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductTypes\Index.g.cshtml.cs
+C:\Users\ASUS\source\repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Create.g.cshtml.cs
+C:\Users\ASUS\source\repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Delete.g.cshtml.cs
+C:\Users\ASUS\source\repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Details.g.cshtml.cs
+C:\Users\ASUS\source\repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Edit.g.cshtml.cs
+C:\Users\ASUS\source\repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Index.g.cshtml.cs

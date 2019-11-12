@@ -3,7 +3,8 @@
     ViewBag.Title = "42Shop - Chuyên trang mua bán đồ công nghệ";
 }
 
-<div class="container-fluid section"><!-- Sản phẩm mới -->
+<div class="container-fluid section">
+    <!-- Sản phẩm mới -->
     <div class="container">
         <h1 class="section__title">SẢN PHẨM MỚI</h1>
         @{
@@ -25,7 +26,7 @@
                         <i class="fas fa-eye"></i> @item.Views
                         <i class="fas fa-shopping-cart"></i> @item.Orders
                     </p>
-                    <img src="~/uploads/Products/@item.Thumbnail" class="product__image" />
+                    <img src="~/uploads/@item.Thumbnail" class="product__image" />
                     <div class="product__info">
                         <p class="mrg0 product__name">@item.Name</p>
                         @if (item.Saleoff != 0)
@@ -53,7 +54,8 @@
     </div>
 </div><!-- end of section Sản phẩm mới -->
 
-<div class="container-fluid section section--yellow"><!-- Mua nhiều xem nhiều -->
+<div class="container-fluid section section--yellow">
+    <!-- Mua nhiều xem nhiều -->
     <div class="container">
         <h1 class="section__title">MUA NHIỀU XEM NHIỀU</h1>
         @{
@@ -75,7 +77,7 @@
                         <i class="fas fa-eye"></i> @item.Views
                         <i class="fas fa-shopping-cart"></i> @item.Orders
                     </p>
-                    <img src="~/uploads/Products/@item.Thumbnail" class="product__image" />
+                    <img src="~/uploads/@item.Thumbnail" class="product__image" />
                     <div class="product__info">
                         <p class="mrg0 product__name">@item.Name</p>
                         @if (item.Saleoff != 0)
@@ -173,7 +175,7 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <input type="checkbox" id="ReciveEmail" class="iblck fl"/>
+                        <input type="checkbox" id="ReciveEmail" class="iblck fl" />
                         <label class="iblck fl" for="ReciveEmail"> Nhận thông báo về sản phẩm mới và các chương trình khuyến mãi</label>
                     </div>
 
