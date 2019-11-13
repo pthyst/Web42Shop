@@ -54,7 +54,8 @@ namespace Web42Shop.Controllers
                 Value = key_s,
                 CurrentPage = p,
                 TotalPage = GetTotalPage(1, key_s),
-                ItemProducts = await GetProducts(1, p, key_s)
+                ItemProducts = await GetProducts(1, p, key_s),
+                ProductTypes = _context.ProductTypes.ToList()
             };
             return View(viewmodel);
         }
