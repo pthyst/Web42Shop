@@ -56,6 +56,7 @@ namespace Web42Shop.Controllers
                 TotalPage = GetTotalPage(1, key_s),
                 ItemProducts = await GetProducts(1, p, key_s),
                 ProductTypes = _context.ProductTypes.ToList()
+
             };
             return View(viewmodel);
         }
@@ -190,22 +191,45 @@ namespace Web42Shop.Controllers
         private async Task<List<ItemProductsViewModel>> GetProducts(int option, int page, string key)
         {
             page--;
-            List<ItemProductsViewModel> pro = new List<ItemProductsViewModel>();
-            var query = (from p in _context.Products
-                         orderby p.DateCreate descending
-                         select new ItemProductsViewModel
-                         {
-                             Id = p.Id,
-                             Name = p.Name,
-                             Price = p.Price,
-                             Saleoff = p.Saleoff,
-                             Thumbnail = p.Thumbnail,
-                             Stars = p.Stars,
-                             Views = p.Views,
-                             Orders = p.Orders
-                         });
-            pro = query.Skip(page * 8).Take(8).ToList();
-            return pro;
+
+            List<ItemProductsViewModel> product = new List<ItemProductsViewModel>();
+            if (option == 0)
+            {
+                var query = (from p in _context.Products
+                             orderby p.DateCreate descending
+                             select new ItemProductsViewModel
+                             {
+                                 Id = p.Id,
+                                 Name = p.Name,
+                                 Price = p.Price,
+                                 Saleoff = p.Saleoff,
+                                 Thumbnail = p.Thumbnail,
+                                 Stars = p.Stars,
+                                 Views = p.Views,
+                                 Orders = p.Orders
+                             });
+                product = await query.Skip(page * 8).Take(8).ToListAsync();
+            }
+            else if (option == 1)
+            {
+                var query = from p in _context.Products
+                            where p.Name.Contains(key.Trim())
+                            orderby p.DateCreate descending
+                            select new ItemProductsViewModel
+                            {
+                                Id = p.Id,
+                                Name = p.Name,
+                                Price = p.Price,
+                                Saleoff = p.Saleoff,
+                                Thumbnail = p.Thumbnail,
+                                Stars = p.Stars,
+                                Views = p.Views,
+                                Orders = p.Orders
+                            };
+                product = await query.Skip(page * 8).Take(8).ToListAsync();
+            }
+
+            return product;
 
         }
     }
