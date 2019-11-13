@@ -47,16 +47,19 @@ namespace Web42Shop.Controllers
         [HttpGet]
         public async Task<IActionResult> SearchProducts(string key_s, int? page)
         {
+            if (key_s == null) 
+                return RedirectToAction("Index", "Products");
             int p = (!page.HasValue) ? 1 : page.Value;
-            if (page <= 0) return NotFound();
+            int option = getInt32ForQuery("SearchByName");
+            if (p <= 0) return NotFound();
             ListItemProductsViewModel viewmodel = new ListItemProductsViewModel
             {
                 Value = key_s,
                 CurrentPage = p,
-                TotalPage = GetTotalPage(1, key_s),
-                ItemProducts = await GetProducts(1, p, key_s),
-                ProductTypes = _context.ProductTypes.ToList()
-
+                TotalPage = GetTotalPage(option, key_s),
+                ItemProducts = await GetProducts(option, p, key_s),
+                ProductTypes = _context.ProductTypes.ToList(),
+                OrderBy = "SearchByName",
             };
             return View(viewmodel);
         }
@@ -80,15 +83,20 @@ namespace Web42Shop.Controllers
             ViewData["Slug_Id"] = new SelectList(_context.Slugs, "Id", "Url", product.Slug_Id);
             return View(product);
         }
-        public async Task<IActionResult> Index(int? page)
+        public async Task<IActionResult> Index(string order_by, int? page)
         {
             int p = (!page.HasValue) ? 1 : page.Value;
-            if (page <= 0) return NotFound();
+            if (order_by == null) order_by = "OrderByDateCreate";
+            int option = getInt32ForQuery(order_by);
+            if (p <= 0 || option == -1) return NotFound();
             ListItemProductsViewModel homeProducts = new ListItemProductsViewModel
             {
                 Value = "Tất cả các sản phẩm ",
-                TotalPage = GetTotalPage(0, ""),
-                ItemProducts = await GetProducts(0, p, "")
+                TotalPage = GetTotalPage(option, ""),
+                CurrentPage = p,
+                ItemProducts = await GetProducts(option, p, ""),
+                ProductTypes = _context.ProductTypes.ToList(),
+                OrderBy = order_by
             };
             return View(homeProducts);
         }
@@ -174,13 +182,13 @@ namespace Web42Shop.Controllers
         private int GetTotalPage(int option, string key)
         {
             int total;
-            if (option == 0)
+            if (option == 0|| option == 1)
             {
                 int sl = _context.Products.Count();
                 total = (sl % 8 == 0) ? (sl / 8) : (sl / 8) + 1;
                 return total;
             }
-            else if (option == 1)
+            else if (option == 2)
             {
                 int sl = (from p in _context.Products where p.Name.Contains(key.Trim()) select p).Count();
                 total = (sl % 8 == 0) ? (sl / 8) : (sl / 8) + 1;
@@ -212,6 +220,23 @@ namespace Web42Shop.Controllers
             }
             else if (option == 1)
             {
+                var query = (from p in _context.Products
+                             orderby p.Orders descending, p.Views descending
+                             select new ItemProductsViewModel
+                             {
+                                 Id = p.Id,
+                                 Name = p.Name,
+                                 Price = p.Price,
+                                 Saleoff = p.Saleoff,
+                                 Thumbnail = p.Thumbnail,
+                                 Stars = p.Stars,
+                                 Views = p.Views,
+                                 Orders = p.Orders
+                             });
+                product = await query.Skip(page * 8).Take(8).ToListAsync();
+            }
+            else if (option == 2)
+            {
                 var query = from p in _context.Products
                             where p.Name.Contains(key.Trim())
                             orderby p.DateCreate descending
@@ -228,9 +253,23 @@ namespace Web42Shop.Controllers
                             };
                 product = await query.Skip(page * 8).Take(8).ToListAsync();
             }
-
             return product;
-
+        }
+        private int getInt32ForQuery(string value)
+        {
+            if (value == "OrderByDateCreate")
+            {
+                return 0;
+            }
+            else if(value == "OrderByOrdersViews")
+            {
+                return 1;
+            }
+            else if( value == "SearchByName")
+            {
+                return 2;
+            }
+            return -1;
         }
     }
 }

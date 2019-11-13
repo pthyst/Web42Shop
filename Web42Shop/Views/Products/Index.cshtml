@@ -56,7 +56,7 @@
         <div class="container txt-center section__pagination">
             @if (Model.CurrentPage > 1)
             {
-                <a href="~/products/index/?page=@(Model.CurrentPage - 1)" class="paginumber paginumber--first"><i class="fas fa-caret-left"></i></a>
+                <a href="~/products/index/?order_by=@Model.OrderBy&page=@(Model.CurrentPage - 1)" class="paginumber paginumber--first"><i class="fas fa-caret-left"></i></a>
             }
 
             <!--chia nút-->
@@ -66,11 +66,11 @@
                 {
                     if (i != Model.CurrentPage)
                     {
-                        <a href="~/products/index/?page=@i" class="paginumber">@i</a>
+                        <a href="~/products/index/?order_by=@Model.OrderBy&page=@i" class="paginumber">@i</a>
                     }
                     if (i == Model.CurrentPage)
                     {
-                        <a href="~/products/index/?page=@i" class="paginumber paginumber--active">@i</a>
+                        <a href="~/products/index/?order_by=@Model.OrderBy&page=@i" class="paginumber paginumber--active">@i</a>
                     }
                 }
             }
@@ -82,29 +82,29 @@
                     {
                         if (i != Model.CurrentPage)
                         {
-                            <a href="~/products/index/?page=@i" class="paginumber">@i</a>
+                            <a href="~/products/index/?order_by=@Model.OrderBy&page=@i" class="paginumber">@i</a>
                         }
                         if (i == Model.CurrentPage)
                         {
-                            <a href="~/products/index/?page=@i" class="paginumber paginumber--active">@i</a>
+                            <a href="~/products/index/?order_by=@Model.OrderBy&page=@i" class="paginumber paginumber--active">@i</a>
                         }
                     }
                     <a href="" class="paginumber">...</a>
-                    <a href="~/products/index/?page=@Model.TotalPage" class="paginumber">@Model.TotalPage</a>
+                    <a href="~/products/index/?order_by=@Model.OrderBy&page=@Model.TotalPage" class="paginumber">@Model.TotalPage</a>
                 }
                 else if ((Model.TotalPage - Model.CurrentPage) == 3)
                 {
-                    <a href="~/products/index/?page=1" class="paginumber">1</a>
+                    <a href="~/products/index/?order_by=@Model.OrderBy&page=1" class="paginumber">1</a>
                     <a href="" class="paginumber">...</a>
                     for (int i = Model.TotalPage - 6; i <= Model.TotalPage; i++)
                     {
                         if (i != Model.CurrentPage)
                         {
-                            <a href="~/products/index/?page=@i" class="paginumber">@i</a>
+                            <a href="~/products/index/?order_by=@Model.OrderBy&page=@i" class="paginumber">@i</a>
                         }
                         if (i == Model.CurrentPage)
                         {
-                            <a href="~/products/index/?page=@i" class="paginumber paginumber--active">@i</a>
+                            <a href="~/products/index/?order_by=@Model.OrderBy&page=@i" class="paginumber paginumber--active">@i</a>
                         }
                     }
                 }
@@ -114,7 +114,7 @@
                     {
                         if (i != Model.CurrentPage)
                         {
-                            <a href="~/products/index/?page=@i" class="paginumber">@i</a>
+                            <a href="~/products/index/?order_by=@Model.OrderBy&page=@i" class="paginumber">@i</a>
                         }
                     }
                     <a href="" class="paginumber">...</a>
@@ -122,27 +122,27 @@
                     {
                         if (i != Model.CurrentPage)
                         {
-                            <a href="~/products/index/?page=@i" class="paginumber">@i</a>
+                            <a href="~/products/index/?order_by=@Model.OrderBy&page=@i" class="paginumber">@i</a>
                         }
                         if (i == Model.CurrentPage)
                         {
-                            <a href="~/products/index/?page=@i" class="paginumber paginumber--active">@i</a>
+                            <a href="~/products/index/?order_by=@Model.OrderBy&page=@i" class="paginumber paginumber--active">@i</a>
                         }
                     }
                 }
                 else
                 {
-                    <a href="~/products/index/?page=1" class="paginumber">1</a>
+                    <a href="~/products/index/?order_by=SearchByName&page=1" class="paginumber">1</a>
                     <a href="" class="paginumber">...</a>
 
-                    <a href="~/products/index/?page=@(Model.CurrentPage-2)" class="paginumber">@(Model.CurrentPage - 2)</a>
-                    <a href="~/products/index/?page=@(Model.CurrentPage-1)" class="paginumber">@(Model.CurrentPage - 1)</a>
-                    <a href="~/products/index/?page=@(Model.CurrentPage)" class="paginumber paginumber--active">@(Model.CurrentPage)</a>
-                    <a href="~/products/index/?page=@(Model.CurrentPage+1)" class="paginumber">@(Model.CurrentPage + 1)</a>
-                    <a href="~/products/index/?page=@(Model.CurrentPage+2)" class="paginumber">@(Model.CurrentPage + 2)</a>
+                    <a href="~/products/index/?order_by=@Model.OrderBy&page=@(Model.CurrentPage-2)" class="paginumber">@(Model.CurrentPage - 2)</a>
+                    <a href="~/products/index/?order_by=@Model.OrderBy&page=@(Model.CurrentPage-1)" class="paginumber">@(Model.CurrentPage - 1)</a>
+                    <a href="~/products/index/?order_by=@Model.OrderBy&page=@(Model.CurrentPage)" class="paginumber paginumber--active">@(Model.CurrentPage)</a>
+                    <a href="~/products/index/?order_by=@Model.OrderBy&page=@(Model.CurrentPage+1)" class="paginumber">@(Model.CurrentPage + 1)</a>
+                    <a href="~/products/index/?order_by=@Model.OrderBy&page=@(Model.CurrentPage+2)" class="paginumber">@(Model.CurrentPage + 2)</a>
 
                     <a href="" class="paginumber">...</a>
-                    <a href="~/products/index/?page=@Model.TotalPage" class="paginumber">@Model.TotalPage</a>
+                    <a href="~/products/index/?order_by=@Model.OrderBy&page=@Model.TotalPage" class="paginumber">@Model.TotalPage</a>
                 }
             }
 
@@ -150,7 +150,7 @@
 
             @if (Model.CurrentPage <= Model.TotalPage - 1)
             {
-                <a href="~/products/index/?page=@(Model.CurrentPage + 1)" class="paginumber paginumber--last"><i class="fas fa-caret-right"></i></a>
+                <a href="~/products/index/?order_by=@Model.OrderBy&page=@(Model.CurrentPage + 1)" class="paginumber paginumber--last"><i class="fas fa-caret-right"></i></a>
             }
         </div>
     </div>
