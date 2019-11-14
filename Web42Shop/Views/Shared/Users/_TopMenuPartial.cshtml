@@ -6,7 +6,7 @@
             for (int i = 0; i <= 7; i++)
             {
                 var type = Model.ProductTypes[i];
-                <a asp-controller="Home" asp-action="Index" class="topmenu__href">@type.Type</a>
+                <a  href="~/Products/ListProducts/?type=@type.Type" class="topmenu__href">@type.Type</a>
             }
 
         }
@@ -19,7 +19,7 @@
                     for (int i = 8; i < n; i++)
                     {
                         var type = Model.ProductTypes[i];
-                        <a asp-controller="Home" asp-action="Index" class="iblck">@type.Type</a>
+                        <a href="~/Products/ListProducts/?type=@type.Type" class="iblck">@type.Type</a>
                     }
                 }
             </div>

@@ -43,7 +43,23 @@ namespace Web42Shop.Controllers
 
             return View(product);
         }
-
+        [HttpGet]
+        public async Task<IActionResult> ListProducts(string type, int ?page)
+        {
+            int p = (!page.HasValue) ? 1 : page.Value;
+            int option = getInt32ForQuery("GetListProductsFormType");
+            if (p <= 0) return NotFound();
+            ListItemProductsViewModel viewmodel = new ListItemProductsViewModel
+            {
+                Value = "Loại: " + type,
+                CurrentPage = p,
+                TotalPage = await GetTotalPage(option, type),
+                ItemProducts = await GetProducts(option, p, type),
+                ProductTypes = await _context.ProductTypes.ToListAsync(),
+                OrderBy = type
+            };
+            return View(viewmodel);
+        }
         [HttpGet]
         public async Task<IActionResult> SearchProducts(string key_s, int? page)
         {
@@ -56,7 +72,7 @@ namespace Web42Shop.Controllers
             {
                 Value = key_s,
                 CurrentPage = p,
-                TotalPage = GetTotalPage(option, key_s),
+                TotalPage = await GetTotalPage(option, key_s),
                 ItemProducts = await GetProducts(option, p, key_s),
                 ProductTypes = _context.ProductTypes.ToList(),
                 OrderBy = "SearchByName",
@@ -92,7 +108,7 @@ namespace Web42Shop.Controllers
             ListItemProductsViewModel homeProducts = new ListItemProductsViewModel
             {
                 Value = "Tất cả các sản phẩm ",
-                TotalPage = GetTotalPage(option, ""),
+                TotalPage = await GetTotalPage(option, ""),
                 CurrentPage = p,
                 ItemProducts = await GetProducts(option, p, ""),
                 ProductTypes = _context.ProductTypes.ToList(),
@@ -179,24 +195,34 @@ namespace Web42Shop.Controllers
             return _context.Products.Any(e => e.Id == id);
         }
         //hàm cho phần phân trang
-        private int GetTotalPage(int option, string key)
+        private async Task<int> GetTotalPage(int option, string key)
         {
             int total;
             if (option == 0|| option == 1)
             {
-                int sl = _context.Products.Count();
+                int sl = await _context.Products.CountAsync();
                 total = (sl % 8 == 0) ? (sl / 8) : (sl / 8) + 1;
                 return total;
             }
             else if (option == 2)
             {
-                int sl = (from p in _context.Products where p.Name.Contains(key.Trim()) select p).Count();
+                int sl = await (from p in _context.Products where p.Name.Contains(key.Trim()) select p).CountAsync();
+                total = (sl % 8 == 0) ? (sl / 8) : (sl / 8) + 1;
+                return total;
+            }
+            else if (option == 3)
+            {
+                int sl = await (from p in _context.Products
+                         join t in _context.ProductTypes
+                         on p.ProductType_Id equals t.Id
+                         where t.Type == key
+                         select p).CountAsync();
                 total = (sl % 8 == 0) ? (sl / 8) : (sl / 8) + 1;
                 return total;
             }
             return 0;
         }
-        private async Task<List<ItemProductsViewModel>> GetProducts(int option, int page, string key)
+        private async Task<List<ItemProductsViewModel>> GetProducts(int option, int page, string value)
         {
             page--;
 
@@ -238,7 +264,27 @@ namespace Web42Shop.Controllers
             else if (option == 2)
             {
                 var query = from p in _context.Products
-                            where p.Name.Contains(key.Trim())
+                            where p.Name.Contains(value.Trim())
+                            orderby p.DateCreate descending
+                            select new ItemProductsViewModel
+                            {
+                                Id = p.Id,
+                                Name = p.Name,
+                                Price = p.Price,
+                                Saleoff = p.Saleoff,
+                                Thumbnail = p.Thumbnail,
+                                Stars = p.Stars,
+                                Views = p.Views,
+                                Orders = p.Orders
+                            };
+                product = await query.Skip(page * 8).Take(8).ToListAsync();
+            }
+            else if(option == 3)
+            {
+                var query = from p in _context.Products
+                            join t in _context.ProductTypes
+                            on p.ProductType_Id equals t.Id
+                            where t.Type == value
                             orderby p.DateCreate descending
                             select new ItemProductsViewModel
                             {
@@ -268,6 +314,10 @@ namespace Web42Shop.Controllers
             else if( value == "SearchByName")
             {
                 return 2;
+            }
+            else if( value == "GetListProductsFormType")
+            {
+                return 3;
             }
             return -1;
         }
