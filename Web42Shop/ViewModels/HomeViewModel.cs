@@ -11,5 +11,6 @@ namespace Web42Shop.ViewModels
         public IEnumerable<ItemProductsViewModel> NewProducts { get; set; }
         public IEnumerable<ItemProductsViewModel> ViewMoreProduct { get; set; }
         public IEnumerable<ProductType> ProductTypes { get; set; }
+
     }
 }
