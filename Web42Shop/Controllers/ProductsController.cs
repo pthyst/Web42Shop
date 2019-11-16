@@ -43,11 +43,16 @@ namespace Web42Shop.Controllers
 
             return View(product);
         }
-        public async Task<IActionResult> Single(int id, int ?page)
+        [Route("~/{type}/{NameUrl}")]
+        public async Task<IActionResult> Single(string type,string NameUrl)
         {
-            int pe = (page.HasValue) ? (page.Value) : 1;
+            int page = 1;
             Product singleProduct = await (from p in _context.Products
-                                           where p.Id == id
+                                           join s in _context.Slugs
+                                           on p.Slug_Id equals s.Id
+                                           join t in _context.ProductTypes
+                                           on p.ProductType_Id equals t.Id
+                                           //where s.Url == NameUrl && t.
                                            select p).SingleOrDefaultAsync();
 
             if (singleProduct == null) return NotFound();
@@ -63,8 +68,9 @@ namespace Web42Shop.Controllers
                 SingleProduct = singleProduct,
                 ProductType = productType,
                 ProductBrand = productBrand,
+                Url = NameUrl,
                 ProductsSimilar = await GetProducts(getInt32ForQuery("GetListProductsFormType"), 1, productType),
-                ProductComments = await GetCommentById(id, pe),
+                ProductComments = await GetCommentById(singleProduct.Id, page),
                 ProductTypes = await _context.ProductTypes.ToListAsync(),
             };
             return View( viewModel);
@@ -250,14 +256,29 @@ namespace Web42Shop.Controllers
         }
 
         //hàm hỗ trợ khác //do Khải viết, có gì không hiểu liên lạc cho Khải
-        private async Task<IEnumerable<CommentViewModel>> GetCommentById(int id, int page)
+
+        [HttpPost]
+        public async Task<IActionResult> MoreComment(int id, int page)
+        {
+            var com = await GetCommentById(id, page);
+            int countCom = await (from c in _context.Comments where c.Product_Id == id select c).CountAsync();
+            PerformCommentsViewModel viewmodel = new PerformCommentsViewModel
+            {
+                Comments = com,
+                IdProduct = id,
+                StillComments = (com.Count() < countCom) ? true : false
+            };
+            
+            return PartialView("Users/_Comments", viewmodel);
+        }
+        private async Task<IEnumerable<CommentsViewModel>> GetCommentById(int id, int page)
         {
             page--;
-            List<CommentViewModel> comment = await (from c in _context.Comments join u in _context.Users
+            List<CommentsViewModel> comment = await (from c in _context.Comments join u in _context.Users
                                            on c.User_Id equals u.Id
                                            where c.Product_Id == id
                                            orderby c.DateCreate descending
-                                           select new CommentViewModel { 
+                                           select new CommentsViewModel { 
                                                 Id = c.Id,
                                                 User = u.NameFirst + u.NameMiddle + u.NameLast,
                                                 Product_Id = c.Product_Id,
@@ -265,7 +286,7 @@ namespace Web42Shop.Controllers
                                                 Content = c.Content,
                                                 DateCreate = c.DateCreate,
                                                 DateModify = c.DateModify
-                                           }).Skip(page * 12).Take(12).ToListAsync();
+                                           }).Skip(0).Take(page*10+10).ToListAsync();
             return comment;
         }
         private async Task<List<ItemProductsViewModel>> GetProducts(int option, int page, string value)

@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Web42Shop.Models
+
+namespace Web42Shop.ViewModels
 {
-    public class CommentViewModel
+    public class CommentsViewModel
     {
         [Key]
         public int Id { get; set; }

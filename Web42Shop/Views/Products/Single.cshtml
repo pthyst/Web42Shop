@@ -1,4 +1,5 @@
 ﻿@model Web42Shop.ViewModels.SingleProductViewModel;
+
 @{
     ViewBag.Title = "SingleProduct";
     Layout = "~/Views/Shared/Users/_IndexLayout.cshtml";
@@ -27,7 +28,7 @@
                     </div>
                 </a>
             }
-             </div><!-- end of Sản phẩm tương tự -->
+        </div><!-- end of Sản phẩm tương tự -->
         <!-- Chi tiết sản phẩm -->
         <div class="col-9 product__main">
             <!-- Tên sản phẩm -->
@@ -55,7 +56,7 @@
                         </tr>
                         <tr>
                             <th>Giá mới</th>
-                            <td class="newprice">@String.Format("{0:0,0 VNĐ}", Model.SingleProduct.Price - Model.SingleProduct.Price*Model.SingleProduct.Saleoff)</td>
+                            <td class="newprice">@String.Format("{0:0,0 VNĐ}", Model.SingleProduct.Price - Model.SingleProduct.Price * Model.SingleProduct.Saleoff)</td>
                         </tr>
                         <tr>
                             <th>Chi tiết sản phẩm</th>
@@ -68,7 +69,8 @@
                     <div class="blck w100 writecomment">
                         <p class="mrg0 iblck writecomment__username"><strong>Jack Sóng Gió</strong></p>
                         <div class="iblck writecomment__stars">
-                            <script>function DrawStars(_point) {
+                            <script>
+                                function DrawStars(_point) {
                                     var yellow = parseInt(_point, 10);
                                     var display = "";
                                     for (var i = 1; i <= 5; i++) {
@@ -97,22 +99,8 @@
                             <div class="txt-right"><button type="submit">Đăng bình luận</button></div>
                         </form>
                     </div>
-                    <div class="container-fluid mrg0 padd0">
-                        <!--<div class="comment">
-                            <p class="mrg0 iblck comment__username">fakename</p>
-                            <p class="mrg0 iblck comment__datetime"><i>10/10/2019</i></p>
-                            <div class="blck comment_stars">
-                                <i class="fas fa-star star--yellow"></i>
-                                <i class="fas fa-star star--yellow"></i>
-                                <i class="fas fa-star star--yellow"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>          
-                            </div>
-                            <div class="comment__content">
-                                <p>Sản phẩm này dùng rất tốt. Mong Shop đừng ra sản phẩm nào nữa.</p>}
-                            </div>
-                        </div>-->
-                        @foreach(var com in Model.ProductComments)
+                    <div class="container-fluid mrg0 padd0" id="CommentContainer">
+                        @foreach (var com in Model.ProductComments)
                         {
                             <div class="comment">
                                 <p class="mrg0 iblck comment__username">@com.User</p>
@@ -135,7 +123,9 @@
                                 </div>
                             </div>
                         }
+                        <button onclick="moreComments(@Model.SingleProduct.Id)" class="more-cmt">Xem Thêm</button>
                     </div>
+                    
                 </div><!-- end of Thông tin chính -->
                 <!-- Các nút Mua hàng,Thêm vào giỏ,Chia sẻ -->
                 <div class="col-3 relative">
@@ -161,5 +151,26 @@
 
     </div>
 </div>
+<p id="demo"></p>
 
-<script></script>
+
+<script>
+    var page = 1;
+</script>
+<script>
+    function moreComments(id) {
+        page++;
+        $.ajax({
+            url: "/Products/MoreComment",
+            type: "POST",
+            data: { id: id, page: page },
+            dataType: "HTML",
+            async: true,
+            success: function (data) {
+                //alert(data);    
+                $("#CommentContainer").html(data);
+
+            },
+        });
+    }
+</script>
