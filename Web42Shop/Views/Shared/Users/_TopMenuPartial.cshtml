@@ -1,16 +1,19 @@
-﻿<div class="container-fluid topmenu sticky">
+﻿@using Web42Shop.Models;
+@using Microsoft.AspNetCore.Http;
+<div class="container-fluid topmenu sticky">
     <div class="container txt-center">
 
         @{
             int n = Model.ProductTypes.Count;
             for (int i = 0; i <= 7; i++)
             {
-                var type = Model.ProductTypes[i];
-                <a  href="~/Products/ListProducts/?type=@type.Type" class="topmenu__href">@type.Type</a>
+                var type = Model.ProductTypes[i] as ProductType;
+                ViewBag.hau = type;
+
+                <a href="~/Products/ListProducts/?type=@type.Type.ToURLFriendly()" class="topmenu__href">@type.Type</a>
             }
 
         }
-
 
         <div class="topmenu__href topmenu__href--dropdown">
             <a href="#">Khác<i class="fas fa-caret-down"></i></a>
