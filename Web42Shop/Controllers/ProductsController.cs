@@ -43,6 +43,32 @@ namespace Web42Shop.Controllers
 
             return View(product);
         }
+        public async Task<IActionResult> Single(int id, int ?page)
+        {
+            int pe = (page.HasValue) ? (page.Value) : 1;
+            Product singleProduct = await (from p in _context.Products
+                                           where p.Id == id
+                                           select p).SingleOrDefaultAsync();
+
+            if (singleProduct == null) return NotFound();
+            
+            string productType = await (from t in _context.ProductTypes 
+                                        where t.Id == singleProduct.ProductType_Id
+                                        select t.Type).SingleOrDefaultAsync();
+            string productBrand = await (from b in _context.ProductBrands
+                                         where b.Id == singleProduct.ProductType_Id
+                                         select b.Name).SingleOrDefaultAsync();
+            SingleProductViewModel viewModel = new SingleProductViewModel
+            {
+                SingleProduct = singleProduct,
+                ProductType = productType,
+                ProductBrand = productBrand,
+                ProductsSimilar = await GetProducts(getInt32ForQuery("GetListProductsFormType"), 1, productType),
+                ProductComments = await GetCommentById(id, pe),
+                ProductTypes = await _context.ProductTypes.ToListAsync(),
+            };
+            return View( viewModel);
+        }
         [HttpGet]
         public async Task<IActionResult> ListProducts(string type, int ?page)
         {
@@ -221,6 +247,26 @@ namespace Web42Shop.Controllers
                 return total;
             }
             return 0;
+        }
+
+        //hàm hỗ trợ khác //do Khải viết, có gì không hiểu liên lạc cho Khải
+        private async Task<IEnumerable<CommentViewModel>> GetCommentById(int id, int page)
+        {
+            page--;
+            List<CommentViewModel> comment = await (from c in _context.Comments join u in _context.Users
+                                           on c.User_Id equals u.Id
+                                           where c.Product_Id == id
+                                           orderby c.DateCreate descending
+                                           select new CommentViewModel { 
+                                                Id = c.Id,
+                                                User = u.NameFirst + u.NameMiddle + u.NameLast,
+                                                Product_Id = c.Product_Id,
+                                                Stars = c.Stars,
+                                                Content = c.Content,
+                                                DateCreate = c.DateCreate,
+                                                DateModify = c.DateModify
+                                           }).Skip(page * 12).Take(12).ToListAsync();
+            return comment;
         }
         private async Task<List<ItemProductsViewModel>> GetProducts(int option, int page, string value)
         {
