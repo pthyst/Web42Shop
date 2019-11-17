@@ -10,6 +10,7 @@ namespace Web42Shop.Data
 { 
     public class Web42ShopDbContext:DbContext
     {
+        // sương
         public Web42ShopDbContext(DbContextOptions<Web42ShopDbContext> options) : base(options) { }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Cart> Carts{get;set;}
