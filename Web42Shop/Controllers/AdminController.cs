@@ -154,9 +154,10 @@ namespace Web42Shop.Controllers
             // Thêm sản phẩm vào database
 
             Product new_product = viewmodel.Product;
+           // Product new_product1 = viewmodel.Product;
             new_product.Thumbnail = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
-            _context.Products.Add(new_product);
-            _context.SaveChanges();
+           // new_product1.Thumbnail = new_product.Thumbnail+ Path.GetExtension(viewmodel.Thumbnail.FileName);
+            
 
             // Tải hình ảnh sản phẩm lên thư mục wwwroot/uploads
             if (viewmodel.Thumbnail != null)
@@ -166,6 +167,9 @@ namespace Web42Shop.Controllers
                 newpath = Path.Combine(newpath, uniqueName); // Trỏ đường dẫn đến tên hình ảnh
                 newpath = newpath + Path.GetExtension(viewmodel.Thumbnail.FileName); // Gắn đuôi (loại file) cho hình
                 viewmodel.Thumbnail.CopyTo(new FileStream(newpath, FileMode.Create)); // Copy hình từ nguồn sang wwwroot/uploads
+                new_product.Thumbnail += Path.GetExtension(viewmodel.Thumbnail.FileName);
+                _context.Products.Add(new_product);
+                _context.SaveChanges();
             }
 
             return RedirectToAction("ProductsOverview", "Admin");
