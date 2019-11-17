@@ -30,9 +30,6 @@ namespace Web42Shop.Models
         [Display(Name = "Ngày chỉnh sửa cuối")]
         public DateTime DateModify { get; set; }
 
-        [Required(ErrorMessage = "Chưa nhập hiển thị cho URL")]
-        public string URL { get; set; }
-
         // Phần này dành cho khóa ngoại
         #region Foreign Keys
         public ICollection<Product> Products { get; set; }

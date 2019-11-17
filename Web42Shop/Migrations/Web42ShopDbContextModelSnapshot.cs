@@ -359,6 +359,9 @@ namespace Web42Shop.Migrations
 
                     b.HasIndex("Admin_Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.HasIndex("ProductBrand_Id");
 
                     b.HasIndex("ProductType_Id");
@@ -407,9 +410,6 @@ namespace Web42Shop.Migrations
                     b.Property<DateTime>("DateModify");
 
                     b.Property<string>("Type")
-                        .IsRequired();
-
-                    b.Property<string>("URL")
                         .IsRequired();
 
                     b.HasKey("Id");

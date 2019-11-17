@@ -397,17 +397,3 @@ C:\Users\ASUS\source\repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Ra
 C:\Users\ASUS\source\repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Details.g.cshtml.cs
 C:\Users\ASUS\source\repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Edit.g.cshtml.cs
 C:\Users\ASUS\source\repos\pthyst\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Index.g.cshtml.cs
-C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\ListProducts.cshtml.g.cs
-C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\SearchProducts.cshtml.g.cs
-C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Products\Single.cshtml.g.cs
-C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductTypes\Create.cshtml.g.cs
-C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductTypes\Delete.cshtml.g.cs
-C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductTypes\Details.cshtml.g.cs
-C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductTypes\Edit.cshtml.g.cs
-C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductTypes\Index.cshtml.g.cs
-C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Users\_Comments.cshtml.g.cs
-C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Create.cshtml.g.cs
-C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Delete.cshtml.g.cs
-C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Details.cshtml.g.cs
-C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Edit.cshtml.g.cs
-C:\Users\KhaiCQ\Documents\Project\aps.net\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Index.cshtml.g.cs
