@@ -13150,11 +13150,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ASUS\\source\\repos\\pthyst\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
+      "projectUniqueName": "C:\\Users\\ASUS\\Documents\\GitHub\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
       "projectName": "Web42Shop",
-      "projectPath": "C:\\Users\\ASUS\\source\\repos\\pthyst\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
+      "projectPath": "C:\\Users\\ASUS\\Documents\\GitHub\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
       "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ASUS\\source\\repos\\pthyst\\Web42Shop\\Web42Shop\\obj\\",
+      "outputPath": "C:\\Users\\ASUS\\Documents\\GitHub\\Web42Shop\\Web42Shop\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
