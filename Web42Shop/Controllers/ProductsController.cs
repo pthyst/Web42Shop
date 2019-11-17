@@ -20,7 +20,7 @@ namespace Web42Shop.Controllers
             _context = context;
         }
 
-        // GET: Products
+        // GET: Products12
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
