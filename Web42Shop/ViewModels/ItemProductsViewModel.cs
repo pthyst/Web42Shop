@@ -37,5 +37,7 @@ namespace Web42Shop.ViewModels
 
         [Display(Name = "Lượt đặt hàng")]
         public int Orders { get; set; } = 0;
+        public string TypeUrl { get; set; }
+        public string NameUrl { get; set; }
     }
 }

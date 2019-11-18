@@ -10,7 +10,7 @@
                 var type = Model.ProductTypes[i] as ProductType;
                 ViewBag.hau = type;
 
-                <a href="~/Products/ListProducts/?type=@type.Type.ToURLFriendly()" class="topmenu__href">@type.Type</a>
+                <a href="~/@type.URL" class="topmenu__href">@type.Type</a>
             }
 
         }

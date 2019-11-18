@@ -12,8 +12,8 @@
             <p class="product_side__title txt-center">SẢN PHẨM TƯƠNG TỰ</p>
             @foreach (var item in Model.ProductsSimilar)
             {
-                <a href="#" class="blck other_product">
-                    <img class="iblck fl" src="~/uploads/Products/@item.Thumbnail">
+                <a href="~/@item.TypeUrl/@item.NameUrl" class="blck other_product">
+                    <img class="iblck fl" src="~/uploads/@item.Thumbnail">
                     <div class="iblck">
                         <p class="other_product__name">@item.Name</p>
                         @if (item.Saleoff != 0)
@@ -44,7 +44,7 @@
             <div class="row">
                 <!-- Thông tin chính -->
                 <div class="col-9">
-                    <img src="~/uploads/Products/@Model.SingleProduct.Thumbnail">
+                    <img src="~/uploads/@Model.SingleProduct.Thumbnail">
                     <table>
                         <tr>
                             <th>Tên sản phẩm</th>
@@ -100,7 +100,7 @@
                         </form>
                     </div>
                     <div class="container-fluid mrg0 padd0" id="CommentContainer">
-                        @foreach (var com in Model.ProductComments)
+                        @foreach (var com in Model.ProductComments.Comments)
                         {
                             <div class="comment">
                                 <p class="mrg0 iblck comment__username">@com.User</p>
@@ -123,7 +123,10 @@
                                 </div>
                             </div>
                         }
-                        <button onclick="moreComments(@Model.SingleProduct.Id)" class="more-cmt">Xem Thêm</button>
+                        @if (Model.ProductComments.StillComments)
+                        {
+                            <button onclick="moreComments(@Model.ProductComments.IdProduct)" class="more-cmt">Xem Thêm</button>
+                        }
                     </div>
                     
                 </div><!-- end of Thông tin chính -->
@@ -141,9 +144,9 @@
                         <a href="#" class="action action--addtocart"><i class="fas fa-shopping-cart"></i> THÊM VÀO GIỎ</a>
                         <a href="#" class="action action--share"><i class="fas fa-share-alt"></i> CHIA SẺ</a>
                     </div>
-                    <div class="product__main__tags">
+                    <!--<div class="product__main__tags">
                         <a href="#">#laptop</a><a href="#">#SONY</a><a href="#">#2019</a>
-                    </div>
+                    </div>-->
                 </div><!-- end of Các nút Mua hàng,Thêm vào giỏ,Chia sẻ -->
 
             </div>

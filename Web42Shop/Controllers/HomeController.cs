@@ -43,6 +43,10 @@ namespace Web42Shop.Controllers
             if (type == 0)
             {
                 var query = (from p in _context.Products
+                             join s in _context.Slugs
+                             on p.Slug_Id equals s.Id
+                             join t in _context.ProductTypes
+                             on p.ProductType_Id equals t.Id
                              orderby p.DateCreate descending
                              select new ItemProductsViewModel
                              {
@@ -53,13 +57,19 @@ namespace Web42Shop.Controllers
                                  Thumbnail = p.Thumbnail,
                                  Stars = p.Stars,
                                  Views = p.Views,
-                                 Orders = p.Orders
+                                 Orders = p.Orders,
+                                 NameUrl = s.Url,
+                                 TypeUrl = t.URL
                              });
                 products = query.Skip(0).Take(8).ToList();
             }
             else if (type == 1)
             {
                 var query = (from p in _context.Products
+                             join s in _context.Slugs
+                             on p.Slug_Id equals s.Id
+                             join t in _context.ProductTypes
+                             on p.ProductType_Id equals t.Id
                              orderby p.Orders descending, p.Views descending
                              select new ItemProductsViewModel
                              {
@@ -70,7 +80,9 @@ namespace Web42Shop.Controllers
                                  Thumbnail = p.Thumbnail,
                                  Stars = p.Stars,
                                  Views = p.Views,
-                                 Orders = p.Orders
+                                 Orders = p.Orders,
+                                 NameUrl = s.Url,
+                                 TypeUrl = t.URL
                              });
                 products = query.Skip(0).Take(8).ToList();
             }

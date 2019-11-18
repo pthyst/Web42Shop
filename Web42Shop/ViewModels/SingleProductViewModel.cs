@@ -13,7 +13,7 @@ namespace Web42Shop.ViewModels
         public string ProductBrand { get; set; }
         public string Url { get; set; }
         public IEnumerable<ItemProductsViewModel> ProductsSimilar { get; set; }
-        public IEnumerable<CommentsViewModel> ProductComments { get; set; }
+        public PerformCommentsViewModel ProductComments { get; set; }
         public IEnumerable<ProductType> ProductTypes { get; set; }
     }
 }

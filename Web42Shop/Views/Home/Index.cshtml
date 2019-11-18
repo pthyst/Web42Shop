@@ -15,9 +15,6 @@
             <div class="col-md-12">
                 <h1 class="section__title">SẢN PHẨM MỚI</h1>
                 <div class="product-carousel">
-
-
-
                     @{
                         int dem = 1;
                     }
@@ -46,7 +43,7 @@
                                         <img src="~/uploads/@item.Thumbnail" class="product__image" alt="" />
                                         <div class="product-hover">
                                             <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm Giỏ Hàng</a>
-                                            <a href="#" class="view-details-link"><i class="fa fa-link"></i> Xem Chi Tiết</a>
+                                            <a href="~/@item.TypeUrl/@item.NameUrl" class="view-details-link"><i class="fa fa-link"></i> Xem Chi Tiết</a>
                                         </div>
                                     </div>
 
@@ -79,7 +76,7 @@
 
 
                     <div class="container txt-center">
-                        <a href="#" class="section__seemore">Xem thêm</a>
+                        <a href="/products/orderbydatecreate" class="section__seemore">Xem thêm</a>
                     </div>
                 </div>
             </div>
@@ -124,7 +121,7 @@
                                         <img src="~/uploads/@item.Thumbnail" class="product__image" alt="" />
                                         <div class="product-hover">
                                             <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm Giỏ Hàng</a>
-                                            <a href="#" class="view-details-link"><i class="fa fa-link"></i> Xem Chi Tiết</a>
+                                            <a href="~/@item.TypeUrl/@item.NameUrl" class="view-details-link"><i class="fa fa-link"></i> Xem Chi Tiết</a>
                                         </div>
                                     </div>
 
@@ -150,44 +147,11 @@
                                 dem = 0;
                             @:</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         }
                         dem++;
                     }
-
-
                     <div class="container txt-center">
-                        <a href="#" class="section__seemore">Xem thêm</a>
+                        <a href="products/orderbyordersviews" class="section__seemore">Xem thêm</a>
                     </div>
                 </div>
             </div>
