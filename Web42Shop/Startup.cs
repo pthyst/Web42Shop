@@ -30,18 +30,21 @@ namespace Web42Shop
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false; // KHÔNG BAO GIỜ ĐỂ LÀ TRUE, LÀM ƠN
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<Web42ShopDbContext>(dbContextOptionBuilder => dbContextOptionBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            // ----- Phần này để sử dụng Session. Hướng dẫn tại : https://www.c-sharpcorner.com/article/all-about-session-in-asp-net-core/
+            services.AddDistributedMemoryCache();
             services.AddSession(p =>
             {
                 p.IdleTimeout = TimeSpan.FromMinutes(5);
             });
+            // ----- //
+
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDbContext<Web42ShopDbContext>(dbContextOptionBuilder => dbContextOptionBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(opt =>
