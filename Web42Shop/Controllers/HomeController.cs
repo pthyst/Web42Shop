@@ -13,7 +13,6 @@ namespace Web42Shop.Controllers
     public class HomeController : Controller
     {
         private Web42ShopDbContext _context;
-        
         public HomeController(Web42ShopDbContext context)
         {
             _context = context;

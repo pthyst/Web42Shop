@@ -15,10 +15,19 @@
             <div class="col-md-12">
                 <h1 class="section__title">SẢN PHẨM MỚI</h1>
                 <div class="product-carousel">
-    
-                    <div class="row">
-                        @foreach (var item in Model.NewProducts)
+                    @{
+                        int dem = 1;
+                    }
+                    @foreach (var item in Model.NewProducts)
+
+                    {
+
+                        if (dem == 1)
                         {
+                            @:<div class="row">
+                            }
+
+
                             <div class="col-3 product">
                                 <div class="single-product">
                                     @if (item.Saleoff != 0)
@@ -49,12 +58,22 @@
                                         {
                                             <p class="mrg0 product__newprice" style="color:black">@String.Format("{0:0,0 VNĐ}", item.Price)</p>
                                         }
+
                                     </div>
+
                                 </div>
+
                             </div>
+                            if (dem == 4)
+                            {
+                                dem = 0;
+                            @:</div>
+
+
+                        }
+                        dem++;
                     }
-                    </div>
-                    
+
 
                     <div class="container txt-center">
                         <a href="/products/orderbydatecreate" class="section__seemore">Xem thêm</a>
@@ -72,9 +91,21 @@
             <div class="col-md-12">
                 <h1 class="section__title">MUA NHIỀU XEM NHIỀU</h1>
                 <div class="product-carousel">
-                    <div class="row">
-                        @foreach (var item in Model.ViewMoreProduct)
+
+
+                    @{
+                        dem = 1;
+                    }
+                    @foreach (var item in Model.ViewMoreProduct)
+
+                    {
+
+                        if (dem == 1)
                         {
+                            @:<div class="row">
+                            }
+
+
                             <div class="col-3 product">
                                 <div class="single-product">
                                     @if (item.Saleoff != 0)
@@ -105,12 +136,20 @@
                                         {
                                             <p class="mrg0 product__newprice">@String.Format("{0:0,0 VNĐ}", item.Price)</p>
                                         }
+
                                     </div>
+
                                 </div>
+
                             </div>
+                            if (dem == 4)
+                            {
+                                dem = 0;
+                            @:</div>
+
                         }
-                    </div>
-                    
+                        dem++;
+                    }
                     <div class="container txt-center">
                         <a href="products/orderbyordersviews" class="section__seemore">Xem thêm</a>
                     </div>
