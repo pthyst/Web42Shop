@@ -40,6 +40,7 @@ namespace Web42Shop.Controllers
             return View(homeProducts);
         }
         
+
         [HttpGet]
         [Route("~/{TypeUrl}/{page:int?}")]
         public async Task<IActionResult> ListProducts(string TypeUrl, int ?page)
@@ -58,7 +59,6 @@ namespace Web42Shop.Controllers
             };
             return View(viewmodel);
         }
-
         [HttpGet]
         [Route("Search")]
         public async Task<IActionResult> SearchProducts(string key_s, int? page)
