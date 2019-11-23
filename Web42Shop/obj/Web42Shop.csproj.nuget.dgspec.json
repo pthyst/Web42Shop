@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\KhaiCQ\\Documents\\Project\\aps.net\\Web42Shop\\Web42Shop\\Web42Shop.csproj": {}
+    "D:\\Work\\Projects\\TMDT\\Web42Shop\\Web42Shop\\Web42Shop\\Web42Shop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\KhaiCQ\\Documents\\Project\\aps.net\\Web42Shop\\Web42Shop\\Web42Shop.csproj": {
+    "D:\\Work\\Projects\\TMDT\\Web42Shop\\Web42Shop\\Web42Shop\\Web42Shop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\KhaiCQ\\Documents\\Project\\aps.net\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
+        "projectUniqueName": "D:\\Work\\Projects\\TMDT\\Web42Shop\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
         "projectName": "Web42Shop",
-        "projectPath": "C:\\Users\\KhaiCQ\\Documents\\Project\\aps.net\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
-        "packagesPath": "C:\\Users\\KhaiCQ\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\KhaiCQ\\Documents\\Project\\aps.net\\Web42Shop\\Web42Shop\\obj\\",
+        "projectPath": "D:\\Work\\Projects\\TMDT\\Web42Shop\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "D:\\Work\\Projects\\TMDT\\Web42Shop\\Web42Shop\\Web42Shop\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\KhaiCQ\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -53,6 +53,10 @@
             },
             "Microsoft.AspNetCore.Razor.Design": {
               "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Session": {
               "target": "Package",
               "version": "[2.2.0, )"
             },

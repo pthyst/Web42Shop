@@ -22,7 +22,7 @@ namespace Web42Shop.Controllers
     {
         private readonly Web42ShopDbContext _context;
         private readonly IHostingEnvironment _hostingEnviroment;
-
+       
 
         public AdminController(Web42ShopDbContext context, IHostingEnvironment hostingEnvironment)
         {
@@ -45,9 +45,6 @@ namespace Web42Shop.Controllers
             }
         }
 
-
-
-
         // Trang đăng nhập
         public IActionResult Login()
         {
@@ -64,10 +61,9 @@ namespace Web42Shop.Controllers
                 ViewBag.Error = "Please Enter Correct Username And Password";
                 return View("Login");
             }
-            else if (Auth.Role_Id == 1)
+            else if (Auth.Role_Id <= 3) // SuperAdmin = 1, Admin = 2, Author = 3
             {
                 HttpContext.Session.SetInt32("Admin_ID", Auth.Role_Id);
-
                 return RedirectToAction("Index", "Admin");
             }
             else
