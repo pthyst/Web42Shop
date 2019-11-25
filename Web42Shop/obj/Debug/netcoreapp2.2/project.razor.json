@@ -1,5 +1,5 @@
 {
-  "FilePath": "g:\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
+  "FilePath": "h:\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-2.1",
     "LanguageVersion": "2.1",
@@ -15,7 +15,7 @@
         "Kind": "ITagHelper",
         "Name": "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper",
         "AssemblyName": "Microsoft.AspNetCore.Mvc.TagHelpers",
-        "Documentation": "\n            <summary>\n            <see cref=\"T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper\" /> implementation targeting &lt;a&gt; elements.\n            </summary>\n        ",
+        "Documentation": null,
         "TagOutputHint": null,
         "CaseSensitive": false,
         "TagMatchingRules": [
@@ -369,7 +369,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets the <see cref=\"T:Microsoft.Extensions.Caching.Memory.CacheItemPriority\" /> policy for the cache entry.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "Priority"
@@ -383,7 +383,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets a <see cref=\"T:System.String\" /> to vary the cached result by.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "VaryBy"
@@ -397,7 +397,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets a comma-delimited set of HTTP request headers to vary the cached result by.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "VaryByHeader"
@@ -411,7 +411,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets a comma-delimited set of query parameters to vary the cached result by.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "VaryByQuery"
@@ -425,7 +425,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets a comma-delimited set of route data parameters to vary the cached result by.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "VaryByRoute"
@@ -439,7 +439,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets a comma-delimited set of cookie names to vary the cached result by.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "VaryByCookie"
@@ -453,7 +453,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets a value that determines if the cached result is to be varied by the Identity for the logged in\n            <see cref=\"P:Microsoft.AspNetCore.Http.HttpContext.User\" />.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "VaryByUser"
@@ -467,7 +467,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets a value that determines if the cached result is to be varied by request culture.\n            <para>\n            Setting this to <c>true</c> would result in the result to be varied by <see cref=\"P:System.Globalization.CultureInfo.CurrentCulture\" />\n            and <see cref=\"P:System.Globalization.CultureInfo.CurrentUICulture\" />.\n            </para>\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "VaryByCulture"
@@ -481,7 +481,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets the exact <see cref=\"T:System.DateTimeOffset\" /> the cache entry should be evicted.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "ExpiresOn"
@@ -495,7 +495,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets the duration, from the time the cache entry was added, when it should be evicted.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "ExpiresAfter"
@@ -509,7 +509,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets the duration from last access that the cache entry should be evicted.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "ExpiresSliding"
@@ -523,7 +523,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets the value which determines if the tag helper is enabled or not.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "Enabled"
@@ -585,7 +585,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets a <see cref=\"T:System.String\" /> to vary the cached result by.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "VaryBy"
@@ -599,7 +599,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets a comma-delimited set of HTTP request headers to vary the cached result by.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "VaryByHeader"
@@ -613,7 +613,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets a comma-delimited set of query parameters to vary the cached result by.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "VaryByQuery"
@@ -627,7 +627,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets a comma-delimited set of route data parameters to vary the cached result by.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "VaryByRoute"
@@ -641,7 +641,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets a comma-delimited set of cookie names to vary the cached result by.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "VaryByCookie"
@@ -655,7 +655,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets a value that determines if the cached result is to be varied by the Identity for the logged in\n            <see cref=\"P:Microsoft.AspNetCore.Http.HttpContext.User\" />.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "VaryByUser"
@@ -669,7 +669,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets a value that determines if the cached result is to be varied by request culture.\n            <para>\n            Setting this to <c>true</c> would result in the result to be varied by <see cref=\"P:System.Globalization.CultureInfo.CurrentCulture\" />\n            and <see cref=\"P:System.Globalization.CultureInfo.CurrentUICulture\" />.\n            </para>\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "VaryByCulture"
@@ -683,7 +683,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets the exact <see cref=\"T:System.DateTimeOffset\" /> the cache entry should be evicted.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "ExpiresOn"
@@ -697,7 +697,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets the duration, from the time the cache entry was added, when it should be evicted.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "ExpiresAfter"
@@ -711,7 +711,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets the duration from last access that the cache entry should be evicted.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "ExpiresSliding"
@@ -725,7 +725,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            Gets or sets the value which determines if the tag helper is enabled or not.\n            </summary>\n        ",
+            "Documentation": null,
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "Enabled"
@@ -2966,13 +2966,38 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Shared\\Users\\_Comments.cshtml",
+      "TargetPath": "Views\\Shared\\Users\\_Comments.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Users\\Details.cshtml",
+      "TargetPath": "Views\\Users\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Admin\\Index.cshtml",
       "TargetPath": "Views\\Admin\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\User\\Index.cshtml",
+      "TargetPath": "Views\\User\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\ProductBrands\\Details.cshtml",
+      "TargetPath": "Views\\ProductBrands\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Admin\\UsersOverview.cshtml",
       "TargetPath": "Views\\Admin\\UsersOverview.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Users\\Edit.cshtml",
+      "TargetPath": "Views\\Users\\Edit.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -2986,8 +3011,38 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\ProductBrands\\Edit.cshtml",
+      "TargetPath": "Views\\ProductBrands\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Users\\Index.cshtml",
+      "TargetPath": "Views\\Users\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\ProductTypes\\Create.cshtml",
+      "TargetPath": "Views\\ProductTypes\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Products\\Index.cshtml",
       "TargetPath": "Views\\Products\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Products\\Delete.cshtml",
+      "TargetPath": "Views\\Products\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\User\\Register.cshtml",
+      "TargetPath": "Views\\User\\Register.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\ProductBrands\\Create.cshtml",
+      "TargetPath": "Views\\ProductBrands\\Create.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -2996,8 +3051,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Admin\\Delete.cshtml",
+      "TargetPath": "Views\\Admin\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Shared\\Users\\_BannerPartial.cshtml",
       "TargetPath": "Views\\Shared\\Users\\_BannerPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\ProductBrands\\Delete.cshtml",
+      "TargetPath": "Views\\ProductBrands\\Delete.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -3006,13 +3071,43 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\ProductTypes\\Index.cshtml",
+      "TargetPath": "Views\\ProductTypes\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Products\\ListProducts.cshtml",
+      "TargetPath": "Views\\Products\\ListProducts.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\ProductTypes\\Delete.cshtml",
+      "TargetPath": "Views\\ProductTypes\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Admin\\Report.cshtml",
       "TargetPath": "Views\\Admin\\Report.cshtml",
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Admin\\ProductEdit.cshtml",
+      "TargetPath": "Views\\Admin\\ProductEdit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Shared\\_CookieConsentPartial.cshtml",
       "TargetPath": "Views\\Shared\\_CookieConsentPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\ProductTypes\\Details.cshtml",
+      "TargetPath": "Views\\ProductTypes\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Products\\SearchProducts.cshtml",
+      "TargetPath": "Views\\Products\\SearchProducts.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -3031,8 +3126,8 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Admin\\ProductsNew.cshtml",
-      "TargetPath": "Views\\Admin\\ProductsNew.cshtml",
+      "FilePath": "Views\\Users\\Create.cshtml",
+      "TargetPath": "Views\\Users\\Create.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -3046,8 +3141,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Admin\\ProductDetail.cshtml",
+      "TargetPath": "Views\\Admin\\ProductDetail.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Shared\\Users\\_CarouselsPartial.cshtml",
       "TargetPath": "Views\\Shared\\Users\\_CarouselsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Admin\\Create.cshtml",
+      "TargetPath": "Views\\Admin\\Create.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -3058,6 +3163,21 @@
     {
       "FilePath": "Views\\Shared\\Users\\_FooterPartial.cshtml",
       "TargetPath": "Views\\Shared\\Users\\_FooterPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\User\\Login.cshtml",
+      "TargetPath": "Views\\User\\Login.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Admin\\Edit.cshtml",
+      "TargetPath": "Views\\Admin\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Shared\\PageNotFoundLayout.cshtml",
+      "TargetPath": "Views\\Shared\\PageNotFoundLayout.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -3076,13 +3196,38 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\ProductTypes\\Edit.cshtml",
+      "TargetPath": "Views\\ProductTypes\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Products\\Edit.cshtml",
+      "TargetPath": "Views\\Products\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Shared\\Users\\_HeaderPartial.cshtml",
       "TargetPath": "Views\\Shared\\Users\\_HeaderPartial.cshtml",
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Products\\Details.cshtml",
+      "TargetPath": "Views\\Products\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Users\\Delete.cshtml",
+      "TargetPath": "Views\\Users\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Admin\\OrdersOverview.cshtml",
       "TargetPath": "Views\\Admin\\OrdersOverview.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Admin\\Details.cshtml",
+      "TargetPath": "Views\\Admin\\Details.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -3096,8 +3241,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "Views\\Admin\\ProductNew.cshtml",
+      "TargetPath": "Views\\Admin\\ProductNew.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "Views\\Admin\\Login.cshtml",
       "TargetPath": "Views\\Admin\\Login.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Admin\\ProductBrandsOverview.cshtml",
+      "TargetPath": "Views\\Admin\\ProductBrandsOverview.cshtml",
       "FileKind": "mvc"
     }
   ],

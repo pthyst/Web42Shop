@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Web42Shop.ViewModels
 {
-    public class ProductsNewViewModel
+    public class ProductNewViewModel
     {
         public Product Product { get; set; }
         public IEnumerable<ProductBrand> ProductBrands { get; set; }

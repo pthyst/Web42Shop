@@ -201,13 +201,10 @@
     min-height: 40rem;
 }
 .create__title {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0rem;
     display: inline-block;
-    background-color: #4CC62D;
-    color: #fff;
-    font-size: 1.2rem;
-    border-radius: 0.1rem;
-    box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.2);
+    color: #4B4B4B;
+    font-size: 1.4rem;
 }
 .create input:focus,.create select:focus,.create textarea:focus
 {
@@ -289,4 +286,18 @@
 .brands__button--delete
 {
     background:#313131;
+}
+.button
+{
+    display: inline-block;
+    padding: 0.5rem;
+    min-width: 120px;
+    font-size: 1.1rem;
+    outline: none;
+    border: 0;
+}
+.button--submit
+{
+    background-color: #107C48;
+    color: #fff;
 }

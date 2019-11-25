@@ -30,11 +30,11 @@ namespace Web42Shop.Controllers
             _hostingEnviroment = hostingEnvironment;
         }
 
-
+        // SuperAdmin = 1, Admin = 2, Author = 3
         // Trang phân công
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            if (HttpContext.Session.GetInt32("Role_Id") <= 3)
             {
                 return View();
             }
@@ -48,7 +48,8 @@ namespace Web42Shop.Controllers
         // Trang đăng nhập
         public IActionResult Login()
         {
-            HttpContext.Session.Remove("Admin_ID");
+            HttpContext.Session.Remove("Role_Id");
+            HttpContext.Session.Remove("Admin_Id");
             return View();
         }
         [HttpPost]
@@ -61,9 +62,10 @@ namespace Web42Shop.Controllers
                 ViewBag.Error = "Please Enter Correct Username And Password";
                 return View("Login");
             }
-            else if (Auth.Role_Id <= 3) // SuperAdmin = 1, Admin = 2, Author = 3
+            else if (Auth.Role_Id <= 3) 
             {
-                HttpContext.Session.SetInt32("Admin_ID", Auth.Role_Id);
+                HttpContext.Session.SetInt32("Role_Id", Auth.Role_Id);
+                HttpContext.Session.SetInt32("Admin_Id", Auth.Id);
                 return RedirectToAction("Index", "Admin");
             }
             else
@@ -75,7 +77,7 @@ namespace Web42Shop.Controllers
         // Trang tổng quát các đơn hàng
         public IActionResult OrdersOverview()
         {
-            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            if (HttpContext.Session.GetInt32("Role_Id") <= 3)
             {
                 return View();
             }
@@ -89,7 +91,7 @@ namespace Web42Shop.Controllers
         // Trang tổng quát người dùng
         public IActionResult UsersOverview()
         {
-            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            if (HttpContext.Session.GetInt32("Role_Id") <= 3)
             {
                 return View(_context.Users);
             }
@@ -104,7 +106,7 @@ namespace Web42Shop.Controllers
         // Trang tổng quát sản phẩm
         public IActionResult ProductsOverview()
         {
-            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            if (HttpContext.Session.GetInt32("Role_Id") <= 3)
             {
 
                 return View(_context.Products);
@@ -112,14 +114,12 @@ namespace Web42Shop.Controllers
             else
             {
                 return RedirectToAction("Login");
-
             }
         }
-        [HttpGet]
-        // GET: /Link/
-
-        // Trang thêm sản phẩm
-        public IActionResult ProductsNew()
+        
+        #region Sản phẩm
+        // Thêm sản phẩm
+        public IActionResult ProductNew()
         {
             // Tạo slug mới
             var new_slug = new Slug();
@@ -130,12 +130,12 @@ namespace Web42Shop.Controllers
             _context.Slugs.Add(new_slug);
             _context.SaveChanges();
 
-            ProductsNewViewModel viewmodel = new ProductsNewViewModel()
+            ProductNewViewModel viewmodel = new ProductNewViewModel()
             {
                 Product = new Product()
                 {
                     Slug_Id = _context.Slugs.LastOrDefault().Id,
-                    Admin_Id = _context.Admins.LastOrDefault().Id
+                    Admin_Id = (int)HttpContext.Session.GetInt32("Admin_Id")
                 },
                 ProductBrands = _context.ProductBrands.ToList(),
                 ProductTypes = _context.ProductTypes.ToList()
@@ -143,18 +143,13 @@ namespace Web42Shop.Controllers
 
             return View(viewmodel);
         }
-        // Lấy dữ liệu từ form và đưa vào database
+
         [HttpPost]
-        public IActionResult ProductsCreate(ProductsNewViewModel viewmodel)
+        public IActionResult ProductNew(ProductNewViewModel viewmodel)
         {
-            // Thêm sản phẩm vào database
-
             Product new_product = viewmodel.Product;
-           // Product new_product1 = viewmodel.Product;
             new_product.Thumbnail = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
-           // new_product1.Thumbnail = new_product.Thumbnail+ Path.GetExtension(viewmodel.Thumbnail.FileName);
-            
-
+        
             // Tải hình ảnh sản phẩm lên thư mục wwwroot/uploads
             if (viewmodel.Thumbnail != null)
             {
@@ -167,10 +162,127 @@ namespace Web42Shop.Controllers
                 _context.Products.Add(new_product);
                 _context.SaveChanges();
             }
-
             return RedirectToAction("ProductsOverview", "Admin");
         }
 
+        [HttpGet]
+        public IActionResult ProductDetail(int id)
+        {
+            Product detail = _context.Products.Where(p => p.Id == id).FirstOrDefault();
+            if (detail != null)
+            {
+                ProductDetailViewModel vm = new ProductDetailViewModel()
+                {
+                    Product     = detail,
+                    BrandName   = _context.ProductBrands.Where(p => p.Id == detail.ProductBrand_Id).FirstOrDefault().Name,
+                    ProductType = _context.ProductTypes.Where(p => p.Id == detail.ProductType_Id).FirstOrDefault().Type,
+                    AdminUsername = _context.Admins.Where(p => p.Id == detail.Admin_Id).FirstOrDefault().Username
+                };
+                return View(vm);
+            }
+            else
+            {
+                return RedirectToAction("ProductsOverview","Admin");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult ProductEdit(int id)
+        {
+            Product edit = _context.Products.Where(p => p.Id == id).FirstOrDefault();
+            if (edit != null)
+            {
+                ProductEditViewModel vm = new ProductEditViewModel()
+                {
+                    Product = edit,
+                    ProductBrands = _context.ProductBrands.OrderBy(p => p.Name).ToList(),
+                    ProductTypes  = _context.ProductTypes.OrderBy(p => p.Type).ToList()
+                };
+                return View(vm);
+            }
+            else
+            {
+                return RedirectToAction("ProductsOverview","Admin");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ProductEdit(ProductEditViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                Product data = vm.Product;
+                Product up = _context.Products.Where(p => p.Id == data.Id).FirstOrDefault();
+
+                up.Name            = data.Name;
+                up.Description     = data.Description;
+                up.ProductBrand_Id = data.ProductBrand_Id;
+                up.ProductType_Id  = data.ProductType_Id;
+                up.Description     = data.Description;
+                up.Price           = data.Price;
+                up.Saleoff         = data.Saleoff;
+                up.DateModify      = data.DateModify;
+                up.Instore         = data.Instore;
+                up.BuyPoints       = data.BuyPoints;
+
+                if (vm.Thumbnail != null)
+                {
+                    // Xóa ảnh cũ
+                    string old_image = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","uploads",data.Thumbnail);
+                    if (System.IO.File.Exists(old_image))
+                    {
+                        System.IO.File.Delete(old_image);
+                    }
+            
+                    // Lưu ảnh mới
+                    string rename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + Path.GetExtension(vm.Thumbnail.FileName);
+                    string new_image = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","uploads", rename);
+                    vm.Thumbnail.CopyTo(new FileStream(new_image,FileMode.Create));
+                    up.Thumbnail = rename;
+                }
+                _context.SaveChanges();
+                return View(
+                    new ProductEditViewModel()
+                    {
+                        Product       = _context.Products.Where(p => p.Id == vm.Product.Id).FirstOrDefault(),
+                        ProductBrands = _context.ProductBrands.OrderBy(p => p.Name).ToList(),
+                        ProductTypes  = _context.ProductTypes.OrderBy(p => p.Type).ToList()
+                    }
+                );
+            }
+            else
+            {
+                return View(
+                    new ProductEditViewModel()
+                    {
+                        Product = vm.Product,
+                        ProductBrands = _context.ProductBrands.OrderBy(p => p.Name).ToList(),
+                        ProductTypes  = _context.ProductTypes.OrderBy(p => p.Type).ToList()
+                    }
+                );
+            }
+        }
+
+        [HttpGet]
+        public IActionResult ProductDelete(int id)
+        {
+            Product delete = _context.Products.Where(p => p.Id == id).FirstOrDefault();
+            if (delete != null)
+            {
+                // Xóa hình ảnh đại diện trong thư mục wwwroot/uploads
+                string path_delete = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","uploads",delete.Thumbnail);
+                
+                // Phải sử dụng System.IO thì mới xài được File
+                if (System.IO.File.Exists(path_delete))
+                {
+                    System.IO.File.Delete(path_delete);
+                }
+                _context.Products.Remove(delete);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("ProductsOverview","Admin");
+        }
+        #endregion
         // Trang tổng quát các nhãn hàng
         public IActionResult ProductBrandsOverview()
         {
@@ -181,7 +293,7 @@ namespace Web42Shop.Controllers
         // Trang tổng quát loại sản phẩm
         public IActionResult ProductTypes()
         {
-            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            if (HttpContext.Session.GetInt32("Role_Id") <= 3)
             {
                 return View();
             }
@@ -197,7 +309,7 @@ namespace Web42Shop.Controllers
         // Trang tổng quan quản trị
         public IActionResult AdminsOverview()
         {
-            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            if (HttpContext.Session.GetInt32("Role_Id") <= 3)
             {
                 return View(_context.Admins);
             }
@@ -213,7 +325,7 @@ namespace Web42Shop.Controllers
         // Trang thống kê
         public IActionResult Report()
         {
-            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            if (HttpContext.Session.GetInt32("Role_Id") <= 3)
             {
                 return View();
             }
@@ -227,7 +339,7 @@ namespace Web42Shop.Controllers
         // Trang cài đặt
         public IActionResult Setting()
         {
-            if (HttpContext.Session.GetInt32("Admin_ID") == 1)
+            if (HttpContext.Session.GetInt32("Role_Id") <= 3)
             {
                 return View();
             }

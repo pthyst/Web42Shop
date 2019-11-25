@@ -248,7 +248,6 @@ C:\Users\ASUS\Source\Repos\Web42Shop2\Web42Shop\obj\Debug\netcoreapp2.2\Web42Sho
 C:\Users\ASUS\Source\Repos\Web42Shop2\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.dll
 C:\Users\ASUS\Source\Repos\Web42Shop2\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.pdb
 C:\Users\ASUS\Source\Repos\Web42Shop2\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.csproj.CopyComplete
-H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\ProductsNew.g.cshtml.cs
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\User\Index.g.cshtml.cs
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\User\Login.g.cshtml.cs
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\User\Register.g.cshtml.cs
@@ -595,3 +594,7 @@ D:\Work\Projects\TMDT\Web42Shop\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Web4
 D:\Work\Projects\TMDT\Web42Shop\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.pdb
 D:\Work\Projects\TMDT\Web42Shop\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.csproj.CopyComplete
 D:\Work\Projects\TMDT\Web42Shop\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\PageNotFound.cshtml.g.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\PageNotFoundLayout.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\ProductEdit.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\ProductNew.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\ProductDetail.g.cshtml.cs

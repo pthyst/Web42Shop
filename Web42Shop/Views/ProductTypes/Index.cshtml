@@ -9,9 +9,9 @@
     <div class="container-fluid overview">
         <div class="row">
             <div class="container-fluid">
-                <a asp-controller="Admin" asp-action="ProductsOverview" class="overview__title overview__title--products overview__title--active">Sản phẩm</a>
+                <a asp-controller="Admin" asp-action="ProductsOverview" class="overview__title overview__title--products">Sản phẩm</a>
                 <a asp-controller="Admin" asp-action="ProductBrandsOverview" class="overview__title overview__title--brands">Nhãn hàng</a>
-                <a asp-controller="ProductTyPes" asp-action="index  " class="overview__title overview__title--types">Loại sản phẩm</a>
+                <a asp-controller="ProductTyPes" asp-action="index  " class="overview__title overview__title--types overview__title--active">Loại sản phẩm</a>
             </div>
         </div>
         <a asp-controller="ProductTyPes" asp-action="Create" class="overview__button overview__button--new"><i class="fas fa-plus"></i>Thêm Loại Sản Phẩm</a>
@@ -21,8 +21,8 @@
                 <th>Loại Sản Phẩm</th>
                 <th>Ngày Tạo</th>
                 <th>Ngày Chỉnh Sửa Cuối</th>
-                <th>Xóa</th>
                 <th>Sửa</th>
+                <th>Xóa</th>
             </tr>
             @foreach (var item in Model)
             {
