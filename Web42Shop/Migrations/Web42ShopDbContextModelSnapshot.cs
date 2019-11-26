@@ -382,7 +382,8 @@ namespace Web42Shop.Migrations
 
                     b.Property<DateTime>("DateModify");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
 
                     b.Property<int>("Instore");
 

@@ -1,5 +1,5 @@
 {
-  "FilePath": "g:\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
+  "FilePath": "h:\\Web42Shop\\Web42Shop\\Web42Shop.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-2.1",
     "LanguageVersion": "2.1",
@@ -2961,143 +2961,298 @@
   "RootNamespace": "Web42Shop",
   "Documents": [
     {
-      "FilePath": "Views\\Shared\\Error.cshtml",
-      "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\User\\Login.cshtml",
+      "TargetPath": "Views\\User\\Login.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Admin\\Index.cshtml",
-      "TargetPath": "Views\\Admin\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Admin\\UsersOverview.cshtml",
-      "TargetPath": "Views\\Admin\\UsersOverview.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Shared\\Users\\_TopMenuPartial.cshtml",
-      "TargetPath": "Views\\Shared\\Users\\_TopMenuPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Home\\Index.cshtml",
-      "TargetPath": "Views\\Home\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Products\\Index.cshtml",
-      "TargetPath": "Views\\Products\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Home\\Privacy.cshtml",
-      "TargetPath": "Views\\Home\\Privacy.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Shared\\Users\\_BannerPartial.cshtml",
-      "TargetPath": "Views\\Shared\\Users\\_BannerPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\_ViewImports.cshtml",
-      "TargetPath": "Views\\_ViewImports.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Admin\\Report.cshtml",
-      "TargetPath": "Views\\Admin\\Report.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Shared\\_CookieConsentPartial.cshtml",
-      "TargetPath": "Views\\Shared\\_CookieConsentPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Admin\\AdminsOverview.cshtml",
-      "TargetPath": "Views\\Admin\\AdminsOverview.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Admin\\_AdminIndexLayout.cshtml",
-      "TargetPath": "Views\\Admin\\_AdminIndexLayout.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Cart\\Index.cshtml",
-      "TargetPath": "Views\\Cart\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Admin\\ProductsNew.cshtml",
-      "TargetPath": "Views\\Admin\\ProductsNew.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Admin\\_AdminSideMenuPartial.cshtml",
-      "TargetPath": "Views\\Admin\\_AdminSideMenuPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Shared\\_Layout.cshtml",
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Shared\\Users\\_CarouselsPartial.cshtml",
-      "TargetPath": "Views\\Shared\\Users\\_CarouselsPartial.cshtml",
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\Edit.cshtml",
+      "TargetPath": "Views\\Admin\\Edit.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\_ViewStart.cshtml",
-      "TargetPath": "Views\\_ViewStart.cshtml",
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\ProductTypes\\Delete.cshtml",
+      "TargetPath": "Views\\ProductTypes\\Delete.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Shared\\Users\\_FooterPartial.cshtml",
-      "TargetPath": "Views\\Shared\\Users\\_FooterPartial.cshtml",
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\Details.cshtml",
+      "TargetPath": "Views\\Admin\\Details.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Admin\\Setting.cshtml",
-      "TargetPath": "Views\\Admin\\Setting.cshtml",
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Shared\\_CookieConsentPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_CookieConsentPartial.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Admin\\ProductsOverview.cshtml",
-      "TargetPath": "Views\\Admin\\ProductsOverview.cshtml",
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Shared\\Users\\_TopMenuPartial.cshtml",
+      "TargetPath": "Views\\Shared\\Users\\_TopMenuPartial.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Shared\\Users\\_IndexLayout.cshtml",
-      "TargetPath": "Views\\Shared\\Users\\_IndexLayout.cshtml",
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\UsersOverview.cshtml",
+      "TargetPath": "Views\\Admin\\UsersOverview.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Shared\\Users\\_HeaderPartial.cshtml",
-      "TargetPath": "Views\\Shared\\Users\\_HeaderPartial.cshtml",
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Products\\Index.cshtml",
+      "TargetPath": "Views\\Products\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Admin\\OrdersOverview.cshtml",
-      "TargetPath": "Views\\Admin\\OrdersOverview.cshtml",
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\ProductBrands\\Delete.cshtml",
+      "TargetPath": "Views\\ProductBrands\\Delete.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
-      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "Views\\Products\\Single.cshtml",
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Products\\Single.cshtml",
       "TargetPath": "Views\\Products\\Single.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Views\\Admin\\Login.cshtml",
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Products\\Details.cshtml",
+      "TargetPath": "Views\\Products\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Shared\\Users\\_FooterPartial.cshtml",
+      "TargetPath": "Views\\Shared\\Users\\_FooterPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Users\\Edit.cshtml",
+      "TargetPath": "Views\\Users\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\ProductNew.cshtml",
+      "TargetPath": "Views\\Admin\\ProductNew.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\ProductDetail.cshtml",
+      "TargetPath": "Views\\Admin\\ProductDetail.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Products\\Delete.cshtml",
+      "TargetPath": "Views\\Products\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\ProductsOverview.cshtml",
+      "TargetPath": "Views\\Admin\\ProductsOverview.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\ProductTypes\\Edit.cshtml",
+      "TargetPath": "Views\\ProductTypes\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\ProductTypes\\Details.cshtml",
+      "TargetPath": "Views\\ProductTypes\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Shared\\Users\\_HeaderPartial.cshtml",
+      "TargetPath": "Views\\Shared\\Users\\_HeaderPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\ProductBrands\\Create.cshtml",
+      "TargetPath": "Views\\ProductBrands\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Home\\Index.cshtml",
+      "TargetPath": "Views\\Home\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\AdminsOverview.cshtml",
+      "TargetPath": "Views\\Admin\\AdminsOverview.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\ProductTypes\\Index.cshtml",
+      "TargetPath": "Views\\ProductTypes\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\Report.cshtml",
+      "TargetPath": "Views\\Admin\\Report.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\Create.cshtml",
+      "TargetPath": "Views\\Admin\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Products\\SearchProducts.cshtml",
+      "TargetPath": "Views\\Products\\SearchProducts.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Shared\\Users\\_BannerPartial.cshtml",
+      "TargetPath": "Views\\Shared\\Users\\_BannerPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Users\\Delete.cshtml",
+      "TargetPath": "Views\\Users\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\ProductEdit.cshtml",
+      "TargetPath": "Views\\Admin\\ProductEdit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\_ViewImports.cshtml",
+      "TargetPath": "Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Products\\Edit.cshtml",
+      "TargetPath": "Views\\Products\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Home\\Privacy.cshtml",
+      "TargetPath": "Views\\Home\\Privacy.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\ProductBrands\\Details.cshtml",
+      "TargetPath": "Views\\ProductBrands\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Users\\Index.cshtml",
+      "TargetPath": "Views\\Users\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\_AdminIndexLayout.cshtml",
+      "TargetPath": "Views\\Admin\\_AdminIndexLayout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\Setting.cshtml",
+      "TargetPath": "Views\\Admin\\Setting.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Shared\\Users\\_CarouselsPartial.cshtml",
+      "TargetPath": "Views\\Shared\\Users\\_CarouselsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\Delete.cshtml",
+      "TargetPath": "Views\\Admin\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\Index.cshtml",
+      "TargetPath": "Views\\Admin\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Shared\\Error.cshtml",
+      "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\User\\Index.cshtml",
+      "TargetPath": "Views\\User\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Shared\\Users\\_IndexLayout.cshtml",
+      "TargetPath": "Views\\Shared\\Users\\_IndexLayout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Users\\Create.cshtml",
+      "TargetPath": "Views\\Users\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\ProductBrands\\Edit.cshtml",
+      "TargetPath": "Views\\ProductBrands\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\ProductTypes\\Create.cshtml",
+      "TargetPath": "Views\\ProductTypes\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Shared\\Users\\_Comments.cshtml",
+      "TargetPath": "Views\\Shared\\Users\\_Comments.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\OrdersOverview.cshtml",
+      "TargetPath": "Views\\Admin\\OrdersOverview.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\Login.cshtml",
       "TargetPath": "Views\\Admin\\Login.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\_AdminSideMenuPartial.cshtml",
+      "TargetPath": "Views\\Admin\\_AdminSideMenuPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\User\\Register.cshtml",
+      "TargetPath": "Views\\User\\Register.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Admin\\ProductBrandsOverview.cshtml",
+      "TargetPath": "Views\\Admin\\ProductBrandsOverview.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Cart\\Index.cshtml",
+      "TargetPath": "Views\\Cart\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\_ViewStart.cshtml",
+      "TargetPath": "Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Users\\Details.cshtml",
+      "TargetPath": "Views\\Users\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Products\\ListProducts.cshtml",
+      "TargetPath": "Views\\Products\\ListProducts.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "h:\\Web42Shop\\Web42Shop\\Views\\Shared\\PageNotFoundLayout.cshtml",
+      "TargetPath": "Views\\Shared\\PageNotFoundLayout.cshtml",
       "FileKind": "mvc"
     }
   ],

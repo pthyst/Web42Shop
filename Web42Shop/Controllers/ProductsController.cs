@@ -149,7 +149,7 @@ namespace Web42Shop.Controllers
             {
                 return NotFound();
             }
-            ViewData["Admin_Id"] = new SelectList(_context.Admins, "Id", "Email", product.Admin_Id);
+            ViewData["Admin_Id"] = new SelectList(_context.Admins, "Id", "Id", product.Admin_Id);
             ViewData["ProductBrand_Id"] = new SelectList(_context.ProductBrands, "Id", "Name", product.ProductBrand_Id);
             ViewData["ProductType_Id"] = new SelectList(_context.ProductTypes, "Id", "Type", product.ProductType_Id);
             ViewData["Slug_Id"] = new SelectList(_context.Slugs, "Id", "Url", product.Slug_Id);
