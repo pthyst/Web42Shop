@@ -12,7 +12,7 @@
             <a asp-controller="ProductTyPes" asp-action="index" class="overview__title overview__title--types">Loại sản phẩm</a>
         </div>
     </div>
-    <a asp-controller="Admin" asp-action="ProductsNew" class="overview__button overview__button--new"><i class="fas fa-plus"></i>Thêm sản phẩm</a>
+    <a asp-controller="Admin" asp-action="ProductNew" class="overview__button overview__button--new"><i class="fas fa-plus"></i>Thêm sản phẩm</a>
 
     <table class="overview__table overview__table--products">
         <tr>
@@ -24,8 +24,8 @@
             <th>Số lượng <br />trong kho</th>
             <th><i class="fas fa-eye"></i></th>
             <th><i class="fas fa-shopping-cart"></i></th>
-            <th>Sửa</th>
-            <th>Xóa</th>
+            <th></th>
+            <th></th>
         </tr>
 
         @foreach (var item in Model)
@@ -36,7 +36,7 @@
 
             <tr>
 
-                <td><a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">@item.Name</a></td>
+                <td><a asp-controller="Admin" asp-action="ProductDetail" asp-route-id="@item.Id">@item.Name</a></td>
                 <td>@item.Price</td>
                 <td>@item.Saleoff</td>
                 <td>@tong</td>
@@ -44,10 +44,9 @@
                 <td>@item.Views</td>
                 <td>@item.Orders</td>
                 <td>
-                    <a asp-action="Edit" asp-controller="Products" asp-route-id="@item.Id" class="overview__button overview__button-- "><i class="fas fa-edit"></i>Edit</a>
-
+                    <a asp-controller="Admin" asp-action="ProductEdit" asp-route-id="@item.Id" class="overview__button"><i class="fas fa-edit"></i> Sửa</a>
                 </td>
-                <td><a asp-action="Delete" asp-controller="Products" asp-route-id="@item.Id" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i>Delete</a></td>
+                <td><a asp-controller="Admin" asp-action="ProductDelete" asp-route-id="@item.Id" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa</a></td>
             </tr>
 
         }

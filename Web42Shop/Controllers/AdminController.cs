@@ -17,7 +17,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Web42Shop.Controllers
 {
-
     public class AdminController : Controller
     {
         private readonly Web42ShopDbContext _context;
@@ -109,7 +108,7 @@ namespace Web42Shop.Controllers
             if (HttpContext.Session.GetInt32("Role_Id") <= 3)
             {
 
-                return View(_context.Products);
+                return View(_context.Products.OrderByDescending(p => p.Id));
             }
             else
             {
@@ -148,20 +147,25 @@ namespace Web42Shop.Controllers
         public IActionResult ProductNew(ProductNewViewModel viewmodel)
         {
             Product new_product = viewmodel.Product;
-            new_product.Thumbnail = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
-        
+            new_product.Thumbnail = "#";
+
             // Tải hình ảnh sản phẩm lên thư mục wwwroot/uploads
             if (viewmodel.Thumbnail != null)
             {
+                new_product.Thumbnail = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
                 string uniqueName = new_product.Thumbnail; // Tạo tên hình ảnh theo chuỗi ngày tháng lúc đăng ảnh
                 string newpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads"); // Trỏ đường dẫn đến thư mục wwwroot/uploads
                 newpath = Path.Combine(newpath, uniqueName); // Trỏ đường dẫn đến tên hình ảnh
                 newpath = newpath + Path.GetExtension(viewmodel.Thumbnail.FileName); // Gắn đuôi (loại file) cho hình
                 viewmodel.Thumbnail.CopyTo(new FileStream(newpath, FileMode.Create)); // Copy hình từ nguồn sang wwwroot/uploads
                 new_product.Thumbnail += Path.GetExtension(viewmodel.Thumbnail.FileName);
-                _context.Products.Add(new_product);
-                _context.SaveChanges();
             }
+
+            Slug edit_slug = _context.Slugs.Where(s => s.Id == new_product.Slug_Id).FirstOrDefault();
+            edit_slug.Url = StaticClass.ToUrlFriendly(new_product.Name);
+
+            _context.Products.Add(new_product);
+            _context.SaveChanges();
             return RedirectToAction("ProductsOverview", "Admin");
         }
 

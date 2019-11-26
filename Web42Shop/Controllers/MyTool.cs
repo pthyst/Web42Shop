@@ -23,7 +23,16 @@ namespace Web42Shop.Controllers
 
             //thay thế tiếng Việt
             str = Regex.Replace(str, @"[áàảạãăắằẳẵặâấầẩẫậ]", "a");
-
+            str = Regex.Replace(str, @"[éèẻẽẹ]","e");
+            str = Regex.Replace(str, @"[êếềểễệ]","e");
+            str = Regex.Replace(str, @"[íìỉĩị]","i");
+            str = Regex.Replace(str, @"[óòỏõọ]","o");
+            str = Regex.Replace(str, @"[ôốồổỗộ]","o");
+            str = Regex.Replace(str, @"[ơớờởỡợ]","o");
+            str = Regex.Replace(str, @"[ýỳỷỹỵ]","y");
+            str = Regex.Replace(str, @"[úùủũụ]", "u");
+            str = Regex.Replace(str, @"[ưứừửữự]", "u");
+            
             str = Regex.Replace(str, @"[^a-z0-9\s-]", "");
             str = Regex.Replace(str, @"\s+", "-").Trim();
             str = Regex.Replace(str, @"\s", "-");

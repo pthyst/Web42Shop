@@ -19,7 +19,7 @@
                         @if (item.Saleoff != 0)
                         {
                             <p class="other_product__oldprice">@String.Format("{0:0,0 VNĐ}", item.Price) </p>
-                            <p class="other_product__newprice">@String.Format("{0:0,0 VNĐ}", item.Price - item.Price * item.Saleoff / 100)</p>
+                            <p class="other_product__newprice">@String.Format("{0:0,0 VNĐ}", item.Price - (item.Price / 100 *item.Saleoff))</p>
                         }
                         else
                         {
@@ -56,12 +56,12 @@
                         </tr>
                         <tr>
                             <th>Giá mới</th>
-                            <td class="newprice">@String.Format("{0:0,0 VNĐ}", Model.SingleProduct.Price - Model.SingleProduct.Price * Model.SingleProduct.Saleoff)</td>
+                            <td class="newprice">@String.Format("{0:0,0 VNĐ}", Model.SingleProduct.Price - (Model.SingleProduct.Price/100 * Model.SingleProduct.Saleoff))</td>
                         </tr>
                         <tr>
                             <th>Chi tiết sản phẩm</th>
                             <td>
-                                @Model.SingleProduct.Description
+                                @Model.SingleProduct.Description 
                             </td>
                         </tr>
                     </table>
