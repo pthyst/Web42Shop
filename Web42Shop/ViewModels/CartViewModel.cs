@@ -9,5 +9,6 @@ namespace Web42Shop.ViewModels
     public class CartViewModel
     {
         public IEnumerable<ProductType> ProductTypes { get; set; }
+        public IEnumerable<CartItemViewModel> CartItemViewModels { get; set; }
     }
 }

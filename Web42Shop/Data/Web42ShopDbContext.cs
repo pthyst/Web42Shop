@@ -30,6 +30,8 @@ namespace Web42Shop.Data
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Slug> Slugs{get;set;}      
         public DbSet<User> Users { get; set; }
+        public DbSet<AnoCart> AnoCarts { get; set; }
+        public DbSet<AnoCartDetail> AnoCartDetails { get; set; }
 
         // Tạo chỉ mục Unique Index cho các trường của từng bảng
         protected override void OnModelCreating(ModelBuilder modelBuilder)
