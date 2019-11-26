@@ -63,16 +63,17 @@
                 <div class="form-group">
                     <textarea rows="10" cols="300" class="form-control" asp-for="@Model.Product.Description">Mô tả sản phẩm</textarea>
                     <!-- Đổi textarea thành ckeditor -->
-                    <script src="~/js/ckeditor.js"></script>
+                    <script src="~/lib/ckeditor/ckeditor.js"></script>
                     <script>
-                        ClassicEditor
-                            .create(document.querySelector('#Product_Description'))
-                            .then(editor => {
-                                window.editor = editor;
-                            })
-                            .catch(err => {
-                                console.error(err.stack);
-                            });
+                        CKEDITOR.replace("Product_Description");
+                        //ClassicEditor
+                          //  .create(document.querySelector('#Product_Description'))
+                          //  .then(editor => {
+                         //       window.editor = editor;
+                         //   })
+                          //  .catch(err => {
+                          //      console.error(err.stack);
+                          //  });
                     </script>
                 </div>
 

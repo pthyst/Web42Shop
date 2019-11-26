@@ -34,7 +34,8 @@ namespace Web42Shop.Models
         public string Name { get; set; }
 
         [Display(Name = "Mô tả sản phẩm")]
-        public string Description { get; set; } = "Sản phẩm này hiện chưa có mô tả";
+        [Column(TypeName = "text")]
+        public string Description { get; set; } 
 
         [Display(Name = "Đơn giá")]
         public int Price { get; set; } = 0;

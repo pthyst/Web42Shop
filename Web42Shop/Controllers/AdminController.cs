@@ -164,6 +164,8 @@ namespace Web42Shop.Controllers
             Slug edit_slug = _context.Slugs.Where(s => s.Id == new_product.Slug_Id).FirstOrDefault();
             edit_slug.Url = StaticClass.ToUrlFriendly(new_product.Name);
 
+      
+
             _context.Products.Add(new_product);
             _context.SaveChanges();
             return RedirectToAction("ProductsOverview", "Admin");
