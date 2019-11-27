@@ -1,10 +1,8 @@
-﻿@model Web42Shop.ViewModels.AdminProductBrandsViewModel
+@model Web42Shop.ViewModels.AdminProductBrandEditViewModel
 @{
-    ViewData["Title"] = "Tổng quan nhãn hàng";
+    ViewData["Title"] = "Chỉnh sửa tên nhãn hàng";
     Layout = "~/Views/Admin/_AdminIndexLayout.cshtml";
 }
-
-
 
 <div class="container-fluid overview">
     <div class="row">
@@ -17,12 +15,11 @@
     
     <div class="row">
         <div class="container-fluid">
-            <form class="form-inline" asp-action="ProductBrandsOverview" asp-controller="Admin" method="post">
+            <form class="form-inline" asp-action="ProductBrandEdit" asp-controller="Admin" method="post">
                 <div class="form-group"><input type="text" asp-for="@Model.ProductBrand.Name" class="form-control" placeholder="Tên nhãn hàng"></div>  
-                <button style="margin-left:0.5rem" type="submit" class="button button--submit"><i class="fas fa-plus"></i> Thêm nhãn hàng</button>
-                <input type="hidden" asp-for="@Model.ProductBrand.DateCreate" value="@DateTime.Now">
+                <button style="margin-left:0.5rem" type="submit" class="button button--submit"><i class="fas fa-save"></i> Cập nhật</button>
                 <input type="hidden" asp-for="@Model.ProductBrand.DateModify" value="@DateTime.Now">
-                <input type="hidden" asp-for="@Model.ProductBrand.Admin_Id">
+                <input type="hidden" asp-for="@Model.ProductBrand.Id">
             </form>
             <hr>
         </div>
@@ -60,7 +57,6 @@
                         </td>
                         <td><a asp-action="ProductBrandDelete" asp-controller="Admin" asp-route-id="@item.Id" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa</a></td>
                     </tr>
-
                 }
             </table>
         </div>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Web42Shop.Models.Product>
+﻿@model Web42Shop.ViewModels.AdminProductsViewModel
 @{
     ViewData["Title"] = "Sản phẩm của K42Shop";
     Layout = "~/Views/Admin/_AdminIndexLayout.cshtml";
@@ -9,14 +9,13 @@
         <div class="container-fluid">
             <a asp-controller="Admin" asp-action="ProductsOverview" class="overview__title overview__title--products overview__title--active">Sản phẩm</a>
             <a asp-controller="Admin" asp-action="ProductBrandsOverview" class="overview__title overview__title--brands">Nhãn hàng</a>
-            <a asp-controller="ProductTyPes" asp-action="index" class="overview__title overview__title--types">Loại sản phẩm</a>
+            <a asp-controller="Admin" asp-action="ProductTypesOverview" class="overview__title overview__title--types">Loại sản phẩm</a>
         </div>
     </div>
     <a asp-controller="Admin" asp-action="ProductNew" class="overview__button overview__button--new"><i class="fas fa-plus"></i>Thêm sản phẩm</a>
 
     <table class="overview__table overview__table--products">
         <tr>
-
             <th>Tên</th>
             <th>Giá gốc</th>
             <th>Khuyến mãi</th>
@@ -28,27 +27,36 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.Products)
         {
             Int32 @gia = @item.Price;
             Int32 @salse = Int32.Parse(@item.Saleoff.ToString());
             Int32 @tong = @item.Price - (@gia * @salse) / 100;
 
             <tr>
-
-                <td><a asp-controller="Admin" asp-action="ProductDetail" asp-route-id="@item.Id">@item.Name</a></td>
-                <td>@item.Price</td>
-                <td>@item.Saleoff</td>
-                <td>@tong</td>
-                <td>@item.Instore</td>
-                <td>@item.Views</td>
-                <td>@item.Orders</td>
+                <td><a asp-controller="Admin" asp-action="ProductDetail" asp-route-id="@item.Id">
+                    @item.Name
+                </a></td>
                 <td>
-                    <a asp-controller="Admin" asp-action="ProductEdit" asp-route-id="@item.Id" class="overview__button"><i class="fas fa-edit"></i> Sửa</a>
+                    @String.Format("{0:0,0 VNĐ}", item.Price)
+                </td>
+                <td>
+                    @item.Saleoff
+                </td>
+                <td>
+                    @String.Format("{0:0,0 VNĐ}", tong)
+                </td>
+                <td>
+                    @item.Instore
+                </td>
+                <td>
+                    @item.Views
+                </td>
+                <td>
+                    @item.Orders
                 </td>
                 <td><a asp-controller="Admin" asp-action="ProductDelete" asp-route-id="@item.Id" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa</a></td>
             </tr>
-
         }
     </table>
 

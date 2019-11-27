@@ -120,8 +120,15 @@ namespace Web42Shop.Controllers
         #region Sản phẩm
         public IActionResult ProductsOverview()
         {
-            if (IsLogedIn() == true){ return View(_context.Products.OrderByDescending(p => p.Id));}
-            else{ return RedirectToAction("Login");}
+            if (IsLogedIn() == true)
+            {
+                AdminProductsViewModel vm = new AdminProductsViewModel()
+                {
+                    Products = _context.Products.OrderByDescending(p => p.Id).ToList()
+                };
+                return View(vm);
+            }
+            else {return RedirectToAction("Login");}
         }
         public IActionResult ProductNew()
         {
@@ -134,6 +141,7 @@ namespace Web42Shop.Controllers
                 new_slug.DateModify = DateTime.Now;
                 _context.Slugs.Add(new_slug);
                 _context.SaveChanges();
+
                 ProductNewViewModel viewmodel = new ProductNewViewModel()
                 {
                     Product = new Product()
@@ -189,12 +197,21 @@ namespace Web42Shop.Controllers
                 Product detail = _context.Products.Where(p => p.Id == id).FirstOrDefault();
                 if (detail != null)
                 {
+                    string brand = _context.ProductBrands.Where(p => p.Id == detail.ProductBrand_Id).FirstOrDefault().Name;
+                    if (brand == null) { brand = "Chưa xác định nhãn hàng"; }
+
+                    string type = _context.ProductTypes.Where(p => p.Id == detail.ProductType_Id).FirstOrDefault().Type;
+                    if (type == null) { type = "Chưa xác định loại sản phẩm"; }
+
+                    string admin = _context.Admins.Where(p => p.Id == detail.Admin_Id).FirstOrDefault().Username;
+                    if (admin == null) { admin = "Không rõ người đăng";}
+
                     ProductDetailViewModel vm = new ProductDetailViewModel()
                     {
-                        Product     = detail,
-                        BrandName   = _context.ProductBrands.Where(p => p.Id == detail.ProductBrand_Id).FirstOrDefault().Name,
-                        ProductType = _context.ProductTypes.Where(p => p.Id == detail.ProductType_Id).FirstOrDefault().Type,
-                        AdminUsername = _context.Admins.Where(p => p.Id == detail.Admin_Id).FirstOrDefault().Username
+                        Product       = detail,
+                        BrandName     = brand,
+                        ProductType   = type,
+                        AdminUsername = admin
                     };
                     return View(vm);
                 }
@@ -331,8 +348,7 @@ namespace Web42Shop.Controllers
                 { 
                     ProductBrand  = new ProductBrand(){ Admin_Id = (int)HttpContext.Session.GetInt32("Admin_Id")},
                     ProductBrands = _context.ProductBrands.OrderBy(p => p.Name).ToList(),
-                    Products      = _context.Products.ToList(),
-                    Slugs         = _context.Slugs.ToList()
+                    Products      = _context.Products.ToList()
                 };
                 return View(vm);
             }
@@ -345,17 +361,16 @@ namespace Web42Shop.Controllers
         {
             if (IsLogedIn() == true)
             {
-                if (ModelState.IsValid())
+                if (ModelState.IsValid)
                 {
-                    _context.ProductBrand.Add(vm.ProductBrand);
+                    _context.ProductBrands.Add(vm.ProductBrand);
                     _context.SaveChanges();
                     return View(
                         new AdminProductBrandsViewModel()
                         { 
                             ProductBrand  = new ProductBrand(){ Admin_Id = (int)HttpContext.Session.GetInt32("Admin_Id")},
                             ProductBrands = _context.ProductBrands.OrderBy(p => p.Name).ToList(),
-                            Products      = _context.Products.ToList(),
-                            Slugs         = _context.Slugs.ToList()
+                            Products      = _context.Products.ToList()
                         }
                     );
                 }
@@ -366,8 +381,7 @@ namespace Web42Shop.Controllers
                         { 
                             ProductBrand  = vm.ProductBrand,
                             ProductBrands = _context.ProductBrands.OrderBy(p => p.Name).ToList(),
-                            Products      = _context.Products.ToList(),
-                            Slugs         = _context.Slugs.ToList()
+                            Products      = _context.Products.ToList()
                         }
                     );
                 }
@@ -387,9 +401,7 @@ namespace Web42Shop.Controllers
                     {
                         ProductBrand  = edit,
                         ProductBrands = _context.ProductBrands.OrderBy(p => p.Name).ToList(),
-                        Products      = _context.Products.ToList(),
-                        Slugs         = _context.Slugs.ToList(),
-                        Slug          = _context.Slugs.Where(s => s.Id == edit.Slug_Id).FirstOrDefault().Url
+                        Products      = _context.Products.ToList()
                     };
                     return View(vm);
                 }
@@ -399,60 +411,175 @@ namespace Web42Shop.Controllers
         }
 
         [HttpPost]
-        public IActionResult ProductBrandEdit(AdminProductBrandsViewModel vm)
+        public IActionResult ProductBrandEdit(AdminProductBrandEditViewModel vm)
         {
             if (IsLogedIn() == true)
             {
-                if (ModelState.IsValid())
+                if (ModelState.IsValid)
                 {
                     ProductBrand data = vm.ProductBrand;
-                    string dataslug = StaticClass.ToUrlFriendly(vm.Slug);
-
                     ProductBrand up = _context.ProductBrands.Where(p => p.Id == data.Id).FirstOrDefault();
-
                     up.Name = data.Name;
                     up.DateModify = DateTime.Now;
-
+                    _context.SaveChanges();
                 }
-                else
-                {
-                    return View(
-                        new AdminProductBrandsViewModel()
-                        {
-                            ProductBrand  = vm.ProductBrand,
-                            ProductBrands = _context.ProductBrands.OrderBy(p => p.Name).ToList(),
-                            Products      = _context.Products.ToList(),
-                            Slugs         = _context.Slugs.ToList()
-                        }
-                    );
-                }
+                return View(
+                    new AdminProductBrandEditViewModel()
+                    {
+                        ProductBrand  = vm.ProductBrand,
+                        ProductBrands = _context.ProductBrands.OrderBy(p => p.Name).ToList(),
+                        Products      = _context.Products.ToList()
+                    }
+                );
             }
             else{ return RedirectToAction("Login");}
         }
 
         [HttpGet]
-        public IActionResult ProductBrandDelete()
+        public IActionResult ProductBrandDelete(int id)
         {
             if (IsLogedIn() == true)
             {
-                return View();
+                ProductBrand delete = _context.ProductBrands.Where(p => p.Id == id).FirstOrDefault();
+                if (delete != null)
+                {
+                   // Xóa tất cả sản phẩm
+                   // Lý do không đổi ProductBrand_Id = 0 vì đó là khóa ngoại
+                   // mà Microsoft thì không cho phép gán khóa ngoại cho giá trị không tồn tại
+        
+                   List<Product> products = _context.Products.Where(p => p.ProductBrand_Id == id).ToList();
+                   foreach(Product product in products)
+                   {
+                       _context.Products.Remove(product);
+                       _context.SaveChanges();
+                   }
+
+                   // Xóa nhãn hàng sau khi đã xóa tất cả sản phẩm liên quan
+                    _context.ProductBrands.Remove(delete);
+                    _context.SaveChanges();
+                }
+                return RedirectToAction("ProductBrandsOverview");
             }
             else{ return RedirectToAction("Login");}
         }
 
         #endregion
         // Trang tổng quát loại sản phẩm
-        public IActionResult ProductTypes()
+        #region Loại sản phẩm
+        public IActionResult ProductTypesOverview()
         {
-            if (HttpContext.Session.GetInt32("Role_Id") <= 3)
+            if (IsLogedIn() == true)
             {
-                return View();
+                AdminProductTypesViewModel vm = new AdminProductTypesViewModel()
+                {
+                    ProductType = new ProductType(){
+                        URL = "Chưa có đường dẫn url",
+                        Admin_Id = (int)HttpContext.Session.GetInt32("Admin_Id")
+                    },
+                    ProductTypes = _context.ProductTypes.OrderBy(p => p.Type).ToList(),
+                    Products     = _context.Products.ToList()
+                };
+                return View(vm);
             }
-            else
-            {
-                return RedirectToAction("Login");
-            }
+            else{ return RedirectToAction("Login");}
         }
+
+        [HttpPost]
+        public IActionResult ProductTypesOverview(AdminProductTypesViewModel vm)
+        {
+            if (IsLogedIn() == true)
+            {
+                if (ModelState.IsValid)
+                {
+                    vm.ProductType.URL = StaticClass.ToUrlFriendly(vm.ProductType.Type);
+                    _context.ProductTypes.Add(vm.ProductType);
+                    _context.SaveChanges();
+                }
+                return View(new AdminProductTypesViewModel()
+                {
+                    ProductType = new ProductType(){
+                        URL = "Chưa có đường dẫn url",
+                        Admin_Id = (int)HttpContext.Session.GetInt32("Admin_Id")
+                    },
+                    ProductTypes = _context.ProductTypes.OrderBy(p => p.Type).ToList(),
+                    Products     = _context.Products.ToList()
+                });
+            }
+            else{ return RedirectToAction("Login");}
+        }
+
+        [HttpGet]
+        public IActionResult ProductTypeEdit(int id)
+        {
+            if (IsLogedIn() == true)
+            {
+                ProductType edit = _context.ProductTypes.Where(p => p.Id == id).FirstOrDefault();
+                if (edit != null)
+                {
+                    return View(new AdminProductTypesViewModel()
+                    {
+                        ProductType  = edit,
+                        ProductTypes = _context.ProductTypes.OrderBy(p => p.Type).ToList(),
+                        Products     = _context.Products.ToList()
+                    });
+                }
+                else
+                { return RedirectToAction("ProductTypesOverview");}
+            }
+            else{ return RedirectToAction("Login");}
+        }
+
+        [HttpPost]
+        public IActionResult ProductTypeEdit(AdminProductTypesViewModel vm)
+        {
+            if (IsLogedIn() == true)
+            {
+                if (ModelState.IsValid)
+                {
+                      ProductType data = vm.ProductType;
+                      ProductType up = _context.ProductTypes.Where(p => p.Id == data.Id).FirstOrDefault();
+                      up.Type = data.Type;
+                      up.DateModify = data.DateModify;
+                      up.URL = StaticClass.ToUrlFriendly(data.Type);
+                      _context.SaveChanges();
+                }
+                return View(
+                    new AdminProductTypesViewModel()
+                    {
+                        ProductType  = _context.ProductTypes.Where(p => p.Id == vm.ProductType.Id).FirstOrDefault(),
+                        ProductTypes = _context.ProductTypes.OrderBy(p => p.Type).ToList(),
+                        Products     = _context.Products.ToList()
+                    }
+                ); 
+            }
+            else{ return RedirectToAction("Login");}
+        }
+
+        [HttpGet]
+        public IActionResult ProductTypeDelete(int id)
+        {
+            if (IsLogedIn() == true)
+            {
+                ProductType delete = _context.ProductTypes.Where(p => p.Id == id).FirstOrDefault();
+                if (delete != null)
+                {
+                    // Xóa tất cả sản phẩm liên quan
+                    List<Product> products = _context.Products.Where(p => p.ProductType_Id == id).ToList();
+                    foreach (Product product in products)
+                    {
+                        _context.Products.Remove(product);
+                        _context.SaveChanges();
+                    }
+
+                    // Xóa loại sản phẩm
+                    _context.ProductTypes.Remove(delete);
+                    _context.SaveChanges();
+                }
+                return RedirectToAction("ProductTypesOverview");
+            }
+            else{ return RedirectToAction("Login");}
+        }
+        #endregion
         #endregion
 
 

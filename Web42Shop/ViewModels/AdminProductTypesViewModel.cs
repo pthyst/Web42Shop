@@ -6,10 +6,10 @@ using Web42Shop.Models;
 
 namespace Web42Shop.ViewModels
 {
-    public class AdminProductBrandEditViewModel
+    public class AdminProductTypesViewModel
     {
-        public ProductBrand ProductBrand {get;set;}
-        public IEnumerable<ProductBrand> ProductBrands { get; set; }
+        public ProductType ProductType { get;set;}
+        public IEnumerable<ProductType> ProductTypes {get;set;}
         public IEnumerable<Product> Products {get;set;}
     }
 }
