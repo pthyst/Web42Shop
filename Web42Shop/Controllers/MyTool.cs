@@ -25,6 +25,7 @@ namespace Web42Shop.Controllers
             str = Regex.Replace(str, @"[áàảạãăắằẳẵặâấầẩẫậ]", "a");
             str = Regex.Replace(str, @"[éèẻẽẹ]","e");
             str = Regex.Replace(str, @"[êếềểễệ]","e");
+            str = Regex.Replace(str, @"[đ]", "d");
             str = Regex.Replace(str, @"[íìỉĩị]","i");
             str = Regex.Replace(str, @"[óòỏõọ]","o");
             str = Regex.Replace(str, @"[ôốồổỗộ]","o");

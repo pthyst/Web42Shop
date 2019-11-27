@@ -10,8 +10,25 @@
     margin-top: 7rem;
     padding: 2rem;
     border: 1px solid #cdcdcd;
-    border-radius: 1rem;
-    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.2)
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.2);
+    background: #fff;
+}
+.login_form h3
+{
+    color: #fcb70a;
+}
+.login_form input
+{
+    border:none;
+    border-radius: 0px;
+    border-bottom: solid 2px #dcdcdc;
+    padding: 0.2rem 0rem;
+}
+.login_form input:focus
+{
+    outline: none;
+    border-bottom: solid 2px #FF6B00;
+    box-shadow: none;
 }
 .sidemenu
 {
@@ -122,7 +139,7 @@
 }
 .overview__table tr:hover
 {
-    background-color: #313131;
+    background-color: #0A6786;
     transition: all 0.5s ease-in-out;
     transform: translate(-10px,-10px);
     color: #fff;
@@ -133,6 +150,7 @@
     transform: translate(0px,0px);
     color: #000;
 }
+.overview__table tr:hover a {color:white}
 .orders--waiting {
     background-color: #FF6B00;
     color: #fff;
@@ -290,8 +308,7 @@
 .button
 {
     display: inline-block;
-    padding: 0.5rem;
-    min-width: 120px;
+    padding: 0.35rem 0.5rem;
     font-size: 1.1rem;
     outline: none;
     border: 0;

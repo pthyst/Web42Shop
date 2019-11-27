@@ -1,6 +1,6 @@
-﻿@model Web42Shop.ViewModels.AdminProductBrandsViewModel
+@model Web42Shop.ViewModels.AdminProductTypesViewModel
 @{
-    ViewData["Title"] = "Tổng quan nhãn hàng";
+    ViewData["Title"] = "Tổng quan các loại sản phẩm";
     Layout = "~/Views/Admin/_AdminIndexLayout.cshtml";
 }
 
@@ -10,19 +10,20 @@
     <div class="row">
         <div class="container-fluid">
             <a asp-controller="Admin" asp-action="ProductsOverview" class="overview__title overview__title--products">Sản phẩm</a>
-            <a asp-controller="Admin" asp-action="ProductBrandsOverview" class="overview__title overview__title--brands overview__title--active">Nhãn hàng</a>
-            <a asp-controller="Admin" asp-action="ProductTypesOverview" class="overview__title overview__title--types">Loại sản phẩm</a>
+            <a asp-controller="Admin" asp-action="ProductBrandsOverview" class="overview__title overview__title--brands">Nhãn hàng</a>
+            <a asp-controller="Admin" asp-action="ProductTypesOverview" class="overview__title overview__title--types overview__title--active">Loại sản phẩm</a>
         </div>
     </div>
     
     <div class="row">
         <div class="container-fluid">
-            <form class="form-inline" asp-action="ProductBrandsOverview" asp-controller="Admin" method="post">
-                <div class="form-group"><input type="text" asp-for="@Model.ProductBrand.Name" class="form-control" placeholder="Tên nhãn hàng"></div>  
-                <button style="margin-left:0.5rem" type="submit" class="button button--submit"><i class="fas fa-plus"></i> Thêm nhãn hàng</button>
-                <input type="hidden" asp-for="@Model.ProductBrand.DateCreate" value="@DateTime.Now">
-                <input type="hidden" asp-for="@Model.ProductBrand.DateModify" value="@DateTime.Now">
-                <input type="hidden" asp-for="@Model.ProductBrand.Admin_Id">
+            <form class="form-inline" asp-action="ProductTypesOverview" asp-controller="Admin" method="post">
+                <div class="form-group"><input type="text" asp-for="@Model.ProductType.Type" class="form-control" placeholder="Tên loại sản phẩm"></div>  
+                <button style="margin-left:0.5rem" type="submit" class="button button--submit"><i class="fas fa-plus"></i> Thêm loại sản phẩm</button>
+                <input type="hidden" asp-for="@Model.ProductType.DateCreate" value="@DateTime.Now">
+                <input type="hidden" asp-for="@Model.ProductType.DateModify" value="@DateTime.Now">
+                <input type="hidden" asp-for="@Model.ProductType.Admin_Id">
+                <input type="hidden" asp-for="@Model.ProductType.URL">
             </form>
             <hr>
         </div>
@@ -32,16 +33,18 @@
         <div class="container-fluid">
             <table class="overview__table overview__table--products">
                 <tr>
-                    <th>Nhãn hàng</th>
+                    <th>Loại sản phẩm</th>
+                    <th>Url</th>
                     <th>Ngày tạo</th>
                     <th>Ngày chỉnh sửa cuối</th>
                     <th>Số lượng sản phẩm</th>
                     <th></th>
                 </tr>
-                @foreach (var item in Model.ProductBrands)
+                @foreach (var item in Model.ProductTypes)
                 {
                     <tr>
-                        <td><a asp-controller="Admin" asp-action="ProductBrandEdit" asp-route-id="@item.Id">@item.Name</a></td>
+                        <td><a asp-controller="Admin" asp-action="ProductTypeEdit" asp-route-id="@item.Id">@item.Type</a></td>
+                        <td>@item.URL</td>
                         <td>
                             @item.DateCreate
                         </td>
@@ -52,13 +55,13 @@
                             int number = 0;
                             foreach (var product in Model.Products)
                             {
-                                if (product.ProductBrand_Id == item.Id){ number++;}
+                                if (product.ProductType_Id == item.Id){ number++;}
                             }
                         }
                         <td>
                             @number
                         </td>
-                        <td><a asp-action="ProductBrandDelete" asp-controller="Admin" asp-route-id="@item.Id" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa</a></td>
+                        <td><a asp-action="ProductTypeDelete" asp-controller="Admin" asp-route-id="@item.Id" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i> Xóa</a></td>
                     </tr>
 
                 }
