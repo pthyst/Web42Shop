@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Web42Shop.ViewModels.CartItemViewModel>
+
+<div class="container">
+    <h1 class="section__title">
+        Giỏ hàng <i class="fas fa-shopping-cart"></i>
+    </h1>
+    <br />
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên hàng</th>
+                <th scope="col" class="clCenter">Số lượng</th>
+                <th scope="col" class="clCenter">Thành tiền</th>
+                <th scope="col" class="clCenter">Hủy sản phẩm</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int stt = 0;
+                int totalePrice = 0;
+            }
+            @foreach (var item in Model)
+            {
+                stt++;
+                <tr>
+                    <th scope="row">@stt</th>
+                    <td>@item.Name</td>
+                    <td class="clCenter"><a onclick="minusItem(@item.Id)" class="CartEdit" onclick="minusItem(@item.Id)"><i class="fas fa-minus"></i></a>@item.Quantity<a onclick="plusItem(@item.Id)" class="CartEdit"><i class="fas fa-plus"></i></a></td>
+                    <td class="clCenter">@item.TotalPrice</td>
+                    <td class="clCenter">
+                        <!--<p onclick="deleteItem(@item.Id)" class="point btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-times"></i></p>-->
+                        <p onclick="deleteItem(@item.Id)" class="point btn btn-secondary btn-sm"><i class="fas fa-times"></i></p>
+                    </td>
+                </tr>
+                totalePrice += item.TotalPrice;
+            }
+        </tbody>
+    </table>
+    <br />
+    <div class="row">
+        <div class="col-9"><h2 style="padding:20px">Tổng tiền: @String.Format("{0:0,0 VNĐ}", totalePrice).</h2></div>
+        <div class="col-sm"><button type="button" class="btn btn-block btn-primary"><h2>Thanh toán</h2></button></div>
+    </div>
+</div>

@@ -30,5 +30,20 @@
     <script src="~/bootstrap4/js/bootstrap.min.js"></script>
     <script src="~/fas/js/all.js"></script>
     <script src="~/js/site.js"></script>
+    <script>
+        function addItemToCart(id) {
+            $.ajax({
+                url: "/cart/AddItem",
+                method: "POST",
+                data: { id: id },
+                async: true,
+                success: function (res) {
+                    if (res != -1) alert("Đã thêm sản phẩm vào giỏ hàng!");
+                    else alert("Thêm sản phẩm vào hàng thất bại!");
+                }
+            });
+        }
+
+    </script>
 </body>
 </html>

@@ -45,14 +45,14 @@ namespace Web42Shop.Controllers
             }
             else
             {
-                if (HttpContext.Session.GetString("IdCart") == null)
+                if (HttpContext.Session.GetString("IdTaiKhoan") == null)
                 {
                     cartItem = await (from d in _context.CartDetails
                                       join c in _context.Carts
                                       on d.Cart_Id equals c.Id
                                       join p in _context.Products
                                       on d.Product_Id equals p.Id
-                                      where c.Id == HttpContext.Session.GetInt32("IdCart")
+                                      where c.User_Id == HttpContext.Session.GetInt32("IdTaiKhoan")
                                       select new CartItemViewModel
                                       {
                                           Id = d.Id,
@@ -281,6 +281,292 @@ namespace Web42Shop.Controllers
                 }
             }
             return 0;
+        }
+
+        public async Task<IActionResult> PlusItem(int id)
+        {
+            List<CartItemViewModel> cartItem = new List<CartItemViewModel>();
+            //đã đăng nhập
+            if (HttpContext.Session.GetInt32("IdTaiKhoan").HasValue)
+            {
+                CartDetail cartDetail = await (from c in _context.Carts
+                                               join cd in _context.CartDetails
+                                               on c.Id equals cd.Cart_Id
+                                               where cd.Id == id & c.User_Id == HttpContext.Session.GetInt32("IdTaiKhoan").Value
+                                               select cd).SingleOrDefaultAsync();
+                if (cartDetail != null)
+                {
+                    if (cartDetail.Quantity >= 1)
+                    {
+                        cartDetail.Quantity += 1;
+                        cartDetail.PriceTotal += cartDetail.PriceSingle;
+                        _context.CartDetails.Update(cartDetail);
+                        _context.SaveChanges();
+
+                        Cart cart = await(from c in _context.Carts 
+                                    where c.User_Id == HttpContext.Session.GetInt32("IdTaiKhoan").Value
+                                    select c).SingleOrDefaultAsync();
+                        cart.TotalQuantity += 1;
+                        cart.TotalPrice += cartDetail.PriceSingle;
+                        _context.Carts.Update(cart);
+                        _context.SaveChanges();
+                    }
+                    cartItem = await (from d in _context.CartDetails
+                                      join c in _context.Carts
+                                      on d.Cart_Id equals c.Id
+                                      join p in _context.Products
+                                      on d.Product_Id equals p.Id
+                                      where c.User_Id == HttpContext.Session.GetInt32("IdTaiKhoan") & d.Quantity > 0
+                                      select new CartItemViewModel
+                                      {
+                                          Id = d.Id,
+                                          Name = p.Name,
+                                          Quantity = d.Quantity,
+                                          Price = d.PriceSingle,
+                                          TotalPrice = d.PriceTotal
+                                      }).ToListAsync();
+                    return PartialView("Users/_CartItemPartial", cartItem);
+                }
+                return PartialView("Users/_CartItemPartial", cartItem);
+            }
+            //chưa đăng nhập
+            else
+            {
+                AnoCartDetail anoCartDetail = await (from c in _context.AnoCarts
+                                               join cd in _context.AnoCartDetails
+                                               on c.Id equals cd.Cart_Id
+                                               where cd.Id == id & c.Id == HttpContext.Session.GetInt32("IdCart").Value
+                                               select cd).SingleOrDefaultAsync();
+                if (anoCartDetail != null)
+                {
+                    if (anoCartDetail.Quantity >= 1)
+                    {
+                        anoCartDetail.Quantity += 1;
+                        anoCartDetail.PriceTotal += anoCartDetail.PriceSingle;
+                        _context.AnoCartDetails.Update(anoCartDetail);
+                        _context.SaveChanges();
+
+                        AnoCart anoCart = await (from c in _context.AnoCarts
+                                           where c.Id == HttpContext.Session.GetInt32("IdCart").Value
+                                           select c).SingleOrDefaultAsync();
+                        anoCart.TotalQuantity += 1;
+                        anoCart.TotalPrice += anoCartDetail.PriceSingle;
+                        _context.AnoCarts.Update(anoCart);
+                        _context.SaveChanges();
+                    }
+                    cartItem = await (from d in _context.AnoCartDetails
+                                        join c in _context.AnoCarts
+                                        on d.Cart_Id equals c.Id
+                                        join p in _context.Products
+                                        on d.Product_Id equals p.Id
+                                        where c.Id == HttpContext.Session.GetInt32("IdCart") & d.Quantity > 0
+                                      select new CartItemViewModel
+                                                              {
+                                                                  Id = d.Id,
+                                                                  Name = p.Name,
+                                                                  Quantity = d.Quantity,
+                                                                  Price = d.PriceSingle,
+                                                                  TotalPrice = d.PriceTotal
+                                                              }).ToListAsync();
+                    return PartialView("Users/_CartItemPartial", cartItem);
+                }
+                return PartialView("Users/_CartItemPartial", cartItem);
+            }
+        }
+
+        public async Task<IActionResult> MinusItem(int id)
+        {
+            List<CartItemViewModel> cartItem = new List<CartItemViewModel>();
+            //đã đăng nhập
+            if (HttpContext.Session.GetInt32("IdTaiKhoan").HasValue)
+            {
+                CartDetail cartDetail = await (from c in _context.Carts
+                                               join cd in _context.CartDetails
+                                               on c.Id equals cd.Cart_Id
+                                               where cd.Id == id & c.User_Id == HttpContext.Session.GetInt32("IdTaiKhoan").Value
+                                               select cd).SingleOrDefaultAsync();
+                if (cartDetail != null)
+                {
+                    if (cartDetail.Quantity >= 1)
+                    {
+                        if(cartDetail.Quantity == 1)
+                        {
+                            _context.CartDetails.Remove(cartDetail);
+                            _context.SaveChanges();
+                        }
+                        else
+                        {
+                            cartDetail.Quantity -= 1;
+                            cartDetail.PriceTotal -= cartDetail.PriceSingle;
+                            _context.CartDetails.Update(cartDetail);
+                            _context.SaveChanges();
+                        }
+
+                        Cart cart = await (from c in _context.Carts
+                                           where c.User_Id == HttpContext.Session.GetInt32("IdTaiKhoan").Value
+                                           select c).SingleOrDefaultAsync();
+                        cart.TotalQuantity -= 1;
+                        cart.TotalPrice -= cartDetail.PriceSingle;
+                        _context.Carts.Update(cart);
+                        _context.SaveChanges();
+                    }
+                    cartItem = await (from d in _context.CartDetails
+                                      join c in _context.Carts
+                                      on d.Cart_Id equals c.Id
+                                      join p in _context.Products
+                                      on d.Product_Id equals p.Id
+                                      where c.User_Id == HttpContext.Session.GetInt32("IdTaiKhoan") & d.Quantity > 0
+                                      select new CartItemViewModel
+                                      {
+                                          Id = d.Id,
+                                          Name = p.Name,
+                                          Quantity = d.Quantity,
+                                          Price = d.PriceSingle,
+                                          TotalPrice = d.PriceTotal
+                                      }).ToListAsync();
+                    return PartialView("Users/_CartItemPartial", cartItem);
+                }
+                return PartialView("Users/_CartItemPartial", cartItem);
+            }
+            //chưa đăng nhập
+            else
+            {
+                AnoCartDetail anoCartDetail = await (from c in _context.AnoCarts
+                                                     join cd in _context.AnoCartDetails
+                                                     on c.Id equals cd.Cart_Id
+                                                     where cd.Id == id & c.Id == HttpContext.Session.GetInt32("IdCart").Value
+                                                     select cd).SingleOrDefaultAsync();
+                if (anoCartDetail != null)
+                {
+                    if (anoCartDetail.Quantity >= 1)
+                    {
+                        if (anoCartDetail.Quantity == 1)
+                        {
+                            _context.AnoCartDetails.Remove(anoCartDetail);
+                            _context.SaveChanges();
+                        }
+                        else
+                        {
+                            anoCartDetail.Quantity -= 1;
+                            anoCartDetail.PriceTotal -= anoCartDetail.PriceSingle;
+                            _context.AnoCartDetails.Update(anoCartDetail);
+                            _context.SaveChanges();
+                        }
+
+                        AnoCart anoCart = await (from c in _context.AnoCarts
+                                                 where c.Id == HttpContext.Session.GetInt32("IdCart").Value
+                                                 select c).SingleOrDefaultAsync();
+                        anoCart.TotalQuantity -= 1;
+                        anoCart.TotalPrice -= anoCartDetail.PriceSingle;
+                        _context.AnoCarts.Update(anoCart);
+                        _context.SaveChanges();
+                    }
+                    cartItem = await (from d in _context.AnoCartDetails
+                                      join c in _context.AnoCarts
+                                      on d.Cart_Id equals c.Id
+                                      join p in _context.Products
+                                      on d.Product_Id equals p.Id
+                                      where c.Id == HttpContext.Session.GetInt32("IdCart") & d.Quantity > 0
+                                      select new CartItemViewModel
+                                      {
+                                          Id = d.Id,
+                                          Name = p.Name,
+                                          Quantity = d.Quantity,
+                                          Price = d.PriceSingle,
+                                          TotalPrice = d.PriceTotal
+                                      }).ToListAsync();
+                    return PartialView("Users/_CartItemPartial", cartItem);
+                }
+                return PartialView("Users/_CartItemPartial", cartItem);
+            }
+        }
+    
+        public async Task<IActionResult> DeleteItem(int id)
+        {
+            List<CartItemViewModel> cartItem = new List<CartItemViewModel>();
+            //đã đăng nhập
+            if (HttpContext.Session.GetInt32("IdTaiKhoan").HasValue)
+            {
+                CartDetail cartDetail = await (from c in _context.Carts
+                                               join cd in _context.CartDetails
+                                               on c.Id equals cd.Cart_Id
+                                               where cd.Id == id & c.User_Id == HttpContext.Session.GetInt32("IdTaiKhoan").Value
+                                               select cd).SingleOrDefaultAsync();
+                if (cartDetail != null)
+                {
+                    if (cartDetail.Quantity >= 1)
+                    {
+                        Cart cart = await (from c in _context.Carts
+                                           where c.User_Id == HttpContext.Session.GetInt32("IdTaiKhoan").Value
+                                           select c).SingleOrDefaultAsync();
+                        cart.TotalQuantity -= cartDetail.Quantity;
+                        cart.TotalPrice -= cartDetail.PriceTotal;
+                        _context.Carts.Update(cart);
+                        _context.SaveChanges();
+
+                        _context.CartDetails.Remove(cartDetail);
+                        _context.SaveChanges();
+                    }
+                    cartItem = await (from d in _context.CartDetails
+                                      join c in _context.Carts
+                                      on d.Cart_Id equals c.Id
+                                      join p in _context.Products
+                                      on d.Product_Id equals p.Id
+                                      where c.User_Id == HttpContext.Session.GetInt32("IdTaiKhoan") & d.Quantity > 0
+                                      select new CartItemViewModel
+                                      {
+                                          Id = d.Id,
+                                          Name = p.Name,
+                                          Quantity = d.Quantity,
+                                          Price = d.PriceSingle,
+                                          TotalPrice = d.PriceTotal
+                                      }).ToListAsync();
+                    return PartialView("Users/_CartItemPartial", cartItem);
+                }
+                return PartialView("Users/_CartItemPartial", cartItem);
+            }
+            //chưa đăng nhập
+            else
+            {
+                AnoCartDetail anoCartDetail = await (from c in _context.AnoCarts
+                                                     join cd in _context.AnoCartDetails
+                                                     on c.Id equals cd.Cart_Id
+                                                     where cd.Id == id & c.Id == HttpContext.Session.GetInt32("IdCart").Value
+                                                     select cd).SingleOrDefaultAsync();
+                if (anoCartDetail != null)
+                {
+                    if (anoCartDetail.Quantity >= 1)
+                    {                       
+                        AnoCart anoCart = await (from c in _context.AnoCarts
+                                                 where c.Id == HttpContext.Session.GetInt32("IdCart").Value
+                                                 select c).SingleOrDefaultAsync();
+                        anoCart.TotalQuantity -= anoCartDetail.Quantity;
+                        anoCart.TotalPrice -= anoCartDetail.PriceTotal;
+                        _context.AnoCarts.Update(anoCart);
+                        _context.SaveChanges();
+
+                        _context.AnoCartDetails.Remove(anoCartDetail);
+                        _context.SaveChanges();
+
+                    }
+                    cartItem = await (from d in _context.AnoCartDetails
+                                      join c in _context.AnoCarts
+                                      on d.Cart_Id equals c.Id
+                                      join p in _context.Products
+                                      on d.Product_Id equals p.Id
+                                      where c.Id == HttpContext.Session.GetInt32("IdCart") & d.Quantity > 0
+                                      select new CartItemViewModel
+                                      {
+                                          Id = d.Id,
+                                          Name = p.Name,
+                                          Quantity = d.Quantity,
+                                          Price = d.PriceSingle,
+                                          TotalPrice = d.PriceTotal
+                                      }).ToListAsync();
+                    return PartialView("Users/_CartItemPartial", cartItem);
+                }
+                return PartialView("Users/_CartItemPartial", cartItem);
+            }
         }
     }
 }
