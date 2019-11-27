@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Web42Shop.Models;
 using Web42Shop.ViewModels;
 using Web42Shop.Data;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace Web42Shop.Controllers
 {
@@ -16,13 +18,269 @@ namespace Web42Shop.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        [Route("/giohang")]
+        public async Task<IActionResult> Index()
         {
+            List<CartItemViewModel> cartItem = new List<CartItemViewModel>();
+
+            if (HttpContext.Session.GetString("TaiKhoan") == null)
+            {
+                if (HttpContext.Session.GetString("IdCart") != null)
+                {
+                    cartItem = await (from d in _context.AnoCartDetails
+                                      join c in _context.AnoCarts
+                                      on d.Cart_Id equals c.Id
+                                      join p in _context.Products
+                                      on d.Product_Id equals p.Id
+                                      where c.Id == HttpContext.Session.GetInt32("IdCart")
+                                      select new CartItemViewModel
+                                      {
+                                          Id = d.Id,
+                                          Name = p.Name,
+                                          Quantity = d.Quantity,
+                                          Price = d.PriceSingle,
+                                          TotalPrice = d.PriceTotal
+                                      }).ToListAsync();
+                }
+            }
+            else
+            {
+                if (HttpContext.Session.GetString("IdCart") == null)
+                {
+                    cartItem = await (from d in _context.CartDetails
+                                      join c in _context.Carts
+                                      on d.Cart_Id equals c.Id
+                                      join p in _context.Products
+                                      on d.Product_Id equals p.Id
+                                      where c.Id == HttpContext.Session.GetInt32("IdCart")
+                                      select new CartItemViewModel
+                                      {
+                                          Id = d.Id,
+                                          Name = p.Name,
+                                          Quantity = d.Quantity,
+                                          Price = d.PriceSingle,
+                                          TotalPrice = d.PriceTotal
+                                      }).ToListAsync();
+                }
+            }
+
             CartViewModel vm = new CartViewModel()
             {
-                ProductTypes = _context.ProductTypes.ToList()
+                ProductTypes = _context.ProductTypes.ToList(),
+                CartItemViewModels = cartItem
             };
             return View(vm);
+        }
+
+        // nhận từ ajax?
+        public async Task<int> AddItem(int id)
+        {
+            AnoCartDetail anoCartDetail;
+            AnoCart anoCart;
+
+            Cart cart;
+            CartDetail cartDetail;
+            Product product = await (from p in _context.Products
+                               where p.Id == id
+                               select p).FirstOrDefaultAsync();
+
+            if (product == null) return -1;
+
+            //tai khoan chua dang nhap
+            if (HttpContext.Session.GetString("TaiKhoan") == null)
+            {
+                //khởi tạo cart lần đầu
+                if (HttpContext.Session.GetInt32("IdCart") == null)
+                {
+                    anoCart = new AnoCart
+                    {
+                        CartStatus_Id = 2,
+                        TotalPrice = product.Price - (int)(product.Price * product.Saleoff) / 100,
+                        TotalQuantity = 1,
+                        DateCreate = DateTime.Now,
+                        DateModify = DateTime.Now
+                    };
+
+                    //thêm cart vào database
+                    _context.AnoCarts.Add(anoCart);
+                    _context.SaveChanges();
+
+                    //lấy và set id cart vừa tạo vào session
+                    int idCart = await(from a in _context.AnoCarts select a.Id).MaxAsync();
+                    HttpContext.Session.SetInt32("IdCart", idCart);
+
+                    //tạo mới anoCartDetail
+                    anoCartDetail = new AnoCartDetail
+                    {
+                        Cart_Id = HttpContext.Session.GetInt32("IdCart").Value,
+                        Product_Id = id,
+                        Quantity = 1,
+                        PriceTotal = product.Price - (int)(product.Price * product.Saleoff) / 100,
+                        PriceSingle =product.Price - (int)(product.Price * product.Saleoff) / 100,
+                        DateCreate = DateTime.Now,
+                        DateModify = DateTime.Now
+                    };
+                    _context.AnoCartDetails.Add(anoCartDetail);
+                    _context.SaveChanges();
+
+                    return 1;
+                }
+
+                //thêm sản phẩm theo id khi cart đã được tạo
+                else
+                {
+                    //lấy anoCartDetail theo id sản phẩm và id cart
+                    anoCartDetail = await (from d in _context.AnoCartDetails
+                                                             where d.Product_Id == id & d.Cart_Id == HttpContext.Session.GetInt32("IdCart")
+                                                             select d).SingleOrDefaultAsync();
+
+                    //nếu chưa có anoCartDetail theo sản phẩm và cart
+                    //tạo mới
+                    if (anoCartDetail == null)
+                    {
+                        anoCartDetail = new AnoCartDetail
+                        {
+                            Cart_Id = HttpContext.Session.GetInt32("IdCart").Value,
+                            Product_Id = product.Id,
+                            Quantity = 1,
+                            PriceTotal = product.Price - (int)(product.Price * product.Saleoff) / 100,
+                            PriceSingle = product.Price - (int)(product.Price * product.Saleoff) / 100,
+                            DateCreate = DateTime.Now,
+                            DateModify = DateTime.Now
+                        };
+
+                        //thêm anoCartDrtail vào database
+                        _context.AnoCartDetails.Add(anoCartDetail);
+                        _context.SaveChanges();
+
+                        //cập nhật anoCart
+                        anoCart = await (from c in _context.AnoCarts where c.Id == HttpContext.Session.GetInt32("IdCart") select c).SingleOrDefaultAsync();
+                        anoCart.TotalPrice += (product.Price - (int)(product.Price * product.Saleoff) / 100);
+                        anoCart.TotalQuantity += 1;
+                        _context.AnoCarts.Update(anoCart);
+                        _context.SaveChanges();
+
+                        return 1;
+                    }
+                    //đã có anoCartDetail tang so luong, gia tien (anoCart, anoCartDetails)
+                    else
+                    {
+                        //Cap nhat anoCartDetails
+                        anoCartDetail = await (from d in _context.AnoCartDetails
+                                                                 where d.Product_Id == id & d.Cart_Id == HttpContext.Session.GetInt32("IdCart")
+                                                                 select d).SingleOrDefaultAsync();
+                        anoCartDetail.Quantity += 1;
+                        anoCartDetail.PriceTotal = anoCartDetail.Quantity * anoCartDetail.PriceSingle;
+                        
+                        //cap nhat anoCart
+                        anoCart = await (from c in _context.AnoCarts where c.Id == HttpContext.Session.GetInt32("IdCart") select c).SingleOrDefaultAsync();
+                        anoCart.TotalPrice += (product.Price - (int)(product.Price * product.Saleoff) / 100);
+                        anoCart.TotalQuantity += 1;
+                        _context.AnoCarts.Update(anoCart);
+                        _context.SaveChanges();
+
+                        return 1;
+                    }
+                }
+            }
+            
+            //tai khoan da dang nhap
+            else
+            {
+                cart = await (from c in _context.Carts
+                            where c.User_Id == HttpContext.Session.GetInt32("IdTaiKhoan")
+                            select c).SingleOrDefaultAsync();
+                    
+                //tai khoan nay chua co cart , thi tao moi
+                if (cart == null)
+                {
+                    //them moi cart
+                    cart = new Cart
+                    {
+                        CartStatus_Id = 2,
+                        User_Id = HttpContext.Session.GetInt32("IdTaiKhoan").Value,
+                        TotalPrice = product.Price - (int)(product.Price * product.Saleoff) / 100,
+                        TotalQuantity = 1,
+                        DateCreate = DateTime.Now,
+                        DateModify = DateTime.Now
+                    };
+                    _context.Carts.Add(cart);
+                    _context.SaveChanges();
+
+                    //them moi cartDetail
+                    cartDetail = new CartDetail
+                    {
+                        Cart_Id = cart.Id,
+                        Product_Id = id,
+                        Quantity = 1,
+                        PriceTotal = product.Price - (int)(product.Price * product.Saleoff) / 100,
+                        PriceSingle = product.Price - (int)(product.Price * product.Saleoff) / 100,
+                        DateCreate = DateTime.Now,
+                        DateModify = DateTime.Now
+                    };
+                    _context.CartDetails.Add(cartDetail);
+                    _context.SaveChanges();
+
+                    return 1;
+                }
+                //tai khoan nay da tao cart
+                else if (cart != null)
+                {
+                    //lấy cartDetail theo id sản phẩm và id cart
+                    cartDetail = await (from d in _context.CartDetails
+                                        where d.Product_Id == id & d.Cart_Id == cart.Id
+                                        select d).SingleOrDefaultAsync();
+
+                    //Chua co cartDetail them moi
+                    if (cartDetail == null)
+                    {
+                        cartDetail = new CartDetail
+                        {
+                            Cart_Id = cart.Id,
+                            Product_Id = product.Id,
+                            Quantity = 1,
+                            PriceTotal = product.Price - (int)(product.Price * product.Saleoff) / 100,
+                            PriceSingle = product.Price - (int)(product.Price * product.Saleoff) / 100,
+                            DateCreate = DateTime.Now,
+                            DateModify = DateTime.Now
+                        };
+
+                        //thêm cartDrtail vào database
+                        _context.CartDetails.Add(cartDetail);
+                        _context.SaveChanges();
+
+                        //cập nhật Cart
+                        cart = await (from c in _context.Carts where c.Id == cart.Id select c).SingleOrDefaultAsync();
+                        cart.TotalPrice += (product.Price - (int)(product.Price * product.Saleoff) / 100);
+                        cart.TotalQuantity += 1;
+                        _context.Carts.Update(cart);
+                        _context.SaveChanges();
+
+                        return 1;
+                    }
+
+                    //đã có cartDetail tang so luong, gia tien (cart, cartDetails) 
+                    else 
+                    {
+                        //Cap nhat CartDetails
+                        cartDetail = await (from d in _context.CartDetails
+                                            where d.Product_Id == id & d.Cart_Id == cart.Id
+                                            select d).SingleOrDefaultAsync();
+                        cartDetail.Quantity += 1;
+                        cartDetail.PriceTotal = cartDetail.Quantity * cartDetail.PriceSingle;
+
+                        //cap nhat Cart
+                        cart = await (from c in _context.Carts where c.Id == cart.Id select c).SingleOrDefaultAsync();
+                        cart.TotalPrice += (product.Price - (int)(product.Price * product.Saleoff) / 100);
+                        cart.TotalQuantity += 1;
+                        _context.Carts.Update(cart);
+                        _context.SaveChanges();
+
+                        return 1;
+                    }
+                }
+            }
+            return 0;
         }
     }
 }

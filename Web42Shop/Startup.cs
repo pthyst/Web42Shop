@@ -38,7 +38,7 @@ namespace Web42Shop
             services.AddDistributedMemoryCache();
             services.AddSession(p =>
             {
-                p.IdleTimeout = TimeSpan.FromMinutes(5);
+                p.IdleTimeout = TimeSpan.FromMinutes(30);
             });
             // ----- //
 

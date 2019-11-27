@@ -1,6 +1,6 @@
-﻿
+﻿@model Web42Shop.ViewModels.CartViewModel
 @{
-    ViewBag.Title = "Cart";
+    ViewBag.Title = "Giỏ hàng";
     Layout = "~/Views/Shared/Users/_IndexLayout.cshtml";
 }
 
@@ -71,36 +71,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Macbook 2019</td>
-                    <td>1</td>
-                    <td>17500000</td>
-                    <td>
-                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editModal"><i class="fas fa-cog"></i></button>
-                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-times"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Laptop Dell</td>
-                    <td>1</td>
-                    <td>15000000</td>
-                    <td>
-                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editModal"><i class="fas fa-cog"></i></button>
-                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-times"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Laptop ASUS</td>
-                    <td>1</td>
-                    <td>15500000</td>
-                    <td>
-                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editModal"><i class="fas fa-cog"></i></button>
-                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-times"></i></button>
-                    </td>
-                </tr>
+                @{ int stt = 0;}
+                @foreach (var item in Model.CartItemViewModels)
+                {
+                    stt++;
+                    <tr>
+                        <th scope="row">@stt</th>
+                        <td>@item.Name</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.TotalPrice</td>
+                        <td>
+                            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editModal"><i class="fas fa-cog"></i></button>
+                            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-times"></i></button>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
         <br />
