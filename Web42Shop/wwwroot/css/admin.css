@@ -10,8 +10,25 @@
     margin-top: 7rem;
     padding: 2rem;
     border: 1px solid #cdcdcd;
-    border-radius: 1rem;
-    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.2)
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.2);
+    background: #fff;
+}
+.login_form h3
+{
+    color: #fcb70a;
+}
+.login_form input
+{
+    border:none;
+    border-radius: 0px;
+    border-bottom: solid 2px #dcdcdc;
+    padding: 0.2rem 0rem;
+}
+.login_form input:focus
+{
+    outline: none;
+    border-bottom: solid 2px #FF6B00;
+    box-shadow: none;
 }
 .sidemenu
 {
