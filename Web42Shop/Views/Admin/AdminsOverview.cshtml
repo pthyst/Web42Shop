@@ -10,7 +10,7 @@
             <p class="overview__title">Sản phẩm của K42Shop</p>
         </div>
     </div>
-    <a asp-controller="Admin" asp-action="Create" class="overview__button overview__button--new"><i class="fas fa-plus"></i>Thêm quản trị viên</a>
+    <a asp-controller="Admin" asp-action="AdminNew" class="overview__button overview__button--new"><i class="fas fa-plus"></i>Thêm quản trị viên</a>
 
 
     <table class="overview__table overview__table--admins">
@@ -19,27 +19,18 @@
             <th>Email</th>
             <th>Quyền</th>
             <th>Ngày tạo</th>
-            <th>Ngày chỉnh sửa</th>
-            <th>Sửa</th>
-            <th>Xóa</th>
+            <th></th>
         </tr>
         @foreach (var admin in Model)
         {
             String @a = "Nhân Viên";
             if (@admin.Role_Id == 1) @a = "Quản Lý";
             <tr>
-                <td><a asp-action="Details" asp-route-id="@admin.Id">@admin.Username</a></td>
+                <td><a asp-action="AdminEdit" asp-controller="Admin" asp-route-id="@admin.Id">@admin.Username</a></td>
                 <td>@admin.Email</td>
                 <td>@a</td>
                 <td>@admin.DateCreate</td>
-                <td>@admin.DateModify</td>
-
-
-                @*<td><a asp-action="Details" asp-route-id="@admin.Id" class="overview__button overview__button--new " ><i class="far fa-address-book"></i>Details</a> </td>*@
-                <td>
-                    <a asp-action="Edit" class="overview__button overview__button-- " asp-route-id="@admin.Id"><i class="fas fa-edit"></i>Edit</a>
-                </td>
-                <td><a asp-action="Delete" class="overview__button overview__button--delete" asp-route-id="@admin.Id"><i class="fas fa-trash-alt"></i>Delete</a></td>
+                <td><a asp-action="AdminDelete" asp-controller="Admin" class="overview__button overview__button--delete" asp-route-id="@admin.Id"><i class="fas fa-trash-alt"></i>Delete</a></td>
             </tr>
         }
     </table>

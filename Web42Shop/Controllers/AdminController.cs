@@ -56,6 +56,66 @@ namespace Web42Shop.Controllers
             if (slug != null){ return true;}
             return false;
         }
+
+        // Xóa ảnh khỏi thư mục uploads theo sản phẩm
+        public void RemoveImage(Product product)
+        {
+            string url = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","uploads",product.Thumbnail);
+            if (System.IO.File.Exists(url)){System.IO.File.Delete(url);}
+        }
+        // Xóa ảnh khỏi thư mục uploads theo tên ảnh
+        public void RemoveImage(string image)
+        {
+            string url = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","uploads",image);
+            if (System.IO.File.Exists(url)){System.IO.File.Delete(url);}
+        } 
+
+        // Xóa sản phẩm
+        public void RemoveProduct(Product product)
+        {
+            // Xóa ảnh
+            RemoveImage(product);
+            
+            // Xóa các bình luận
+            List<Comment> comments = _context.Comments.Where(c => c.Product_Id == product.Id).ToList();
+            if (comments != null)
+            {
+                foreach(var comment in comments)
+                {
+                    _context.Comments.Remove(comment);
+                    _context.SaveChanges();
+                }
+            }
+            
+            // Xóa slug
+            Slug slug_delete = _context.Slugs.Where(s => s.Id == product.Slug_Id).FirstOrDefault();
+            _context.Slugs.Remove(slug_delete);
+            
+            // Xóa trong CartDetail
+            List<CartDetail> cartdetails  = _context.CartDetails.Where(c => c.Product_Id == product.Id).ToList();
+            if (cartdetails != null)
+            {
+                foreach (var detail in cartdetails)
+                {
+                    _context.CartDetails.Remove(detail);
+                    _context.SaveChanges();
+                }
+            }
+            
+            // Xóa trong AnoCartDetail
+            List<AnoCartDetail> anocartdetails  = _context.AnoCartDetails.Where(c => c.Product_Id == product.Id).ToList();
+            if (cartdetails != null)
+            {
+                foreach (var detail in anocartdetails)
+                {
+                    _context.AnoCartDetails.Remove(detail);
+                    _context.SaveChanges();
+                }
+            }
+
+            _context.Products.Remove(product);
+            _context.SaveChanges();
+        }
         #endregion
 
         // SuperAdmin = 1, Admin = 2, Author = 3
@@ -317,21 +377,7 @@ namespace Web42Shop.Controllers
                 Product delete = _context.Products.Where(p => p.Id == id).FirstOrDefault();
                 if (delete != null)
                 {
-                    // Xóa hình ảnh đại diện trong thư mục wwwroot/uploads
-                    string path_delete = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","uploads",delete.Thumbnail);
-                    
-                    // Phải sử dụng System.IO thì mới xài được File
-                    if (System.IO.File.Exists(path_delete))
-                    {
-                        System.IO.File.Delete(path_delete);
-                    }
-
-                    // Xóa Slug
-                    Slug slug_delete = _context.Slugs.Where(s => s.Id == delete.Slug_Id).FirstOrDefault();
-                    _context.Slugs.Remove(slug_delete);
-
-                    _context.Products.Remove(delete);
-                    _context.SaveChanges();
+                    RemoveProduct(delete);
                 }
                 return RedirectToAction("ProductsOverview","Admin");
             }
@@ -450,8 +496,7 @@ namespace Web42Shop.Controllers
                    List<Product> products = _context.Products.Where(p => p.ProductBrand_Id == id).ToList();
                    foreach(Product product in products)
                    {
-                       _context.Products.Remove(product);
-                       _context.SaveChanges();
+                       RemoveProduct(product);
                    }
 
                    // Xóa nhãn hàng sau khi đã xóa tất cả sản phẩm liên quan
@@ -567,8 +612,7 @@ namespace Web42Shop.Controllers
                     List<Product> products = _context.Products.Where(p => p.ProductType_Id == id).ToList();
                     foreach (Product product in products)
                     {
-                        _context.Products.Remove(product);
-                        _context.SaveChanges();
+                        RemoveProduct(product);
                     }
 
                     // Xóa loại sản phẩm
@@ -586,18 +630,118 @@ namespace Web42Shop.Controllers
         // Trang tổng quan quản trị
         public IActionResult AdminsOverview()
         {
-            if (HttpContext.Session.GetInt32("Role_Id") <= 3)
-            {
-                return View(_context.Admins);
-            }
-            else
-            {
-                return RedirectToAction("Login");
-
-            }
-
+            if (IsLogedIn() == true){ return View(_context.Admins.OrderByDescending(a => a.Id));}
+            else{ return RedirectToAction("Login");}
         }
 
+        public IActionResult AdminNew()
+        {
+            if (IsLogedIn() == true)
+            { 
+                return View(new AdminAdminNewViewModel()
+                {
+                    Admin = new Admin(),
+                    Roles = _context.Roles.OrderBy(r => r.Name)
+                });
+            }
+            else{ return RedirectToAction("Login");}
+        }
+
+        [HttpPost]
+        public IActionResult AdminNew(AdminAdminNewViewModel vm)
+        {
+            if (IsLogedIn() == true)
+            { 
+                if (ModelState.IsValid)
+                {
+                    _context.Admins.Add(vm.Admin);
+                    _context.SaveChanges();
+                    return RedirectToAction("AdminsOverview");
+                }
+                else
+                {
+                    return View(new AdminAdminNewViewModel()
+                    {
+                        Admin = vm.Admin,
+                        Roles = _context.Roles.OrderBy(r => r.Name)
+                    });
+                }
+            }
+            else{ return RedirectToAction("Login");}
+        }
+
+        [HttpGet]
+        public IActionResult AdminEdit(int id)
+        {
+            if (IsLogedIn() == true)
+            { 
+                Admin edit = _context.Admins.Where(a => a.Id == id).FirstOrDefault();
+                if (edit != null)
+                {
+                    return View(
+                        new AdminAdminNewViewModel()
+                        {
+                            Admin = edit,
+                            Roles = _context.Roles.OrderBy(r => r.Name)
+                        });
+                }
+                else { return RedirectToAction("AdminsOverview");}
+            }
+            else{ return RedirectToAction("Login");}
+        }
+
+        [HttpPost]
+        public IActionResult AdminEdit(AdminAdminNewViewModel vm)
+        {
+            if (IsLogedIn() == true)
+            { 
+                if (ModelState.IsValid)
+                {
+                    Admin data = vm.Admin;
+                    Admin up = _context.Admins.Where(a => a.Id == data.Id).FirstOrDefault();
+
+                    up.Password   = data.Password;
+                    up.Email      = data.Email;
+                    up.Role_Id    = data.Role_Id;
+                    up.DateModify = data.DateModify;
+
+                    _context.SaveChanges();
+                }
+                
+                return View(
+                    new AdminAdminNewViewModel()
+                    {
+                        Admin = _context.Admins.Where(a => a.Id == vm.Admin.Id).FirstOrDefault(),
+                        Roles = _context.Roles.OrderBy(r => r.Name)
+                    });
+                
+            }
+            else{ return RedirectToAction("Login");}
+        }
+
+        [HttpGet]
+        public IActionResult AdminDelete(int id)
+        {
+            if (IsLogedIn() == true)
+            { 
+                Admin delete = _context.Admins.Where(a => a.Id == id).FirstOrDefault();
+                if (delete != null)
+                {
+                    // Xóa tất cả sản phẩm, nhãn hàng, loại sản phẩm do quản trị viên này tạo
+                    List<Product> products    = _context.Products.Where(p => p.Admin_Id == id).ToList();
+                    List<ProductBrand> brands = _context.ProductBrands.Where(p => p.Admin_Id == id).ToList();
+                    List<ProductType> types   = _context.ProductTypes.Where(p => p.Admin_Id == id).ToList();
+
+                    if (products != null) { foreach(var p in products){ RemoveProduct(p);}}
+                    if (brands != null)   { foreach(var b in brands){ _context.ProductBrands.Remove(b); _context.SaveChanges();}}
+                    if (types != null)    { foreach(var t in types) { _context.ProductTypes.Remove(t);  _context.SaveChanges();}}
+                    _context.Admins.Remove(delete);
+                    _context.SaveChanges();
+                }
+                return RedirectToAction("AdminsOverview");
+            }
+            else{ return RedirectToAction("Login");}
+        }
 
         // Trang thống kê
         public IActionResult Report()
@@ -625,137 +769,6 @@ namespace Web42Shop.Controllers
                 return RedirectToAction("Login");
 
             }
-        }
-
-        // them xoa sua admin Suong
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var admin = await _context.Admins
-                .Include(a => a.Role)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (admin == null)
-            {
-                return NotFound();
-            }
-
-            return View(admin);
-        }
-
-        // GET: Admins/Create
-        public IActionResult Create()
-        {
-            ViewData["Role_Id"] = new SelectList(_context.Roles, "Id", "Name");
-            return View();
-        }
-
-        // POST: Admins/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Role_Id,Username,Password,Email,DateCreate,DateModify")] Admin admin)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(admin);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["Role_Id"] = new SelectList(_context.Roles, "Id", "Name", admin.Role_Id);
-            return View(admin);
-        }
-
-        // GET: Admins/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var admin = await _context.Admins.FindAsync(id);
-            if (admin == null)
-            {
-                return NotFound();
-            }
-            ViewData["Role_Id"] = new SelectList(_context.Roles, "Id", "Name", admin.Role_Id);
-            return View(admin);
-        }
-
-        // POST: Admins/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Role_Id,Username,Password,Email,DateCreate,DateModify")] Admin admin)
-        {
-            if (id != admin.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(admin);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AdminExists(admin.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["Role_Id"] = new SelectList(_context.Roles, "Id", "Name", admin.Role_Id);
-            return View(admin);
-        }
-
-        // GET: Admins/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var admin = await _context.Admins
-                .Include(a => a.Role)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (admin == null)
-            {
-                return NotFound();
-            }
-
-            return View(admin);
-        }
-
-        // POST: Admins/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var admin = await _context.Admins.FindAsync(id);
-            _context.Admins.Remove(admin);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool AdminExists(int id)
-        {
-            return _context.Admins.Any(e => e.Id == id);
         }
     }
 }
