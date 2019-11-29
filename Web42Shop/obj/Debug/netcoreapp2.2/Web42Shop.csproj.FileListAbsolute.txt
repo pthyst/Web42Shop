@@ -506,11 +506,6 @@ H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductTypes\Details.
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductTypes\Edit.g.cshtml.cs
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\ProductTypes\Index.g.cshtml.cs
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Users\_Comments.g.cshtml.cs
-H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Create.g.cshtml.cs
-H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Delete.g.cshtml.cs
-H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Details.g.cshtml.cs
-H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Edit.g.cshtml.cs
-H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Index.g.cshtml.cs
 D:\Work\Projects\TMDT\Web42Shop\Web42Shop\Web42Shop\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
 D:\Work\Projects\TMDT\Web42Shop\Web42Shop\Web42Shop\bin\Debug\netcoreapp2.2\appsettings.Development.json
 D:\Work\Projects\TMDT\Web42Shop\Web42Shop\Web42Shop\bin\Debug\netcoreapp2.2\appsettings.json
@@ -635,3 +630,8 @@ H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\ProductBrandEdi
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\ProductTypeEdit.g.cshtml.cs
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\ProductTypesOverview.g.cshtml.cs
 H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Users\_CartItemPartial.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Create.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Delete.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Details.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Edit.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Index.g.cshtml.cs

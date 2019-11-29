@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/Users/_IndexLayout.cshtml";
 }
 
+
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -54,17 +55,18 @@
 </div>
 
 <div class="container-fluid section" id="CartItemContainer">
-    <div class="container">
+    <div class="container-fluid padd10">
         <h1 class="section__title">
             Giỏ hàng <i class="fas fa-shopping-cart"></i>
         </h1>
         <br />
         <br />
-        <table class="table">
+        <table class="table txt-center table--cart">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">Stt</th>
                     <th scope="col">Tên hàng</th>
+                    <th scope="col">Đơn giá</th>
                     <th scope="col" class="clCenter">Số lượng</th>
                     <th scope="col" class="clCenter">Thành tiền</th>
                     <th scope="col" class="clCenter">Hủy sản phẩm</th>
@@ -81,8 +83,9 @@
                     <tr>
                         <th scope="row">@stt</th>
                         <td>@item.Name</td>
+                        <td>@String.Format("{0:0,0 VNĐ}", item.Price)</td>
                         <td class="clCenter"><a onclick="minusItem(@item.Id)" class="CartEdit"><i class="fas fa-minus"></i></a>@item.Quantity<a onclick="plusItem(@item.Id)" class="CartEdit"><i class="fas fa-plus"></i></a></td>
-                        <td class="clCenter">@item.TotalPrice</td>
+                        <td class="clCenter">@String.Format("{0:0,0 VNĐ}", item.TotalPrice)</td>
                         <td class="clCenter">
                             <!--<p onclick="deleteItem(@item.Id)" class="point btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-times"></i></p>-->
                             <p onclick="deleteItem(@item.Id)" class="point btn btn-secondary btn-sm"><i class="fas fa-times"></i></p>

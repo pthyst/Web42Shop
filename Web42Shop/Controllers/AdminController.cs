@@ -735,6 +735,7 @@ namespace Web42Shop.Controllers
                     if (products != null) { foreach(var p in products){ RemoveProduct(p);}}
                     if (brands != null)   { foreach(var b in brands){ _context.ProductBrands.Remove(b); _context.SaveChanges();}}
                     if (types != null)    { foreach(var t in types) { _context.ProductTypes.Remove(t);  _context.SaveChanges();}}
+                    
                     _context.Admins.Remove(delete);
                     _context.SaveChanges();
                 }

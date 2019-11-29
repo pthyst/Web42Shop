@@ -70,6 +70,20 @@ header button[type="submit"]:hover {
     color: #fff;
     background-color: #FD7F0A;
 }
+.header__link
+{
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 1rem;
+}
+.header__displayname
+{
+    background: #11788C;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+}
 .banner
 {
     padding:0;
@@ -609,16 +623,42 @@ footer a
 }
 
 .CartEdit {
-    padding: 5px 15px 5px 15px;
+    padding: 0.5rem 1rem;
     cursor: pointer;
+    background: #FD7F0A;
+    color: #fff;
+    margin:0rem 1rem;
 }
-.CartEdit:hover {
-    border-radius: 7px;
-    background: #F5F5F5;
-}
+
 .clCenter{
     text-align:center;
 }
 .point{
     cursor:pointer;
+}
+.button
+{
+    display: inline-block;
+    background: #161616;
+    color: #fff;
+    font-size: 1.1rem;
+    outline: none;
+    border: medium none;
+    padding: 11px 20px;
+    text-transform: uppercase;
+}
+.login_form .button--submit
+{
+    background: #3EA712;
+}
+.login_form .button--new
+{
+    background: #FD7F0A;
+}
+.table--cart
+{
+    display: table;
+    font-size: 1.2rem;
+    border: 1px solid #535353;
+    box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.2);
 }

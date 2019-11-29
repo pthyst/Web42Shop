@@ -13,3 +13,4 @@
 .absolute {position: absolute}
 .fixed {position: fixed}
 .sticky{position: sticky}
+.padd10{padding-left:10%; padding-right:10%;}
