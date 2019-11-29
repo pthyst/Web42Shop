@@ -23,6 +23,11 @@ namespace Web42Shop.Models
         [StringLength(20,ErrorMessage = "Số điện thoại phải từ 10 đến 20 kí tự",MinimumLength = 10)]
         public string PhoneNumber { get; set; }
 
+        [Required(ErrorMessage = "Mật khẩu không được để trống")]
+        [StringLength(25, ErrorMessage = "Mật khẩu từ 6 đến 25 kí tự",MinimumLength = 6)]
+        [Display(Name = "Mật khẩu")]
+        public string Password {get;set;}
+
         [Required(ErrorMessage = "Tên không được để trống")]
         [StringLength(100,ErrorMessage = "Tên không quá 100 kí tự")]
         [Display(Name = "Tên")]

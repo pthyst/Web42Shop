@@ -629,3 +629,9 @@ G:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Users\Index.g.cshtml.
 G:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\User\Index.g.cshtml.cs
 G:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\User\Login.g.cshtml.cs
 G:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\User\Register.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\AdminEdit.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\AdminNew.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\ProductBrandEdit.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\ProductTypeEdit.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Admin\ProductTypesOverview.g.cshtml.cs
+H:\Web42Shop\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Users\_CartItemPartial.g.cshtml.cs

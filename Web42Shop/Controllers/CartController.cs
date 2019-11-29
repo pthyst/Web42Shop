@@ -18,6 +18,7 @@ namespace Web42Shop.Controllers
         {
             _context = context;
         }
+        
         [Route("/giohang")]
         public async Task<IActionResult> Index()
         {
