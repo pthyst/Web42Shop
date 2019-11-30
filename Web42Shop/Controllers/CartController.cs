@@ -280,7 +280,11 @@ namespace Web42Shop.Controllers
             }
             return 0;
         }
-
+        public async Task<IActionResult> SingleAddToCart(int id)
+        {
+            await AddItem(id);
+            return RedirectToAction("Index","Cart");
+        }
         public async Task<IActionResult> PlusItem(int id)
         {
             List<CartItemViewModel> cartItem = new List<CartItemViewModel>();
