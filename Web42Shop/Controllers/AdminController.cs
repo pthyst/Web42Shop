@@ -168,12 +168,6 @@ namespace Web42Shop.Controllers
             else{ return RedirectToAction("Login");}
         }
 
-        // Trang tổng quát người dùng
-        public IActionResult UsersOverview()
-        {
-            if (IsLogedIn() == true){ return View(_context.Users.OrderByDescending(u => u.Id));}
-            else{ return RedirectToAction("Login");}
-        }
 
         #region Nhóm trang sản phẩm
         // Trang tổng quát sản phẩm
@@ -626,7 +620,7 @@ namespace Web42Shop.Controllers
         #endregion
         #endregion
 
-
+        #region Nhóm trang quản trị
         // Trang tổng quan quản trị
         public IActionResult AdminsOverview()
         {
@@ -744,6 +738,96 @@ namespace Web42Shop.Controllers
             else{ return RedirectToAction("Login");}
         }
 
+        #endregion
+
+        #region Nhóm trang khách hàng
+        // Nhóm trang này không có chức năng thêm mới và chỉnh sửa
+        // là do việc thêm mới và chỉnh sửa thông tin là ở người dùng, quản trị viên không được can thiệp vào.
+        // Trang tổng quát người dùng
+        public IActionResult UsersOverview()
+        {
+            if (IsLogedIn() == true){ return View(_context.Users.OrderByDescending(u => u.Id));}
+            else{ return RedirectToAction("Login");}
+        }
+
+        [HttpGet]
+        public IActionResult UserDetail(int id)
+        {
+            User detail = _context.Users.Where(u => u.Id == id).FirstOrDefault();
+            if (detail != null){ return View(detail);}
+            else {return RedirectToAction("UsersOverview");}
+        }
+
+        [HttpGet]
+        public IActionResult UserDelete(int id)
+        {
+            User delete = _context.Users.Where(u => u.Id == id).FirstOrDefault();
+            if (delete != null)
+            {
+                // Xóa các trả lời bình luận của người dùng
+                List<CommentReply> replies = _context.CommentReplies.Where(c => c.User_Id == id).ToList();
+                if (replies != null)
+                {
+                    foreach (var reply in replies){
+                        _context.CommentReplies.Remove(reply);
+                        _context.SaveChanges();
+                    }
+                }
+
+                // Xóa các bình luận của người dùng
+                List<Comment> comments = _context.Comments.Where(c => c.User_Id == id).ToList();
+                if (comments != null)
+                {
+                    foreach (var comment in comments)
+                    {
+                        _context.Comments.Remove(comment);
+                        _context.SaveChanges();
+                    }
+                }
+
+                // Xóa chi tiết giỏ hàng
+                Cart cart_delete = _context.Carts.Where(c => c.User_Id == id).FirstOrDefault();
+                List<CartDetail> details = _context.CartDetails.Where(c => c.Cart_Id == cart_delete.Id).ToList();
+                if (details != null)
+                {
+                    foreach (var detail in details)
+                    {
+                        _context.CartDetails.Remove(detail);
+                        _context.SaveChanges();
+                    }
+                } 
+
+                // Xóa giỏ hàng
+                _context.Carts.Remove(cart_delete);
+                _context.SaveChanges();
+
+                // Xóa chi tiết và đơn đặt hàng
+                Order order_delete = _context.Orders.Where(o => o.User_Id == id).FirstOrDefault();
+                if (order_delete != null) // Đơn đặt hàng có thể null do khách hàng tạo tài khoản nhưng chưa đặt hàng
+                {
+                    List<OrderDetail> order_details = _context.OrderDetails.Where(o => o.Order_Id == order_delete.Id).ToList();
+                    foreach (var detail in order_details)
+                    {
+                        _context.OrderDetails.Remove(detail);
+                        _context.SaveChanges();
+                    }
+                    _context.Orders.Remove(order_delete);
+                    _context.SaveChanges();
+                }
+
+                _context.Users.Remove(delete);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("UsersOverview");
+        }
+        #endregion
+
+       
+       
+       
+       
+       
+       
         // Trang thống kê
         public IActionResult Report()
         {
