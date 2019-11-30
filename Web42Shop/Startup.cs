@@ -53,6 +53,7 @@ namespace Web42Shop
                     opt.AccessDeniedPath = "/Home/AccessDenied";
                     opt.LogoutPath = "/KhachHang/Logout";
                 });
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

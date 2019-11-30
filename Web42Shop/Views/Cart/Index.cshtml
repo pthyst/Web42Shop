@@ -1,8 +1,14 @@
 ﻿@model Web42Shop.ViewModels.CartViewModel
-@{
-    ViewBag.Title = "Giỏ hàng";
+@{ViewBag.Title = "Giỏ hàng";
     Layout = "~/Views/Shared/Users/_IndexLayout.cshtml";
 }
+
+
+<head>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+    <title>Paypal</title>
+</head>
 
 
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
@@ -33,110 +39,120 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Xóa mặt hàng</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h3>Bạn có chắc chắn muốn xóa mặt hàng này ?</h3>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-primary">Đồng ý</button>
+@using (Html.BeginForm("PaypalView", "Paypal"))
+{
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Xóa mặt hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>Bạn có chắc chắn muốn xóa mặt hàng này ?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary">Đồng ý</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="container-fluid section" id="CartItemContainer">
-    <div class="container-fluid padd10">
-        <h1 class="section__title">
-            Giỏ hàng <i class="fas fa-shopping-cart"></i>
-        </h1>
-        <br />
-        <br />
-        <table class="table txt-center table--cart">
-            <thead>
-                <tr>
-                    <th scope="col">Stt</th>
-                    <th scope="col">Tên hàng</th>
-                    <th scope="col">Đơn giá</th>
-                    <th scope="col" class="clCenter">Số lượng</th>
-                    <th scope="col" class="clCenter">Thành tiền</th>
-                    <th scope="col" class="clCenter">Hủy sản phẩm</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{ 
-                    int stt = 0;
-                    int totalePrice = 0;
-                }
-                @foreach (var item in Model.CartItemViewModels)
-                {
-                    stt++;
+ 
+    <div class="container-fluid section" id="CartItemContainer">
+        <div class="container">
+            <h1 class="section__title">
+                Giỏ hàng <i class="fas fa-shopping-cart"></i>
+            </h1>
+            <br />
+            <br />
+            <table class="table">
+                <thead>
                     <tr>
-                        <th scope="row">@stt</th>
-                        <td>@item.Name</td>
-                        <td>@String.Format("{0:0,0 VNĐ}", item.Price)</td>
-                        <td class="clCenter"><a onclick="minusItem(@item.Id)" class="CartEdit"><i class="fas fa-minus"></i></a>@item.Quantity<a onclick="plusItem(@item.Id)" class="CartEdit"><i class="fas fa-plus"></i></a></td>
-                        <td class="clCenter">@String.Format("{0:0,0 VNĐ}", item.TotalPrice)</td>
-                        <td class="clCenter">
-                            <!--<p onclick="deleteItem(@item.Id)" class="point btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-times"></i></p>-->
-                            <p onclick="deleteItem(@item.Id)" class="point btn btn-secondary btn-sm"><i class="fas fa-times"></i></p>
-                        </td>
-                    </tr>
-                    totalePrice += item.TotalPrice;
-                }
-            </tbody>
-        </table>
-        <br />
-        <div class="row">
-            <div class="col-9"><h2 style="padding:20px">Tổng tiền: @String.Format("{0:0,0 VNĐ}", totalePrice).</h2></div>
-            <div class="col-sm"><button type="button" class="btn btn-block btn-primary"><h2>Thanh toán</h2></button></div>
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên hàng</th>
+                        <th scope="col" class="clCenter">Số lượng</th>
+                        <th scope="col" class="clCenter">Thành tiền</th>
+                        <th scope="col" class="clCenter">Hủy sản phẩm</th>
+                     
+                                            </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int stt = 0;
+                            int totalePrice = 0;
+                        }
+                        @foreach (var item in Model.CartItemViewModels)
+                        {
+                            stt++;
+                            <tr>
+                                <th scope="row">@stt</th>
+                                <td>  <input style="border:0" type="text" name="item" value="@item.Name" readonly /></td>
+                                <td class="clCenter"><a onclick="minusItem(@item.Id)" class="CartEdit"><i class="fas fa-minus"></i></a>@item.Quantity<a onclick="plusItem(@item.Id)" class="CartEdit"><i class="fas fa-plus"></i></a></td>
+                                <td class="clCenter">@item.TotalPrice</td>
+                                <td class="clCenter">
+                                    <!--<p onclick="deleteItem(@item.Id)" class="point btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-times"></i></p>-->
+                                    <p onclick="deleteItem(@item.Id)" class="point btn btn-secondary btn-sm"><i class="fas fa-times"></i></p>
+                                </td>
+                            </tr>
+                            totalePrice += item.TotalPrice;
+                        }
+                    </tbody>
+                </table>
+                <br />
+                <div class="row">
+                    <div class="col-9"><h2 style="padding:20px">Tổng tiền: <input style="border:0" type="text" value="@totalePrice" readonly /></h2></div>
+                    @{ 
+                        Double @USD = totalePrice / 23000;
+                    }
+                    <div class="col-sm">
+                        <p><input style="border:0 "  type="text" name="sum" value="@USD" />USD </p>
+                        <input type="submit" name="btnsubmit" value="THANH TOÁN">
+                    </div>
+
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<script>
-    function plusItem(id) {
-        $.ajax({
-            url: "/cart/PlusItem",
-            method: "POST",
-            data: { id: id },
-            async: true,
-            dataType: "HTML",
-            success: function (data) {
-                $("#CartItemContainer").html(data);
-            }
-        });
-    };
-    function minusItem(id) {
-         $.ajax({
-            url: "/cart/MinusItem",
-            method: "POST",
-            data: { id: id },
-            async: true,
-            dataType: "HTML",
-            success: function (data) {
-                $("#CartItemContainer").html(data);
-            }
-        });
-    };
-    function deleteItem(id) {
-        $.ajax({
-            url: "/cart/DeleteItem",
-            method: "POST",
-            data: { id: id },
-            async: true,
-            dataType: "HTML",
-            success: function (data) {
-                $("#CartItemContainer").html(data);
-            }
-        });
     }
+
+<script>
+function plusItem(id) {
+    $.ajax({
+        url: "/cart/PlusItem",
+        method: "POST",
+        data: { id: id },
+        async: true,
+        dataType: "HTML",
+        success: function (data) {
+            $("#CartItemContainer").html(data);
+        }
+    });
+};
+function minusItem(id) {
+    $.ajax({
+        url: "/cart/MinusItem",
+        method: "POST",
+        data: { id: id },
+        async: true,
+        dataType: "HTML",
+        success: function (data) {
+            $("#CartItemContainer").html(data);
+        }
+    });
+};
+function deleteItem(id) {
+    $.ajax({
+        url: "/cart/DeleteItem",
+        method: "POST",
+        data: { id: id },
+        async: true,
+        dataType: "HTML",
+        success: function (data) {
+            $("#CartItemContainer").html(data);
+        }
+    });
+}
 </script>
