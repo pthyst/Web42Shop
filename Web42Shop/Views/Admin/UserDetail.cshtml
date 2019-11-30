@@ -4,99 +4,60 @@
     Layout = "~/Views/Admin/_AdminIndexLayout.cshtml";
 }
 
-<div class="container-fluid">
+<div class="container-fluid create">
     <div class="row">
-        <a asp-controller="Admin" asp-action="UsersOverview">Quay về</a>
+        <a class="button button--back" asp-controller="Admin" asp-action="UsersOverview">Quay về</a><hr>
+    </div>
+    <div class="row">
         <h2>Thông tin khách hàng</h2>
     </div>
     <div class="row">
-        <dl>
-            <dt class = "col-sm-2">Họ</dt>
-            <dd class = "col-sm-10">
-                @Model.NameLast
-            </dd>
-
-            <dt class = "col-sm-2">Họ đệm</dt>
-            <dd class = "col-sm-10">
-                @Model.NameMiddle
-            </dd>
-
-            <dt class = "col-sm-2">Tên</dt>
-            <dd class = "col-sm-10">
-                @Model.NameFirst
-            </dd>
-
-
-            <dt class = "col-sm-2">Tên</dt>
-            <dd class = "col-sm-10">
-                @Model.NameFirst
-            </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NameMiddle)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NameMiddle)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NameLast)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NameLast)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateBirth)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateBirth)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AddressApartment)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AddressApartment)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AddressStreet)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AddressStreet)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AddressDistrict)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AddressDistrict)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AddressCity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AddressCity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BuyPoints)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BuyPoints)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCreate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateModify)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateModify)
-        </dd>
-    </dl>
+        <form>
+            <div class="form-group">
+                <label>Họ và tên</label>
+                @{
+                    string fullname = Model.NameLast ;
+                    if (Model.NameMiddle != null) {fullname += " " + Model.NameMiddle;}
+                    fullname += " " + Model.NameFirst;
+                }
+                <input type="text" class="form-control" value="@fullname" readonly>
+            </div>
+            <div class="form-row">
+                <div class="col form-group">
+                    <label>Giới tính</label>
+                    @{
+                        string gender = "";
+                        if (Model.Gender == "female"){ gender = "Nữ";}
+                        else { gender = "Nam";}
+                    }
+                    <input type="text" class="form-control" value="@gender" readonly>
+                </div>
+                <div class="col form-group">
+                    <label>Ngày sinh</label>
+                    <input type="text" class="form-control" value=@Model.DateBirth.ToString("yyyy-MM-dd") readonly>
+                </div>
+                <div class="col form-group">
+                    <label>Điểm tích lũy</label>
+                    <input type="text" class="form-control" value="@Model.BuyPoints" readonly>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col form-group">
+                    <label>Số diện thoại</label>
+                    <input type="text" class="form-control" value="@Model.PhoneNumber" readonly>
+                </div>
+                <div class="col form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" value="@Model.Email" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Địa chỉ</label>
+                @{
+                    string address = Model.AddressApartment + ", " + Model.AddressStreet + ", " + Model.AddressDistrict + ", " + Model.AddressCity;
+                }
+                <input type="text" class="form-control" value="@address" readonly>
+            </div>
+        </form>
     </div>
 </div>

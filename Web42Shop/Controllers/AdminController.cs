@@ -787,20 +787,23 @@ namespace Web42Shop.Controllers
 
                 // Xóa chi tiết giỏ hàng
                 Cart cart_delete = _context.Carts.Where(c => c.User_Id == id).FirstOrDefault();
-                List<CartDetail> details = _context.CartDetails.Where(c => c.Cart_Id == cart_delete.Id).ToList();
-                if (details != null)
+                if (cart_delete != null)
                 {
-                    foreach (var detail in details)
+                     List<CartDetail> details = _context.CartDetails.Where(c => c.Cart_Id == cart_delete.Id).ToList();
+                    if (details != null)
                     {
-                        _context.CartDetails.Remove(detail);
-                        _context.SaveChanges();
-                    }
-                } 
+                        foreach (var detail in details)
+                        {
+                            _context.CartDetails.Remove(detail);
+                            _context.SaveChanges();
+                        }
+                    } 
 
-                // Xóa giỏ hàng
-                _context.Carts.Remove(cart_delete);
-                _context.SaveChanges();
-
+                    // Xóa giỏ hàng
+                    _context.Carts.Remove(cart_delete);
+                    _context.SaveChanges();
+                }   
+               
                 // Xóa chi tiết và đơn đặt hàng
                 Order order_delete = _context.Orders.Where(o => o.User_Id == id).FirstOrDefault();
                 if (order_delete != null) // Đơn đặt hàng có thể null do khách hàng tạo tài khoản nhưng chưa đặt hàng
@@ -821,12 +824,6 @@ namespace Web42Shop.Controllers
             return RedirectToAction("UsersOverview");
         }
         #endregion
-
-       
-       
-       
-       
-       
        
         // Trang thống kê
         public IActionResult Report()
