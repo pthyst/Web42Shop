@@ -8,10 +8,8 @@
     <p class="overview__title">Khách hàng đã đăng ký</p>
     <table class="overview__table overview__table--users">
         <tr>
-            <th>Mã</th>
-            <th>Họ</th>
-            <th>Họ đệm</th>
-            <th>Tên</th>
+            <th>Mã khách hàng</th>
+            <th>Họ và tên</th>
             <th>Email</th>
             <th>SĐT</th>
             <th>Điểm tích lũy</th>
@@ -19,15 +17,17 @@
         </tr>
         @foreach (var user in Model)
         {
+            string fullname = user.NameLast ;
+            if (user.NameMiddle != null) {fullname += " " + user.NameMiddle;}
+            fullname += " " + user.NameFirst;
+            
             <tr>
-                <td><a asp-action="Details" asp-route-id="@user.Id" asp-controller="Users"> @user.Id </a> </td>
-                <td>@user.NameLast</td>
-                <td>@user.NameMiddle</td>
-                <td>@user.NameFirst</td>
+                <td><a asp-action="UserDetail" asp-route-id="@user.Id" asp-controller="Admin"> @user.Id </a> </td>
+                <td><a asp-action="UserDetail" asp-route-id="@user.Id" asp-controller="Admin">@fullname</a> </td>
                 <td>@user.Email</td>
                 <td>@user.PhoneNumber</td>
                 <td>@user.BuyPoints</td>
-                <td><a asp-action="Delete" asp-controller="Users" asp-route-id="@user.Id" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i>Delete</a></td>
+                <td><a asp-action="UserDelete" asp-controller="Admin" asp-route-id="@user.Id" class="overview__button overview__button--delete"><i class="fas fa-trash-alt"></i>Delete</a></td>
             </tr>
         }
     </table>

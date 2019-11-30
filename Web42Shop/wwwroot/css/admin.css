@@ -308,7 +308,7 @@
 .button
 {
     display: inline-block;
-    padding: 0.35rem 0.5rem;
+    padding: 0.35rem 1rem;
     font-size: 1.1rem;
     outline: none;
     border: 0;
@@ -316,5 +316,10 @@
 .button--submit
 {
     background-color: #107C48;
+    color: #fff;
+}
+.button--back
+{
+    background: #295886;
     color: #fff;
 }
