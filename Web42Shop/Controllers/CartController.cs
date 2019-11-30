@@ -24,7 +24,7 @@ namespace Web42Shop.Controllers
         {
             List<CartItemViewModel> cartItem = new List<CartItemViewModel>();
 
-            if (HttpContext.Session.GetString("TaiKhoan") == null)
+            if (HttpContext.Session.GetString("IdTaiKhoan") == null)
             {
                 if (HttpContext.Session.GetString("IdCart") != null)
                 {
@@ -46,23 +46,20 @@ namespace Web42Shop.Controllers
             }
             else
             {
-                if (HttpContext.Session.GetString("IdTaiKhoan") == null)
-                {
-                    cartItem = await (from d in _context.CartDetails
-                                      join c in _context.Carts
-                                      on d.Cart_Id equals c.Id
-                                      join p in _context.Products
-                                      on d.Product_Id equals p.Id
-                                      where c.User_Id == HttpContext.Session.GetInt32("IdTaiKhoan")
-                                      select new CartItemViewModel
-                                      {
-                                          Id = d.Id,
-                                          Name = p.Name,
-                                          Quantity = d.Quantity,
-                                          Price = d.PriceSingle,
-                                          TotalPrice = d.PriceTotal
-                                      }).ToListAsync();
-                }
+                cartItem = await (from d in _context.CartDetails
+                                    join c in _context.Carts
+                                    on d.Cart_Id equals c.Id
+                                    join p in _context.Products
+                                    on d.Product_Id equals p.Id
+                                    where c.User_Id == HttpContext.Session.GetInt32("IdTaiKhoan")
+                                    select new CartItemViewModel
+                                    {
+                                        Id = d.Id,
+                                        Name = p.Name,
+                                        Quantity = d.Quantity,
+                                        Price = d.PriceSingle,
+                                        TotalPrice = d.PriceTotal
+                                    }).ToListAsync();
             }
 
             CartViewModel vm = new CartViewModel()
@@ -88,7 +85,7 @@ namespace Web42Shop.Controllers
             if (product == null) return -1;
 
             //tai khoan chua dang nhap
-            if (HttpContext.Session.GetString("TaiKhoan") == null)
+            if (HttpContext.Session.GetString("IdTaiKhoan") == null)
             {
                 //khởi tạo cart lần đầu
                 if (HttpContext.Session.GetInt32("IdCart") == null)
