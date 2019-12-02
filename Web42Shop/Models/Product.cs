@@ -73,6 +73,11 @@ namespace Web42Shop.Models
         [Display(Name = "Ngày chỉnh sửa cuối")]
         public DateTime DateModify { get; set; }
 
+
+        [Display(Name = "Bài viết về sản phẩm")]
+        [Column(TypeName = "text")]
+        public string Article { get; set; } 
+
         // Phần này dành cho khóa ngoại
         #region Foreign Keys
         public ICollection<Comment> Comments { get; set; }

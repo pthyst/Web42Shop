@@ -62,7 +62,8 @@
                 </div>
 
                 <div class="form-group">
-                    <textarea rows="10" cols="300" class="form-control" asp-for="@Model.Product.Description">Mô tả sản phẩm</textarea>
+                    <label asp-for="@Model.Product.Description">Mô tả sản phẩm</label>
+                    <textarea rows="10" cols="300" class="form-control" asp-for="@Model.Product.Description"></textarea>
                     <!-- Đổi textarea thành ckeditor -->
                     <script src="~/lib/ckeditor/ckeditor.js"></script>
                     <script>
@@ -78,6 +79,23 @@
                     </script>
                 </div>
 
+                <div class="form-group">
+                    <label asp-for="@Model.Product.Article">Bài viết về sản phẩm</label>
+                    <textarea rows="10" cols="300" class="form-control" asp-for="@Model.Product.Article"></textarea>
+                    <!-- Đổi textarea thành ckeditor -->
+                    <script src="~/lib/ckeditor/ckeditor.js"></script>
+                    <script>
+                        CKEDITOR.replace("Product_Article");
+                        //ClassicEditor
+                            //  .create(document.querySelector('#Product_Description'))
+                            //  .then(editor => {
+                            //       window.editor = editor;
+                            //   })
+                            //  .catch(err => {
+                            //      console.error(err.stack);
+                            //  });
+                    </script>
+                </div>
                 <div class="form-group">
                     <button type="submit" class="button button--submit">Hoàn tất</button>
                 </div>
