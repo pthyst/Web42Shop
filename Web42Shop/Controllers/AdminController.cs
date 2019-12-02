@@ -161,13 +161,6 @@ namespace Web42Shop.Controllers
             return RedirectToAction("Login");
         }
 
-        // Trang tổng quát các đơn hàng
-        public IActionResult OrdersOverview()
-        {
-            if (IsLogedIn() == true){ return View();}
-            else{ return RedirectToAction("Login");}
-        }
-
 
         #region Nhóm trang sản phẩm
         // Trang tổng quát sản phẩm
@@ -825,6 +818,126 @@ namespace Web42Shop.Controllers
         }
         #endregion
        
+        #region Nhóm trang đơn đặt hàng
+         // Trang tổng quát các đơn hàng
+        public IActionResult OrdersOverview()
+        {
+            if (IsLogedIn() == true)
+            { 
+                return View(
+                    new AdminOrdersOverviewViewModel()
+                    {
+                        Orders = _context.Orders.OrderBy(o => o.OrderStatus_Id).ToList(),
+                        OrderStatus = _context.OrderStatuses.ToList()
+                    }
+                );
+            }
+            else{ return RedirectToAction("Login");}
+        }
+
+        [HttpGet]
+        public IActionResult OrderCheck(int id)
+        {
+            if (IsLogedIn() == true)
+            { 
+                Order check = _context.Orders.Where(o => o.Id == id).FirstOrDefault();
+                if (check != null)
+                {
+                    IEnumerable<OrderDetail> details = _context.OrderDetails.Where(o => o.Order_Id == id).ToList();
+                    List<Product> products = new List<Product>();
+                    foreach (var detail in details)
+                    {
+                        Product product = _context.Products.Where(p => p.Id == detail.Product_Id).FirstOrDefault();
+                        products.Add(product);
+                    }
+                    return View(
+                        new AdminOrderCheckViewModel()
+                        {
+                            Order = check,
+                            OrderDetails = details,
+                            Products = products
+                        }
+                    );
+                }
+                else
+                {
+                    return RedirectToAction("OrdersOverview");
+                }
+            }
+            else{ return RedirectToAction("Login");}
+        }
+
+        [HttpPost]
+        public IActionResult OrderCheck(AdminOrderCheckViewModel vm)
+        {
+            if (IsLogedIn() == true)
+            { 
+                IEnumerable<OrderDetail> details = _context.OrderDetails.Where(o => o.Order_Id == vm.Order.Id).ToList();
+                List<Product> products = new List<Product>();
+                foreach (var detail in details)
+                {
+                    Product product = _context.Products.Where(p => p.Id == detail.Product_Id).FirstOrDefault();
+                    products.Add(product);
+                }
+                if (ModelState.IsValid)
+                {
+                    Order up = _context.Orders.Where(o => o.Id == vm.Order.Id).FirstOrDefault();
+                    up.OrderStatus_Id = vm.Order.OrderStatus_Id;
+                    _context.SaveChanges();
+                    return View(
+                        new AdminOrderCheckViewModel()
+                        {
+                            Order = up,
+                            OrderDetails = details,
+                            Products = products
+                        }
+                    );
+                }
+                return View(
+                    new AdminOrderCheckViewModel()
+                    {
+                        Order = vm.Order,
+                        OrderDetails = details,
+                        Products = products
+                    }
+                );
+            }
+            else{ return RedirectToAction("Login");}
+        }
+
+        [HttpGet]
+        public IActionResult OrderDetail(int id)
+        {
+            if (IsLogedIn() == true)
+            { 
+                Order check = _context.Orders.Where(o => o.Id == id).FirstOrDefault();
+                if (check != null)
+                {
+                    IEnumerable<OrderDetail> details = _context.OrderDetails.Where(o => o.Order_Id == id).ToList();
+                    List<Product> products = new List<Product>();
+                    foreach (var detail in details)
+                    {
+                        Product product = _context.Products.Where(p => p.Id == detail.Product_Id).FirstOrDefault();
+                        products.Add(product);
+                    }
+                    return View(
+                        new AdminOrderCheckViewModel()
+                        {
+                            Order = check,
+                            OrderDetails = details,
+                            Products = products
+                        }
+                    );
+                }
+                else
+                {
+                    return RedirectToAction("OrdersOverview");
+                }
+            }
+            else{ return RedirectToAction("Login");}
+        }
+        #endregion
+
         // Trang thống kê
         public IActionResult Report()
         {
@@ -835,7 +948,6 @@ namespace Web42Shop.Controllers
             else
             {
                 return RedirectToAction("Login");
-
             }
         }
 
