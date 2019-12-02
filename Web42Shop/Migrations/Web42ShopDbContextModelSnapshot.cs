@@ -376,6 +376,9 @@ namespace Web42Shop.Migrations
 
                     b.Property<int>("Admin_Id");
 
+                    b.Property<string>("Article")
+                        .HasColumnType("text");
+
                     b.Property<int>("BuyPoints");
 
                     b.Property<DateTime>("DateCreate");
