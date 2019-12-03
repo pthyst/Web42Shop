@@ -73,7 +73,24 @@ namespace Web42Shop
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            // config for RobotsTXT SEO tool
+            app.UseRobotsTxt(builder =>
+               builder
+                   .AddSection(section =>
+                       section
+                           .AddComment("Allow Googlebot")
+                           .AddUserAgent("Googlebot")
+                           .Allow("/")
+                       )
+                   .AddSection(section =>
+                       section
+                           .AddComment("Disallow the rest")
+                           .AddUserAgent("*")
+                           .AddCrawlDelay(TimeSpan.FromSeconds(10))
+                           .Disallow("/")
+                       )
+            );
+            // config for RobotsTXT SEO tool
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
