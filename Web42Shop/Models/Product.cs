@@ -34,7 +34,7 @@ namespace Web42Shop.Models
         public string Name { get; set; }
 
         [Display(Name = "Mô tả sản phẩm")]
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string Description { get; set; } 
 
         [Display(Name = "Đơn giá")]
@@ -75,7 +75,7 @@ namespace Web42Shop.Models
 
 
         [Display(Name = "Bài viết về sản phẩm")]
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string Article { get; set; } 
 
         // Phần này dành cho khóa ngoại
