@@ -233,6 +233,7 @@ namespace Web42Shop.Controllers
         {
             return _context.Products.Any(e => e.Id == id);
         }
+
         //hàm cho phần phân trang
         private async Task<int> GetTotalPage(int option, string key)
         {
@@ -262,8 +263,34 @@ namespace Web42Shop.Controllers
             return 0;
         }
 
-        //hàm hỗ trợ khác //do Khải viết, có gì không hiểu liên lạc cho Khải
+        public async Task<IActionResult> AddComment(int idUser, int idProduct, int stars, string content)
+        {
 
+            int totalComment = await (from c in _context.Comments where c.User_Id == idUser select c).CountAsync();
+
+            Comment comment = new Comment
+            {
+                User_Id = idUser,
+                Product_Id = idProduct,
+                Stars = stars,
+                Content = content,
+                DateCreate = DateTime.Now,
+                DateModify = DateTime.Now
+            };
+            _context.Comments.Add(comment);
+            _context.SaveChanges();
+
+            Product product = await (from p in _context.Products where p.Id == idProduct select p).SingleOrDefaultAsync();
+            product.Stars = Math.Round((product.Stars * totalComment + stars) / (totalComment + 1),1);
+            _context.Products.Update(product);
+            _context.SaveChanges();
+
+
+            var viewModel = await GetCommentById(idProduct, 1);
+            return PartialView("Users/_Comments", viewModel);
+        }
+
+        //hàm hỗ trợ khác //do Khải viết, có gì không hiểu liên lạc cho Khải
         [HttpPost]
         public async Task<IActionResult> MoreComment(int id, int page)
         {
