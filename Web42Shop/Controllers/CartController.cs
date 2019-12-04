@@ -26,6 +26,7 @@ namespace Web42Shop.Controllers
 
             if (HttpContext.Session.GetString("IdTaiKhoan") == null)
             {
+                ViewBag.Hau = 1;
                 if (HttpContext.Session.GetString("IdCart") != null)
                 {
                     cartItem = await (from d in _context.AnoCartDetails

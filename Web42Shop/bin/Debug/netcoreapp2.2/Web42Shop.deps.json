@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "4c33ef46bdd048a6d7f338ebf2cca29438b509a1"
+    "signature": "c9e3efafb7e20ecc2e47904cb0203a1b31df69fa"
   },
   "compilationOptions": {
     "defines": [
@@ -34,6 +34,7 @@
           "Microsoft.NETCore.App": "2.2.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.2.4",
           "PayPal": "1.9.1",
+          "RobotsTxtCore": "1.1.0",
           "System.Configuration.ConfigurationManager": "4.6.0",
           "System.Net.Requests": "4.3.0"
         },
@@ -319,6 +320,20 @@
         },
         "compile": {
           "lib/netstandard1.0/Remotion.Linq.dll": {}
+        }
+      },
+      "RobotsTxtCore/1.1.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http": "2.2.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/RobotsTxtCore.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/RobotsTxtCore.dll": {}
         }
       },
       "System.Collections.Immutable/1.5.0": {},
@@ -3830,6 +3845,13 @@
       "sha512": "sha512-fK/76UmpC0FXBlGDFVPLJHQlDLYnGC+XY3eoDgCgbtrhi0vzbXDQ3n/IYHhqSKqXQfGw/u04A1drWs7rFVkRjw==",
       "path": "remotion.linq/2.2.0",
       "hashPath": "remotion.linq.2.2.0.nupkg.sha512"
+    },
+    "RobotsTxtCore/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ATnI5R2qtAHtZEXLn2ZfbB8BVd6vTp+h5LcumaQ2NazMdakTc0V5akgEu/vj7RQOXGCoEuAPEgxYc9Dz8LETJQ==",
+      "path": "robotstxtcore/1.1.0",
+      "hashPath": "robotstxtcore.1.1.0.nupkg.sha512"
     },
     "System.Collections.Immutable/1.5.0": {
       "type": "package",
