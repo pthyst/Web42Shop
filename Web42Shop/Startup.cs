@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Web42Shop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace Web42Shop
 {
@@ -42,7 +44,10 @@ namespace Web42Shop
             });
             // ----- //
 
-
+                    services.AddSingleton<HtmlEncoder>(
+            HtmlEncoder.Create(allowedRanges: new[] {
+                UnicodeRanges.All
+            }));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<Web42ShopDbContext>(dbContextOptionBuilder => dbContextOptionBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 

@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/Users/_IndexLayout.cshtml";
 }
 @using Microsoft.AspNetCore.Http;
-
+<globalization fileEncoding="utf-8" />
 <head>
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
@@ -39,8 +39,7 @@
         </div>
     </div>
 </div>
-@using (Html.BeginForm("PaypalView", "Paypal"))
-{
+
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -91,7 +90,7 @@
                         hau += item.Name + " ";
                         <tr>
                             <th scope="row">@stt</th>
-                            <td>  <input style="border:0" type="text" name="item" value="@item.Name" readonly /></td>
+                            <td>@item.Name</td>
                             <td class="clCenter"><a onclick="minusItem(@item.Id)" class="CartEdit"><i class="fas fa-minus"></i></a>@item.Quantity<a onclick="plusItem(@item.Id)" class="CartEdit"><i class="fas fa-plus"></i></a></td>
                             <td class="clCenter">@item.TotalPrice</td>
                             <td class="clCenter">
@@ -196,22 +195,36 @@
 
                     <br />
                     @*code javascript paypal*@
-                   
-                        <form asp-action="PaypalView" asp-controller="Paypal"  asp-route-sum="@USD"  asp-route-item="@hau">
-                            <div class="col-md-6">
-                                <h3>
-                                    <input class="btn btn-success" style=" margin:auto;display:block;margin:auto;height:50px;line-height: 38px;border-radius: 5px" type="submit" name="btnsubmit" value="THANH TOÁN PAYPAL">
-                                </h3>
-                            </div>
-                            </form>
-                    </div>
+
+                    
+                    <form method="post" action="@ViewBag.payPalConfig.PostUrl">
+                        <input type="hidden" name="upload" value="1" />
+                        <input type="hidden" name="return" value="@ViewBag.payPalConfig.ReturnUrl" />
+                        <input type="hidden" name="cmd" value="_cart" />
+                        <input type="hidden" name="business" value="@ViewBag.payPalConfig.Business" />
+
+                        @{
+                            var index = 1;
+                        }
+                        @foreach (var item in Model.CartItemViewModels)
+                        {
+                            double Price = item.Price / 23000;
+                            <input type="hidden" name="item_number_@index" value="@item.Id" />
+                            <input type="hidden" name="item_name_@index" value="@item.Name" />
+                            <input type="hidden" name="amount_@index" value="@Price" />
+                            <input type="hidden" name="quantity_@index" value="@item.Quantity" />
+                            index++;
+                        }
+                        <input type="image" src="https://codewebdao.com/upload/users/1/img/hinhminhhoa/kien-thuc-web/2016/03/PayPal-Express-Checkout/paypal.png">
+                    </form>
+                </div>
                     
                 <br/>
                 </div>
             
             </div>
         </div>
-    }
+    
 
 
 <script>
