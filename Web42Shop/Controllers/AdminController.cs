@@ -819,35 +819,41 @@ namespace Web42Shop.Controllers
         #endregion
        
         #region Nhóm trang đơn đặt hàng
+        public IActionResult Session()
+        {
+            return View();
+        }
+
         public IActionResult GetCart()
         {
-            string cart_type = "anocart";
-            int cart_id = 0;
+            HttpContext.Session.SetString("CartType","anocart");
+            HttpContext.Session.SetInt32("CartId",0);
+
             if (HttpContext.Session.GetInt32("IdTaiKhoan") != null)
             { 
                 Cart cart = _context.Carts.Where(c => c.User_Id == (int)HttpContext.Session.GetInt32("IdTaiKhoan")).FirstOrDefault();
-                cart_id = cart.Id;
-                cart_type = "cart";
-                return RedirectToAction("DecodeCart",cart._id,cart_type);
+                HttpContext.Session.SetString("CartType","cart");
+                HttpContext.Session.SetInt32("CartId",cart.Id);
+                return RedirectToAction("DecodeCart");
             }
             else
             { 
                 AnoCart cart = _context.AnoCarts.Where(c => c.Id== (int)HttpContext.Session.GetInt32("IdCart")).FirstOrDefault();
-                cart_id = cart.Id;
-                return RedirectToAction("DecodeCart",cart_id,cart_type);
+                HttpContext.Session.SetInt32("CartId",cart.Id);
+                return RedirectToAction("DecodeCart");
             }
         }
 
-        [HttpGet]
-        public IActionResult DecodeCart(int cart_id,string cart_type)
+        public IActionResult DecodeCart()
         {   
-            if (cart_type == "cart")
+            if (HttpContext.Session.GetString("CartType") == "cart")
             {
                 Order neworder = new Order();
                 int user_id    = (int)HttpContext.Session.GetInt32("IdTaiKhoan");
                 User user      = _context.Users.Where(u => u.Id == user_id).FirstOrDefault();
-                Cart cart = _context.Carts.Where(c => c.Id == cart_id).FirstOrDefault();
+                Cart cart = _context.Carts.Where(c => c.Id == (int)HttpContext.Session.GetInt32("CartId")).FirstOrDefault();
 
+                neworder.User_Id          = user.Id;
                 neworder.NameFirst        = user.NameFirst;
                 neworder.NameMiddle       = user.NameMiddle;
                 neworder.NameLast         = user.NameLast;
@@ -859,13 +865,35 @@ namespace Web42Shop.Controllers
                 neworder.DateCreate       = DateTime.Now;
                 neworder.DateModify       = DateTime.Now;
                 neworder.TotalPrice       = cart.TotalPrice;
-                
+                neworder.OrderStatus_Id   = 1; // Tình trạng đơn hàng đang xử lý
+                neworder.PayStatus_Id     = 1; // Tình trạng thanh toán là chưa trả tiền
+                neworder.PayType_Id       = 1; // Loại thanh toán là tiền mặt
+                _context.Orders.Add(neworder);
                 _context.SaveChanges();
-                List<CartDetail> cartdetails = _context.CartDetails.Where(c => c.Cart_Id == cart_id).ToList();
+
+                var queryable = _context.Orders.Where(o => o.PhoneNumber == neworder.PhoneNumber);
+                int order_id = queryable.Where(o => o.OrderStatus_Id == 1).FirstOrDefault().Id;
+
+                List<CartDetail> cartdetails = _context.CartDetails.Where(c => c.Cart_Id == (int)HttpContext.Session.GetInt32("CartId")).ToList();
+                foreach(CartDetail detail in cartdetails)
+                {
+                    OrderDetail orddetail = new OrderDetail();
+                    orddetail.Product_Id  = detail.Product_Id;
+                    orddetail.PriceSingle = detail.PriceSingle;
+                    orddetail.Quantity    = detail.Quantity;
+                    orddetail.PriceTotal  = detail.PriceTotal;
+                    orddetail.Order_Id    = order_id;
+                    _context.OrderDetails.Add(orddetail);
+                    _context.SaveChanges();
+                }
+
+                HttpContext.Session.SetString("DecodeResult","Successed");
+                return RedirectToAction("Index","Cart");
             }
             else
             {
-
+                HttpContext.Session.SetString("DecodeResult","Failed");
+                return RedirectToAction("Index","Cart");
             }
         }
         // Trang tổng quát các đơn hàng
