@@ -143,7 +143,6 @@
 
                                 <form asp-action="TaoHoaDon" asp-controller="GioHang" method="post">
 
-
                                     <input type="hidden" name="magiamgia" value="" class="form-control" />
 
                                     <input type="hidden" name="makh" value="" class="form-control" />
@@ -215,7 +214,7 @@
                             <input type="hidden" name="quantity_@index" value="@item.Quantity" />
                             index++;
                         }
-                        <input type="image" src="https://codewebdao.com/upload/users/1/img/hinhminhhoa/kien-thuc-web/2016/03/PayPal-Express-Checkout/paypal.png">
+                        <input type="image" src="https://codewebdao.com/upload/users/1/img/hinhminhhoa/kien-thuc-web/2016/03/PayPal-Express-Checkout/paypal.png" onclick="Send()">
                     </form>
                 </div>
                     
@@ -230,7 +229,7 @@
 <script>
 function plusItem(id) {
     $.ajax({
-                            url: "/cart/PlusItem",
+        url: "/cart/PlusItem",
         method: "POST",
         data: { id: id },
         async: true,
@@ -264,4 +263,12 @@ function plusItem(id) {
                             }
                         });
                     }
+
+function Send()
+{
+    $.ajax(
+        url : "/Admin/GetCart",
+        data : {},
+    )
+}
 </script>

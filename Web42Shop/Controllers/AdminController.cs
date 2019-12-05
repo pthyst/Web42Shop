@@ -819,7 +819,56 @@ namespace Web42Shop.Controllers
         #endregion
        
         #region Nhóm trang đơn đặt hàng
-         // Trang tổng quát các đơn hàng
+        public IActionResult GetCart()
+        {
+            string cart_type = "anocart";
+            int cart_id = 0;
+            if (HttpContext.Session.GetInt32("IdTaiKhoan") != null)
+            { 
+                Cart cart = _context.Carts.Where(c => c.User_Id == (int)HttpContext.Session.GetInt32("IdTaiKhoan")).FirstOrDefault();
+                cart_id = cart.Id;
+                cart_type = "cart";
+                return RedirectToAction("DecodeCart",cart._id,cart_type);
+            }
+            else
+            { 
+                AnoCart cart = _context.AnoCarts.Where(c => c.Id== (int)HttpContext.Session.GetInt32("IdCart")).FirstOrDefault();
+                cart_id = cart.Id;
+                return RedirectToAction("DecodeCart",cart_id,cart_type);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult DecodeCart(int cart_id,string cart_type)
+        {   
+            if (cart_type == "cart")
+            {
+                Order neworder = new Order();
+                int user_id    = (int)HttpContext.Session.GetInt32("IdTaiKhoan");
+                User user      = _context.Users.Where(u => u.Id == user_id).FirstOrDefault();
+                Cart cart = _context.Carts.Where(c => c.Id == cart_id).FirstOrDefault();
+
+                neworder.NameFirst        = user.NameFirst;
+                neworder.NameMiddle       = user.NameMiddle;
+                neworder.NameLast         = user.NameLast;
+                neworder.AddressApartment = user.AddressApartment;
+                neworder.AddressDistrict  = user.AddressDistrict;
+                neworder.AddressStreet    = user.AddressStreet;
+                neworder.AddressCity      = user.AddressCity;
+                neworder.PhoneNumber      = user.PhoneNumber;
+                neworder.DateCreate       = DateTime.Now;
+                neworder.DateModify       = DateTime.Now;
+                neworder.TotalPrice       = cart.TotalPrice;
+                
+                _context.SaveChanges();
+                List<CartDetail> cartdetails = _context.CartDetails.Where(c => c.Cart_Id == cart_id).ToList();
+            }
+            else
+            {
+
+            }
+        }
+        // Trang tổng quát các đơn hàng
         public IActionResult OrdersOverview()
         {
             if (IsLogedIn() == true)

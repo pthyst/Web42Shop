@@ -435,10 +435,6 @@ z-index: 999;}
 .single-product h2 a {
     color: #222;
 }
-.single-product p {
-    color: #5a88ca;
-    font-weight: 700;
-}
 
 .single-product {
   overflow: hidden;
@@ -693,10 +689,6 @@ width: 10px;
 .single-product-area {
   padding: 80px 0 130px;
 }
-
-
-
-
 
 .sidebar-title {
     color: #fead53;
