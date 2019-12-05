@@ -903,3 +903,4 @@ C:\Users\ASUS\Source\Repos\Web42Shop8\Web42Shop\bin\Debug\netcoreapp2.2\Web42Sho
 C:\Users\ASUS\Source\Repos\Web42Shop8\Web42Shop\bin\Debug\netcoreapp2.2\Web42Shop.Views.pdb
 C:\Users\ASUS\Source\Repos\Web42Shop8\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.Views.pdb
 C:\Users\ASUS\Source\Repos\Web42Shop8\Web42Shop\obj\Debug\netcoreapp2.2\Web42Shop.csproj.CopyComplete
+C:\Users\ASUS\Source\Repos\Web42Shop8\Web42Shop\obj\Debug\netcoreapp2.2\Razor\Views\Cart\Success.g.cshtml.cs

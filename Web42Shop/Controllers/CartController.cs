@@ -69,7 +69,10 @@ namespace Web42Shop.Controllers
                 ProductTypes = _context.ProductTypes.ToList(),
                 CartItemViewModels = cartItem
             };
-            ViewBag.product = vm;
+            string Ten= HttpContext.Session.GetString("TenTaiKhoan");
+            string DiaChi = HttpContext.Session.GetString("diachi");
+            ViewBag.ten = Ten;
+            ViewBag.diachi = DiaChi;
             PayPalConfig payPalConfig = PayPalService.GetPayPalConfig();
             ViewBag.payPalConfig = payPalConfig;
             return View(vm);
