@@ -138,10 +138,9 @@
                         </a>
 
                         <div class="ndmotkhoi" style="display:block">
-                            @if (ViewBag.hau != null)
-                            {
+                            
 
-                                <form asp-action="TaoHoaDon" asp-controller="GioHang" method="post">
+                                <form asp-action="#" asp-controller="#" method="post">
 
 
                                     <input type="hidden" name="magiamgia" value="" class="form-control" />
@@ -151,12 +150,12 @@
 
                                     <div style="display:inline">
                                         <label>Họ và tên khách hàng</label>
-                                        <input type="text" name="hotenkh" value="" class="form-control" />
+                                        <input type="text" name="hotenkh" value="@ViewBag.ten " class="form-control" />
                                     </div>
                                     <br />
                                     <div style="display:inline">
                                         <label>Địa chỉ</label>
-                                        <input type="text" name="diachi" value="" class="form-control" />
+                                        <input type="text" name="diachi" value="@ViewBag.diachi" class="form-control" />
                                     </div>
                                     <br />
                                     <div style="display:inline">
@@ -184,7 +183,7 @@
                                     </div>
                                 </form>
                                 <br />
-                            }
+                            
 
                         </div>
                     </div>
