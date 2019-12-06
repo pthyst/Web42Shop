@@ -74,6 +74,10 @@
                             </td>
                         </tr>
                     </table>
+                    <div class="row">
+                        <br />  <br />
+                        @Html.Raw(Model.SingleProduct.Article)
+                    </div>
                     <!-- Viết đánh giá phản hồi -->
                     @if (Context.Session.GetInt32("IdTaiKhoan").HasValue)
                     {

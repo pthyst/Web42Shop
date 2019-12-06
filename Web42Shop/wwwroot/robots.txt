@@ -8,7 +8,6 @@ Disallow:/Cart/
 Disallow:/giohang
 Disallow:/giohang/
 Disallow:/User/
-Disallow:/#
 
 User-agent: gigabot
 Disallow:/
