@@ -24,7 +24,7 @@ namespace Web42Shop.Controllers
         public async Task<IActionResult> Index()
         {
             List<CartItemViewModel> cartItem = new List<CartItemViewModel>();
-            double sum = 0;
+
             if (HttpContext.Session.GetString("IdTaiKhoan") == null)
             {
                 ViewBag.Hau = 1;
@@ -45,10 +45,6 @@ namespace Web42Shop.Controllers
                                           TotalPrice = d.PriceTotal
                                       }).ToListAsync();
                 }
-                foreach (var item in cartItem)
-                {
-                    sum += item.TotalPrice;
-                }
             }
             else
             {
@@ -66,10 +62,6 @@ namespace Web42Shop.Controllers
                                         Price = d.PriceSingle,
                                         TotalPrice = d.PriceTotal
                                     }).ToListAsync();
-                foreach (var item in cartItem)
-                {
-                    sum += item.TotalPrice;
-                }
             }
 
             CartViewModel vm = new CartViewModel()
@@ -77,7 +69,6 @@ namespace Web42Shop.Controllers
                 ProductTypes = _context.ProductTypes.ToList(),
                 CartItemViewModels = cartItem
             };
-            HttpContext.Session.SetString("TongTien", sum.ToString());
             string Ten= HttpContext.Session.GetString("TenTaiKhoan");
             string DiaChi = HttpContext.Session.GetString("diachi");
             ViewBag.ten = Ten;

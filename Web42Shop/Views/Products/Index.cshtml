@@ -3,6 +3,7 @@
     ViewBag.Title = "Web42shop - Danh sách sản phẩm";
     Layout = "~/Views/Shared/Users/_IndexLayout.cshtml";
     ViewBag.SearchFlag = "Sản phẩm mới";
+
 }
 
 
@@ -10,11 +11,16 @@
     <!-- Sản phẩm mới -->
     <div class="container">
         <h1 class="section__title">Kết quả tìm kiếm: </h1><h3 class="iblck" style="margin-left: 1rem">Tất cả các sản phẩm </h3>
-        <div class="row">
-            @foreach (var item in Model.ItemProducts)
+        @{
+            int dem = 1;
+        }
+        @foreach (var item in Model.ItemProducts)
+        {
+            if (dem == 1)
             {
-            <div class="col-3 product">
-                    <div class="single-product">
+                @:<div class="row">
+                }
+                    <div href="~/@item.TypeUrl/@item.NameUrl" class="col-3 product">
                         @if (item.Saleoff != 0)
                         {
                             <p class="mrg0 iblck fl product__saleoff">-@item.Saleoff%</p>
@@ -24,13 +30,9 @@
                             <i class="fas fa-eye"></i> @item.Views
                             <i class="fas fa-shopping-cart"></i> @item.Orders
                         </p>
-
-                        <div class="product-f-image">
-                            <img src="~/uploads/@item.Thumbnail" class="product__image" alt="" />
-                        </div>
-
-                        <div class="product__info ">
-                            <a href="~/@item.TypeUrl/@item.NameUrl" class="mrg0 product__name">@item.Name</a>
+                                                                                                                                                                                                                                    
+                        <div class="product__info">
+                            <p class="mrg0 product__name">@item.Name</p>
                             @if (item.Saleoff != 0)
                             {
                                 <p class="mrg0 product__oldprice">@String.Format("{0:0,0 VNĐ}", item.Price) </p>
@@ -42,9 +44,14 @@
                             }
                         </div>
                     </div>
-                </div>
+
+                if (dem == 4)
+                {
+                    dem = 0;
+                @:</div>
             }
-        </div>
+            dem++;
+        }
         <!-- Section pagination -->
         <div class="container txt-center section__pagination">
             @if (Model.CurrentPage > 1)

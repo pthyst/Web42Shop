@@ -2,66 +2,234 @@
 @{ViewBag.Title = "Giỏ hàng";
     Layout = "~/Views/Shared/Users/_IndexLayout.cshtml";
 }
+@using Microsoft.AspNetCore.Http;
+<globalization fileEncoding="utf-8" />
+<head>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
-<div class="container-fluid section" id="CartItemContainer">
-<div class="container">
-    <h1 class="section__title">
-        Giỏ hàng <i class="fas fa-shopping-cart"></i>
-    </h1>
-    <br />
-    <br />
-    <table class="table">
-        <tr>
-            <th scope="col">STT</th>
-            <th scope="col">Tên hàng</th>
-            <th scope="col" class="clCenter">Số lượng</th>
-            <th scope="col" class="clCenter">Thành tiền</th>
-            <th scope="col" class="clCenter">Hủy sản phẩm</th>
-        </tr>
-        
-        @{ 
-            int totalePrice = 0;
-            int stt = 1;
-        }
-        @foreach (var item in Model.CartItemViewModels)
-        {
-            <tr>
-                <th scope="row">@stt</th>
-                <td>@item.Name</td>
-                <td class="clCenter"><a onclick="minusItem(@item.Id)" class="CartEdit"><i class="fas fa-minus"></i></a>@item.Quantity<a onclick="plusItem(@item.Id)" class="CartEdit"><i class="fas fa-plus"></i></a></td>
-                <td class="clCenter">@item.TotalPrice</td>
-                <td class="clCenter">
-                    <!--<p onclick="deleteItem(@item.Id)" class="point btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-times"></i></p>-->
-                    <p onclick="deleteItem(@item.Id)" class="point btn btn-secondary btn-sm"><i class="fas fa-times"></i></p>
-                </td>
-            </tr>
-            totalePrice += item.TotalPrice;
-            stt++;
-        }
-    </table>
-    
-    @if (Context.Session.GetInt32("IdTaiKhoan") == null)
-    {
-        if (Context.Session.GetInt32("IdCart") != null)
-        {
-            int anocart_id = (int)Context.Session.GetInt32("IdCart");
-            <a asp-controller="Checkout" asp-action="MustSignUp" class="button button--gotocheckout" asp-route-anocartid="@anocart_id">THANH TOÁN</a>
-        }
-    }
-    else
-    {
-        int userid = (int)Context.Session.GetInt32("IdTaiKhoan");
-        <a asp-controller="Checkout" asp-action="AlreadySignUp" class="button button--gotocheckout" asp-route-userid="@userid">THANH TOÁN</a>
-    }
+    <title>Paypal</title>
+</head>
+
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Chỉnh sửa thông tin mua hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Cart" asp-action="index" method="post">
+                    <div class="form-group">
+                        <label for="soLuong">Số lượng</label>
+                        <input type="number" class="form-control" id="soLuong">
+                    </div>
+                    <div class="form-group">
+                        <label for="ghiChu">Ghi Chú</label>
+                        <input type="text" class="form-control" id="ghiChu">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary">Đồng ý</button>
+            </div>
+        </div>
     </div>
 </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Xóa mặt hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>Bạn có chắc chắn muốn xóa mặt hàng này ?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid section" id="CartItemContainer">
+        <div class="container">
+            <h1 class="section__title">
+                Giỏ hàng <i class="fas fa-shopping-cart"></i>
+            </h1>
+            <br />
+            <br />
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên hàng</th>
+                        <th scope="col" class="clCenter">Số lượng</th>
+                        <th scope="col" class="clCenter">Thành tiền</th>
+                        <th scope="col" class="clCenter">Hủy sản phẩm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        string hau = "";
+                        int stt = 0;
+                        int totalePrice = 0;
+                    }
+                    @foreach (var item in Model.CartItemViewModels)
+                    {
+                        stt++;
+                        hau += item.Name + " ";
+                        <tr>
+                            <th scope="row">@stt</th>
+                            <td>@item.Name</td>
+                            <td class="clCenter"><a onclick="minusItem(@item.Id)" class="CartEdit"><i class="fas fa-minus"></i></a>@item.Quantity<a onclick="plusItem(@item.Id)" class="CartEdit"><i class="fas fa-plus"></i></a></td>
+                            <td class="clCenter">@item.TotalPrice</td>
+                            <td class="clCenter">
+                                <!--<p onclick="deleteItem(@item.Id)" class="point btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-times"></i></p>-->
+                                <p onclick="deleteItem(@item.Id)" class="point btn btn-secondary btn-sm"><i class="fas fa-times"></i></p>
+                            </td>
+                        </tr>
+                        totalePrice += item.TotalPrice;
+                    }
+                </tbody>
+            </table>
+            <br />
+            <div class="row">
+                <div class="col-9"><h2 style="padding:20px">Tổng tiền: <input style="border:0" type="text" value="@totalePrice" readonly /></h2></div>
+                @{
+                    Double @USD = totalePrice / 23000;
+                }
+                <div class="col-sm">
+                    <p><input style="border:0 " type="text" name="sum" value="@USD" />USD </p>
+                    
+                </div>
+
+                <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+                <script>
+                    $(function () {
+                        $('.ndmotkhoi').slideUp();
+                        $('.motkhoi h3').click(function (event) {
+
+                            $('.ndmotkhoi').slideToggle(200);
+                            $(this).toggleClass("den");
+                        });
+                    });
+                </script>
+                <div class="hieuung col-md-12" style="font-weight:300px">
+                    <div class="motkhoi col-md-6">
+
+
+                        <h3 class="btn btn-success" style="margin:auto;display:block;margin:auto;height:50px;line-height: 38px;border-radius: 5px">THANH TOÁN GIỎ HÀNG</h3>
+                        <br />
+
+                        <a asp-controller="NganLuong" asp-action="Index">
+                            <button style="margin:auto;display:block;margin:auto;height:55px;width:100%;background-color: #7ea1e6; color: #fff;border-radius: 5px">
+                                THANH TOÁN VỚI NGÂN LƯỢNG
+                            </button>
+                        </a>
+
+                        <div class="ndmotkhoi" style="display:block">
+                            
+
+                                <form asp-action="#" asp-controller="#" method="post">
+
+
+                                    <input type="hidden" name="magiamgia" value="" class="form-control" />
+
+                                    <input type="hidden" name="makh" value="" class="form-control" />
+                                    <br />
+
+                                    <div style="display:inline">
+                                        <label>Họ và tên khách hàng</label>
+                                        <input type="text" name="hotenkh" value="@ViewBag.ten " class="form-control" />
+                                    </div>
+                                    <br />
+                                    <div style="display:inline">
+                                        <label>Địa chỉ</label>
+                                        <input type="text" name="diachi" value="@ViewBag.diachi" class="form-control" />
+                                    </div>
+                                    <br />
+                                    <div style="display:inline">
+                                        <label>Họ và tên người nhận</label>
+                                        <input type="text" name="hoten_ngnhan" value="" class="form-control" required />
+                                    </div>
+                                    <br />
+                                    <div style="display:inline">
+                                        <label>Địa chỉ người nhận</label>
+                                        <input type="text" name="dc_nguoinhan" value="" class="form-control" required />
+                                    </div>
+                                    <br />
+                                    <div style="display:inline">
+                                        <label>Số điện thoại người nhận</label>
+                                        <input type="text" name="sdt" value="" class="form-control" required />
+                                    </div>
+                                    <br />
+                                    <div style="display:inline">
+                                        <label>Ghi chú</label>
+                                        <input type="text" name="ghichu" value="" class="form-control" />
+                                    </div>
+                                    <br />
+                                    <div style="text-align:center">
+                                        <button class="btn btn-success" type="submit">Xác nhận và kiểm tra email</button>
+                                    </div>
+                                </form>
+                                <br />
+                            
+
+                        </div>
+                    </div>
+                    <script src="https://www.paypal.com/sdk/js?client-id=ASwEi_Epa3m8n3CWA3FwX8SZGOkGGrQGecHV0V9TwjoEDFyEjVkAAXmsxiZnacTFyPCs3OaAgKNyP7V4">
+                        // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+                    </script>
+
+
+                    <br />
+                    @*code javascript paypal*@
+
+                    
+                    <form method="post" action="@ViewBag.payPalConfig.PostUrl">
+                        <input type="hidden" name="upload" value="1" />
+                        <input type="hidden" name="return" value="@ViewBag.payPalConfig.ReturnUrl" />
+                        <input type="hidden" name="cmd" value="_cart" />
+                        <input type="hidden" name="business" value="@ViewBag.payPalConfig.Business" />
+
+                        @{
+                            var index = 1;
+                        }
+                        @foreach (var item in Model.CartItemViewModels)
+                        {
+                            double Price = item.Price / 23000;
+                            <input type="hidden" name="item_number_@index" value="@item.Id" />
+                            <input type="hidden" name="item_name_@index" value="@item.Name" />
+                            <input type="hidden" name="amount_@index" value="@Price" />
+                            <input type="hidden" name="quantity_@index" value="@item.Quantity" />
+                            index++;
+                        }
+                        <input type="image" src="https://codewebdao.com/upload/users/1/img/hinhminhhoa/kien-thuc-web/2016/03/PayPal-Express-Checkout/paypal.png">
+                    </form>
+                </div>
+                    
+                <br/>
+                </div>
+            
+            </div>
+        </div>
     
 
 
 <script>
 function plusItem(id) {
     $.ajax({
-        url: "/cart/PlusItem",
+                            url: "/cart/PlusItem",
         method: "POST",
         data: { id: id },
         async: true,
@@ -71,9 +239,9 @@ function plusItem(id) {
                                 }
                             });
                         };
-function minusItem(id) {
+                        function minusItem(id) {
     $.ajax({
-        url: "/cart/MinusItem",
+                            url: "/cart/MinusItem",
         method: "POST",
         data: { id: id },
         async: true,
@@ -83,10 +251,9 @@ function minusItem(id) {
                                 }
                             });
                     };
-
-function deleteItem(id) {
+                    function deleteItem(id) {
     $.ajax({
-        url: "/cart/DeleteItem",
+                        url: "/cart/DeleteItem",
         method: "POST",
         data: { id: id },
         async: true,

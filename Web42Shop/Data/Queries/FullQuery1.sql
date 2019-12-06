@@ -340,13 +340,4 @@ insert into Comments(User_Id,Product_Id,Stars,Content,DateCreate,DateModify)
 values(1,2,5,'qweqwaaaaaadshdfgeraaa','2019/11/01','2019/11/01')
 go
 
-insert into CartStatuses(Status) values('free'),('using');
-go
-
-insert into OrderStatuses(Status) values('waiting'),('checking'),('picking'),('transfering'),('completed');
-go
-
-insert into PayStatuses(Status) values('notyet'),('paid');
-go
-
-insert into PayTypes(Type) values('cash'),('paypal'),('nganluong')
+insert into CartStatuses(Status) VALUES('free'),('using');

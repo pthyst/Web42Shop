@@ -32,10 +32,14 @@
                         </p>
                         <div class="product-f-image">
                             <img src="~/uploads/@item.Thumbnail" class="product__image" alt="" />
+                            <div class="product-hover">
+                                <a onclick="addItemToCart(@item.Id)" class="point add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm Giỏ Hàng</a>
+                                <a href="~/@item.TypeUrl/@item.NameUrl" class="view-details-link"><i class="fa fa-link"></i> Xem Chi Tiết</a>
+                            </div>
                         </div>
 
                         <div class="product__info ">
-                            <a href="~/@item.TypeUrl/@item.NameUrl" class="mrg0 product__name" style="color:red">@item.Name</a>
+                            <p class="mrg0 product__name" style="color:red">@item.Name</p>
                             @if (item.Saleoff != 0)
                             {
                                 <p class="mrg0 product__oldprice" style="color:black">@String.Format("{0:0,0 VNĐ}", item.Price) </p>
