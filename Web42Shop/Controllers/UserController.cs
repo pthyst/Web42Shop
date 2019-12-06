@@ -164,38 +164,39 @@ namespace Web42Shop.Controllers
             return RedirectToAction("Login");
         }
 
-        //[HttpGet]
-        //public IActionResult MyOrders(int id)
-        //{
-        //    var queryable = _context.Orders.Where(o => o.User_Id == id);
-        //    var excepts = queryable.Select(o => o.OrderStatus_Id == 1).ToList();
-        //    List<Order> orders = queryable.Where(o => !excepts.Contain(o.OrderStatus_Id == 1)).ToList();
+        [HttpGet]
+        public IActionResult MyOrders(int id)
+        {
+            List<Order> orders = _context.Orders.Where(o => o.User_Id == id).ToList();
 
-        //    UserMyOrdersViewModel vm  = new UserMyOrdersViewModel();
+            UserMyOrdersViewModel vm  = new UserMyOrdersViewModel();
+            List<UserMyOrderViewModel> myorderviewmodels = new List<UserMyOrderViewModel>();
+            foreach (var order in orders)
+            {
+                List<OrderDetail> orderdetails = _context.OrderDetails.Where(od => od.Order_Id == order.Id).ToList();
+                List<Product> products = new List<Product>();
 
-        //    foreach (var order in orders)
-        //    {
-        //        List<OrderDetail> orderdetails = _context.OrderDetails.Where(od => od.Order_Id == order.Id).ToList();
-        //        List<Product> products = new List<Product>();
+                foreach (var detail in orderdetails)
+                {
+                    Product pro = _context.Products.Where(p => p.Id == detail.Product_Id).FirstOrDefault();
+                    products.Add(pro);
+                }
 
-        //        foreach (var detail in orderdetails)
-        //        {
-        //            Product pro = _context.Products.Where(p => p.Id == detail.Product_Id).FirstOrDefault();
-        //            products.Add(pro);
-        //        }
+                UserMyOrderViewModel ovm = new UserMyOrderViewModel()
+                {
+                    Order = order,
+                    OrderDetails = orderdetails,
+                    Products = products
+                };
 
-        //        UserMyOrderViewModel ovm = new UserMyOrderViewModel()
-        //        {
-        //            Order = order,
-        //            OrderDetails = orderdetails,
-        //            Products = products
-        //        };
+                myorderviewmodels.Add(ovm);             
+            }
 
-        //        vm.MyOrderViewModels.Add(ovm);             
-        //    }
+            vm.MyOrderViewModels = myorderviewmodels;
+            vm.ProductTypes = _context.ProductTypes.ToList();
+            return View(vm);
+        }
 
-        //    vm.ProductTypes = _context.ProductTypes.ToList();
-        //    return View(vm);
-        //}
+        
     }
 }

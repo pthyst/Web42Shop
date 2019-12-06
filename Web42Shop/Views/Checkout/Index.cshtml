@@ -45,10 +45,12 @@
                 @{Double @USD = totalePrice / 23000;}  
                 <h2>Tổng cộng: @String.Format("{0:0,0 VNĐ}", totalePrice) </h2>
                 <h2>~  @String.Format("{0:0,0 USD}", USD) </h2>
+                @{int orderid = (int)Context.Session.GetInt32("OrderId");}
+               <a class="button button--delete" asp-controller="Checkout" asp-action="Cancel" asp-route-id="@orderid">Hủy đơn hàng</a>
             </div>
 
             <div class="col-5">
-                <a asp-controller="NganLuong" asp-action="Index"><button>THANH TOÁN VỚI NGÂN LƯỢNG</button></a>
+                <a asp-controller="NganLuong" asp-action="Index" class="button button--order--nganluong">Thanh toán qua Ngân Lượng</a>
                 <script src="https://www.paypal.com/sdk/js?client-id=ASwEi_Epa3m8n3CWA3FwX8SZGOkGGrQGecHV0V9TwjoEDFyEjVkAAXmsxiZnacTFyPCs3OaAgKNyP7V4">
                     // Required. Replace SB_CLIENT_ID with your sandbox client ID.
                 </script>
@@ -57,7 +59,7 @@
                 <form method="post" action="@ViewBag.payPalConfig.PostUrl">
                     <input type="hidden" name="upload" value="1" />
                     @{
-                        int orderid = (int)Context.Session.GetInt32("OrderId");
+                        
                         string return_url = ViewBag.payPalConfig.ReturnUrl+ "?orderid=" + orderid.ToString();
                     }
                     <input type="hidden" name="return" value="@return_url" />
@@ -81,8 +83,13 @@
                         <input type="hidden" name="quantity_@index" value="@item.Quantity" />
                         index++;
                     }
-                    <button type="submit">Paypal</button>
+                    <button type="submit" class="button button--order--paypal">Thanh toán qua Paypal</button>
                 </form>
+
+                @{
+                    int idtaikhoan = (int)Context.Session.GetInt32("IdTaiKhoan");
+                }
+                <a asp-controller="User" asp-action="MyOrders" asp-route-id="@idtaikhoan">Thanh toán khi nhận hàng</a>
             </div>
         </div>
     </div>
