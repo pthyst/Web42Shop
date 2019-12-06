@@ -52,7 +52,11 @@
                 @*code javascript paypal*@
                 <form method="post" action="@ViewBag.payPalConfig.PostUrl">
                     <input type="hidden" name="upload" value="1" />
-                    <input type="hidden" name="return" value="@ViewBag.payPalConfig.ReturnUrl" />
+                    @{
+                        int orderid = (int)Context.Session.GetInt32("OrderId");
+                        string return_url = ViewBag.payPalConfig.ReturnUrl+ "?orderid=" + orderid.ToString();
+                    }
+                    <input type="hidden" name="return" value="@return_url" />
                     <input type="hidden" name="cmd" value="_cart" />
                     <input type="hidden" name="business" value="@ViewBag.payPalConfig.Business" />
 

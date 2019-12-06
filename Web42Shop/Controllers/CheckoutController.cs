@@ -204,8 +204,28 @@ namespace Web42Shop.Controllers
                 _context.SaveChanges();
             }
             
+            HttpContext.Session.SetInt32("OrderId",orderid);
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult PayPalPaid(int orderid)
+        {
+            Order order = _context.Orders.Where(o => o.Id == orderid).FirstOrDefault();
+            order.PayStatus_Id = 2; // Đã thanh toán
+            order.PayType_Id   = 2; // Loại thanh toán PayPal
+            _context.SaveChanges();
+            return RedirectToAction("Index","Home");
+        }
+
+        [HttpGet]
+        public IActionResult NganLuongPaid(int orderid)
+        {
+            Order order = _context.Orders.Where(o => o.Id == orderid).FirstOrDefault();
+            order.PayStatus_Id = 2; // Đã thanh toán
+            order.PayType_Id   = 3; // Loại thanh toán Ngân lượng
+            _context.SaveChanges();
+            return RedirectToAction("Index","Home");
+        }
     }
 }
