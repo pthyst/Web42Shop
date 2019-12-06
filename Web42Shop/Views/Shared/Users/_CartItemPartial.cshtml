@@ -18,16 +18,15 @@
         </thead>
         <tbody>
             @{
-                int stt = 0;
+                int stt = 1;
                 int totalePrice = 0;
             }
             @foreach (var item in Model)
             {
-                stt++;
                 <tr>
                     <th scope="row">@stt</th>
-                    <td>  <input style="border:0" type="text" name="item" value="@item.Name" readonly /></td>
-                    <td class="clCenter"><a onclick="minusItem(@item.Id)" class="CartEdit" onclick="minusItem(@item.Id)"><i class="fas fa-minus"></i></a>@item.Quantity<a onclick="plusItem(@item.Id)" class="CartEdit"><i class="fas fa-plus"></i></a></td>
+                    <td>@item.Name</td>
+                    <td class="clCenter"><a onclick="minusItem(@item.Id)" class="CartEdit"><i class="fas fa-minus"></i></a>@item.Quantity<a onclick="plusItem(@item.Id)" class="CartEdit"><i class="fas fa-plus"></i></a></td>
                     <td class="clCenter">@item.TotalPrice</td>
                     <td class="clCenter">
                         <!--<p onclick="deleteItem(@item.Id)" class="point btn btn-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-times"></i></p>-->
@@ -35,12 +34,21 @@
                     </td>
                 </tr>
                 totalePrice += item.TotalPrice;
+                stt++;
             }
         </tbody>
     </table>
-    <br />
-    <div class="row">
-        <div class="col-9"><h2 style="padding:20px">Tổng tiền: @String.Format("{0:0,0 VNĐ}", totalePrice).</h2></div>
-        <div class="col-sm"><button type="button" class="btn btn-block btn-primary"><h2>Thanh toán</h2></button></div>
-    </div>
+    @if (Context.Session.GetInt32("IdTaiKhoan") == null)
+    {
+        if (Context.Session.GetInt32("IdCart") != null)
+        {
+            int anocart_id = (int)Context.Session.GetInt32("IdCart");
+            <a asp-controller="Checkout" asp-action="MustSignUp" class="button button--gotocheckout" asp-route-anocartid="@anocart_id">THANH TOÁN</a>
+        }
+    }
+    else
+    {
+        int userid = (int)Context.Session.GetInt32("IdTaiKhoan");
+        <a asp-controller="Checkout" asp-action="AlreadySignUp" class="button button--gotocheckout" asp-route-userid="@userid">THANH TOÁN</a>
+    }
 </div>
