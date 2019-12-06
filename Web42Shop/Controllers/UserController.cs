@@ -197,6 +197,38 @@ namespace Web42Shop.Controllers
             return View(vm);
         }
 
-        
+        [HttpGet]
+        public IActionResult MyOrderDetail(int user_id,int order_id)
+        {
+            List<Order> orders = _context.Orders.Where(o => o.User_Id == user_id).ToList();
+
+            UserMyOrderDetailViewModel vm  = new UserMyOrderDetailViewModel();
+            List<UserMyOrderViewModel> myorderviewmodels = new List<UserMyOrderViewModel>();
+            foreach (var order in orders)
+            {
+                List<OrderDetail> orderdetails = _context.OrderDetails.Where(od => od.Order_Id == order.Id).ToList();
+                List<Product> products = new List<Product>();
+
+                foreach (var detail in orderdetails)
+                {
+                    Product pro = _context.Products.Where(p => p.Id == detail.Product_Id).FirstOrDefault();
+                    products.Add(pro);
+                }
+
+                UserMyOrderViewModel ovm = new UserMyOrderViewModel()
+                {
+                    Order = order,
+                    OrderDetails = orderdetails,
+                    Products = products
+                };
+                if (ovm.Order.Id == order_id){vm.MyOrderViewModel = ovm;}
+                myorderviewmodels.Add(ovm);             
+            }
+
+            
+            vm.MyOrderViewModels = myorderviewmodels;
+            vm.ProductTypes = _context.ProductTypes.ToList();
+            return View(vm);
+        }
     }
 }

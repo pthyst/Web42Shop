@@ -678,6 +678,11 @@ footer a
     background: #313131;
     padding: 1rem;
     box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.2);
+    margin-bottom: 0.5rem;
+}
+.vm_order:hover
+{
+    background:#1C1C1C;
 }
 .vm_order p
 {
@@ -698,4 +703,34 @@ footer a
 {
     color: #11788C;
     font-weight: bold;
+}
+.button--order--nganluong
+{
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: #FCB70A;
+    box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.2);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+    color: #fff;
+}
+.button--order--paypal
+{
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: #0A6786;
+    box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.2);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+    color: #fff;
+}
+.button--order--after
+{
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: #3EA712;
+    box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.2);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+    color: #fff;
 }

@@ -26,6 +26,13 @@ namespace Web42Shop.Controllers
         }
         public IActionResult Index()
         {
+            string pay_status = HttpContext.Session.GetString("PayStatus");
+            
+            if (pay_status == "paid" || HttpContext.Session.GetInt32("OrderId") == null)
+            {
+                return RedirectToAction("Index","Home");
+            }
+
             
             int orderid = (int)HttpContext.Session.GetInt32("OrderId");
             List<OrderDetail> orderdetails = _context.OrderDetails.Where(o => o.Order_Id == orderid).ToList();
@@ -110,7 +117,6 @@ namespace Web42Shop.Controllers
                         _context.SaveChanges();
                     }
                 }
-
                 return RedirectToAction("AlreadySignUp","Checkout",new {userid = userid});
             }
             else
@@ -160,7 +166,32 @@ namespace Web42Shop.Controllers
             else
             {
                 var list = _context.Orders.Where(o => o.PhoneNumber == user.PhoneNumber);
-                orderid = list.Where(o => o.OrderStatus_Id == 1).FirstOrDefault().Id;
+                if (HttpContext.Session.GetString("PayStatus") == "paid")
+                {
+                    Order order = new Order();
+                    order.User_Id          = user.Id;
+                    order.NameLast         = user.NameLast;
+                    order.NameMiddle       = user.NameMiddle;
+                    order.NameFirst        = user.NameFirst;
+                    order.AddressApartment = user.AddressApartment;
+                    order.AddressStreet    = user.AddressStreet;
+                    order.AddressDistrict  = user.AddressDistrict;
+                    order.AddressCity      = user.AddressCity;
+                    order.PhoneNumber      = user.PhoneNumber;
+                    order.OrderStatus_Id   = 1; // Trạng thái đơn hàng - Đang đợi xử lý - waiting
+                    order.PayStatus_Id     = 1; // Trạng thái thanh toán - Chưa thanh toán - notyet
+                    order.PayType_Id       = 1; // Hình thức thanh toán - Tiền mặt - cash
+                    order.DateCreate       = DateTime.Now;
+                    order.DateModify       = DateTime.Now;
+                    order.TotalPrice       = cart.TotalPrice;
+                    _context.Orders.Add(order);
+                    _context.SaveChanges();
+                    orderid = _context.Orders.Where(o => o.PhoneNumber == user.PhoneNumber).FirstOrDefault().Id;
+                }
+                else
+                {
+                    orderid = list.Where(o => o.OrderStatus_Id == 1).FirstOrDefault().Id;
+                }
             }
             
             List<CartDetail> details = _context.CartDetails.Where(cd => cd.Cart_Id == cart.Id).ToList();
@@ -185,6 +216,7 @@ namespace Web42Shop.Controllers
             HttpContext.Session.SetInt32("OrderId",orderid);
             HttpContext.Session.SetInt32("IdTaiKhoan",user.Id);
             HttpContext.Session.Remove("IdCart");
+            HttpContext.Session.SetString("PayStatus","notyet");
             return RedirectToAction("Index");
         }
 
@@ -243,6 +275,7 @@ namespace Web42Shop.Controllers
             order.PayStatus_Id = 2; // Đã thanh toán
             order.PayType_Id   = 2; // Loại thanh toán PayPal
             _context.SaveChanges();
+            HttpContext.Session.SetString("PayStatus","paid");
             return RedirectToAction("Index","Home");
         }
 
@@ -253,6 +286,13 @@ namespace Web42Shop.Controllers
             order.PayStatus_Id = 2; // Đã thanh toán
             order.PayType_Id   = 3; // Loại thanh toán Ngân lượng
             _context.SaveChanges();
+            HttpContext.Session.SetString("PayStatus","paid");
+            return RedirectToAction("Index","Home");
+        }
+
+        public IActionResult PayAfter()
+        {
+            HttpContext.Session.SetString("PayStatus","paid");
             return RedirectToAction("Index","Home");
         }
     }

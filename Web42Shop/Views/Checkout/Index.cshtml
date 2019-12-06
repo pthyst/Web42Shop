@@ -89,7 +89,7 @@
                 @{
                     int idtaikhoan = (int)Context.Session.GetInt32("IdTaiKhoan");
                 }
-                <a asp-controller="User" asp-action="MyOrders" asp-route-id="@idtaikhoan">Thanh toán khi nhận hàng</a>
+                <a asp-controller="Checkout" asp-action="PayAfter" class="button button--order--after">Thanh toán khi nhận hàng</a>
             </div>
         </div>
     </div>

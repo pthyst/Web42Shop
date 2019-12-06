@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Đơn đặt hàng của tôi";
     Layout = "~/Views/Shared/Users/_IndexLayout.cshtml";
+    int user_id = (int)Context.Session.GetInt32("IdTaiKhoan");
 }
 
 <div class="container-fluid section">
@@ -15,7 +16,7 @@
                     string status = "Đang chờ xử lý";
                     if (vm.Order.OrderStatus_Id == 2) {status = "Đang lấy hàng";}
                     else if (vm.Order.OrderStatus_Id == 3) {status = "Đang vận chuyển";}
-                    <a href="#" class="blck vm_order">
+                    <a asp-controller="User" asp-action="MyOrderDetail" asp-route-user_id="@user_id" asp-route-order_id="@vm.Order.Id" class="blck vm_order">
                         <p class="vm_order__id">Mã đơn hàng: @vm.Order.Id</p>
                         <p class="vm_order__status">
                             @status
