@@ -9,6 +9,5 @@ namespace Web42Shop.ViewModels
     public class AdminOrdersOverviewViewModel
     {
         public IEnumerable<Order> Orders {get;set;}
-        public IEnumerable<OrderStatus> OrderStatus {get;set;}
     }
 }
