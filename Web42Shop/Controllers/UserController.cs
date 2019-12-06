@@ -167,12 +167,10 @@ namespace Web42Shop.Controllers
         [HttpGet]
         public IActionResult MyOrders(int id)
         {
-            var queryable = _context.Orders.Where(o => o.User_Id == id);
-            var excepts = queryable.Select(o => o.OrderStatus_Id == 1).ToList();
-            List<Order> orders = queryable.Where(o => !excepts.Contain(o.OrderStatus_Id == 1)).ToList();
+            List<Order> orders = _context.Orders.Where(o => o.User_Id == id).ToList();
 
             UserMyOrdersViewModel vm  = new UserMyOrdersViewModel();
-
+            List<UserMyOrderViewModel> myorderviewmodels = new List<UserMyOrderViewModel>();
             foreach (var order in orders)
             {
                 List<OrderDetail> orderdetails = _context.OrderDetails.Where(od => od.Order_Id == order.Id).ToList();
@@ -191,11 +189,14 @@ namespace Web42Shop.Controllers
                     Products = products
                 };
 
-                vm.MyOrderViewModels.Add(ovm);             
+                myorderviewmodels.Add(ovm);             
             }
 
+            vm.MyOrderViewModels = myorderviewmodels;
             vm.ProductTypes = _context.ProductTypes.ToList();
             return View(vm);
         }
+
+        
     }
 }

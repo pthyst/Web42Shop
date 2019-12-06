@@ -673,3 +673,29 @@ footer a
     border: 1px solid #535353;
     box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.2);
 }
+.vm_order
+{
+    background: #313131;
+    padding: 1rem;
+    box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.2);
+}
+.vm_order p
+{
+    font-size: 1rem;
+    margin: 0px;
+}
+.vm_order__p
+{
+    color: #fff;
+    fon-size: 0.8rem;
+}
+.vm_order__id
+{
+    color: #FCB70A;
+    font-weight: bold;
+}
+.vm_order__status
+{
+    color: #11788C;
+    font-weight: bold;
+}

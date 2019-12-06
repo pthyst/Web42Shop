@@ -24,68 +24,6 @@ namespace Web42Shop.Controllers
             if (HttpContext.Session.GetString("TenTaiKhoan") != null){ return true;}
             else { return false;}
         }
-
-        /*public async Task<IActionResult> Index()
-        {
-            List<CartItemViewModel> cartItem = new List<CartItemViewModel>();
-            double sum = 0;
-
-            if (HttpContext.Session.GetString("IdTaiKhoan") == null)
-            {
-                ViewBag.Hau = 1;
-                if (HttpContext.Session.GetString("IdCart") != null)
-                {
-                    cartItem = await (from d in _context.AnoCartDetails
-                                      join c in _context.AnoCarts
-                                      on d.Cart_Id equals c.Id
-                                      join p in _context.Products
-                                      on d.Product_Id equals p.Id
-                                      where c.Id == HttpContext.Session.GetInt32("IdCart")
-                                      select new CartItemViewModel
-                                      {
-                                          Id = d.Id,
-                                          Name = p.Name,
-                                          Quantity = d.Quantity,
-                                          Price = d.PriceSingle,
-                                          TotalPrice = d.PriceTotal
-                                      }).ToListAsync();
-                }
-                foreach (var item in cartItem){ sum += item.TotalPrice;}
-            }
-            else
-            {
-               cartItem = await (from d in _context.CartDetails
-                                    join c in _context.Carts
-                                    on d.Cart_Id equals c.Id
-                                    join p in _context.Products
-                                    on d.Product_Id equals p.Id
-                                    where c.User_Id == HttpContext.Session.GetInt32("IdTaiKhoan")
-                                    select new CartItemViewModel
-                                    {
-                                        Id = d.Id,
-                                        Name = p.Name,
-                                        Quantity = d.Quantity,
-                                        Price = d.PriceSingle,
-                                        TotalPrice = d.PriceTotal
-                                    }).ToListAsync();
-                foreach (var item in cartItem){ sum += item.TotalPrice;}
-            }
-
-            CartViewModel vm = new CartViewModel()
-            {
-                ProductTypes = _context.ProductTypes.ToList(),
-                CartItemViewModels = cartItem
-            };
-            HttpContext.Session.SetString("TongTien", sum.ToString());
-            string Ten= HttpContext.Session.GetString("TenTaiKhoan");
-            string DiaChi = HttpContext.Session.GetString("diachi");
-            ViewBag.ten = Ten;
-            ViewBag.diachi = DiaChi;
-            PayPalConfig payPalConfig = PayPalService.GetPayPalConfig();
-            ViewBag.payPalConfig = payPalConfig;
-            return View(vm);
-        }*/
-
         public IActionResult Index()
         {
             
@@ -194,7 +132,10 @@ namespace Web42Shop.Controllers
             User user = _context.Users.Where(u => u.Id == userid).FirstOrDefault();
             Cart cart = _context.Carts.Where(c => c.User_Id == userid).FirstOrDefault();
 
-            if (HttpContext.Session.GetString("Checking") != "true") // Để tránh tình trạng tự tạo order nhiều lần
+            int orderid = 0;
+            var check = _context.Orders.Where(o => o.PhoneNumber == user.PhoneNumber).FirstOrDefault();
+
+            if (check == null)
             {
                 Order order = new Order();
                 order.User_Id          = user.Id;
@@ -214,12 +155,17 @@ namespace Web42Shop.Controllers
                 order.TotalPrice       = cart.TotalPrice;
                 _context.Orders.Add(order);
                 _context.SaveChanges();
-                HttpContext.Session.SetString("Checking","true");
-
-                var queryable = _context.Orders.Where(o => o.PhoneNumber == user.PhoneNumber);
-                int orderid = queryable.Where(o => o.OrderStatus_Id == 1).FirstOrDefault().Id;
+                orderid = _context.Orders.Where(o => o.PhoneNumber == user.PhoneNumber).FirstOrDefault().Id;
+            }
+            else
+            {
+                var list = _context.Orders.Where(o => o.PhoneNumber == user.PhoneNumber);
+                orderid = list.Where(o => o.OrderStatus_Id == 1).FirstOrDefault().Id;
+            }
             
-                List<CartDetail> details = _context.CartDetails.Where(cd => cd.Cart_Id == cart.Id).ToList();
+            List<CartDetail> details = _context.CartDetails.Where(cd => cd.Cart_Id == cart.Id).ToList();
+            if (details != null)
+            {
                 foreach(CartDetail detail in details)
                 {
                     OrderDetail od = new OrderDetail();
@@ -234,12 +180,30 @@ namespace Web42Shop.Controllers
                     _context.SaveChanges();
                 }
             }
-         
-            var queryable2 = _context.Orders.Where(o => o.PhoneNumber == user.PhoneNumber);
-            int orderid2 = queryable2.Where(o => o.OrderStatus_Id == 1).FirstOrDefault().Id;
-            HttpContext.Session.SetInt32("OrderId",orderid2);
+            
+            ClearCart(cart.Id);
+            HttpContext.Session.SetInt32("OrderId",orderid);
             HttpContext.Session.SetInt32("IdTaiKhoan",user.Id);
+            HttpContext.Session.Remove("IdCart");
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Cancel(int id)
+        {   
+            Order delete = _context.Orders.Where(o => o.Id == id).FirstOrDefault();
+            List<OrderDetail> details = _context.OrderDetails.Where(od => od.Order_Id == id).ToList();
+            if (details != null)
+            {
+                foreach(var detail in details)
+                {
+                    _context.OrderDetails.Remove(detail);
+                    _context.SaveChanges();
+                }
+            }
+            _context.Orders.Remove(delete);
+            _context.SaveChanges();
+            return RedirectToAction("Index","Home");
         }
 
         public void ClearCart(int id)
@@ -254,7 +218,6 @@ namespace Web42Shop.Controllers
                     _context.SaveChanges();
                 }
             }
-            _context.Carts.Remove(cart);
             _context.SaveChanges();
         }
 
@@ -270,7 +233,6 @@ namespace Web42Shop.Controllers
                     _context.SaveChanges();
                 }
             }
-            _context.AnoCarts.Remove(cart);
             _context.SaveChanges();
         }
 
