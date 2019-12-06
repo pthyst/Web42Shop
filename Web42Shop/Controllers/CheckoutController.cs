@@ -19,14 +19,13 @@ namespace Web42Shop.Controllers
         {
             _context = context;
         }
-
         public bool IsLogedIn()
         {
             if (HttpContext.Session.GetString("TenTaiKhoan") != null){ return true;}
             else { return false;}
         }
 
-        public async Task<IActionResult> Index()
+        /*public async Task<IActionResult> Index()
         {
             List<CartItemViewModel> cartItem = new List<CartItemViewModel>();
             double sum = 0;
@@ -84,6 +83,36 @@ namespace Web42Shop.Controllers
             ViewBag.diachi = DiaChi;
             PayPalConfig payPalConfig = PayPalService.GetPayPalConfig();
             ViewBag.payPalConfig = payPalConfig;
+            return View(vm);
+        }*/
+
+        public IActionResult Index()
+        {
+            
+            int orderid = (int)HttpContext.Session.GetInt32("OrderId");
+            List<OrderDetail> orderdetails = _context.OrderDetails.Where(o => o.Order_Id == orderid).ToList();
+
+            List<Product> products = new List<Product>();
+            foreach(var detail in orderdetails)
+            {
+                Product pro = _context.Products.Where(o => o.Id == detail.Product_Id).FirstOrDefault();
+                products.Add(pro);
+            }
+
+            CheckoutIndexViewModel vm = new CheckoutIndexViewModel()
+            {
+                OrderDetails =  orderdetails,
+                Products     = products,
+                ProductTypes = _context.ProductTypes.ToList()
+            };
+
+            int sum = 0;
+            foreach (var detail in vm.OrderDetails){ sum += detail.PriceTotal;}
+            HttpContext.Session.SetString("TongTien", sum.ToString());
+
+            PayPalConfig payPalConfig = PayPalService.GetPayPalConfig();
+            ViewBag.payPalConfig = payPalConfig;
+
             return View(vm);
         }
 
@@ -165,47 +194,84 @@ namespace Web42Shop.Controllers
             User user = _context.Users.Where(u => u.Id == userid).FirstOrDefault();
             Cart cart = _context.Carts.Where(c => c.User_Id == userid).FirstOrDefault();
 
-            Order order = new Order();
-
-            order.User_Id          = user.Id;
-            order.NameLast         = user.NameLast;
-            order.NameMiddle       = user.NameMiddle;
-            order.NameFirst        = user.NameFirst;
-            order.AddressApartment = user.AddressApartment;
-            order.AddressStreet    = user.AddressStreet;
-            order.AddressDistrict  = user.AddressDistrict;
-            order.AddressCity      = user.AddressCity;
-            order.PhoneNumber      = user.PhoneNumber;
-            order.OrderStatus_Id   = 1; // Trạng thái đơn hàng - Đang đợi xử lý - waiting
-            order.PayStatus_Id     = 1; // Trạng thái thanh toán - Chưa thanh toán - notyet
-            order.PayType_Id       = 1; // Hình thức thanh toán - Tiền mặt - cash
-            order.DateCreate       = DateTime.Now;
-            order.DateModify       = DateTime.Now;
-            order.TotalPrice       = cart.TotalPrice;
-
-            _context.Orders.Add(order);
-            _context.SaveChanges();
-
-            var queryable = _context.Orders.Where(o => o.PhoneNumber == user.PhoneNumber);
-            int orderid = queryable.Where(o => o.OrderStatus_Id == 1).FirstOrDefault().Id;
-        
-            List<CartDetail> details = _context.CartDetails.Where(cd => cd.Cart_Id == cart.Id).ToList();
-            foreach(CartDetail detail in details)
+            if (HttpContext.Session.GetString("Checking") != "true") // Để tránh tình trạng tự tạo order nhiều lần
             {
-                OrderDetail od = new OrderDetail();
-
-                od.Order_Id = orderid;
-                od.Product_Id = detail.Product_Id;
-                od.PriceSingle = detail.PriceSingle;
-                od.Quantity= detail.Quantity;
-                od.PriceTotal = detail.PriceTotal;
-
-                _context.OrderDetails.Add(od);
+                Order order = new Order();
+                order.User_Id          = user.Id;
+                order.NameLast         = user.NameLast;
+                order.NameMiddle       = user.NameMiddle;
+                order.NameFirst        = user.NameFirst;
+                order.AddressApartment = user.AddressApartment;
+                order.AddressStreet    = user.AddressStreet;
+                order.AddressDistrict  = user.AddressDistrict;
+                order.AddressCity      = user.AddressCity;
+                order.PhoneNumber      = user.PhoneNumber;
+                order.OrderStatus_Id   = 1; // Trạng thái đơn hàng - Đang đợi xử lý - waiting
+                order.PayStatus_Id     = 1; // Trạng thái thanh toán - Chưa thanh toán - notyet
+                order.PayType_Id       = 1; // Hình thức thanh toán - Tiền mặt - cash
+                order.DateCreate       = DateTime.Now;
+                order.DateModify       = DateTime.Now;
+                order.TotalPrice       = cart.TotalPrice;
+                _context.Orders.Add(order);
                 _context.SaveChanges();
-            }
+                HttpContext.Session.SetString("Checking","true");
+
+                var queryable = _context.Orders.Where(o => o.PhoneNumber == user.PhoneNumber);
+                int orderid = queryable.Where(o => o.OrderStatus_Id == 1).FirstOrDefault().Id;
             
-            HttpContext.Session.SetInt32("OrderId",orderid);
+                List<CartDetail> details = _context.CartDetails.Where(cd => cd.Cart_Id == cart.Id).ToList();
+                foreach(CartDetail detail in details)
+                {
+                    OrderDetail od = new OrderDetail();
+
+                    od.Order_Id = orderid;
+                    od.Product_Id = detail.Product_Id;
+                    od.PriceSingle = detail.PriceSingle;
+                    od.Quantity= detail.Quantity;
+                    od.PriceTotal = detail.PriceTotal;
+
+                    _context.OrderDetails.Add(od);
+                    _context.SaveChanges();
+                }
+            }
+         
+            var queryable2 = _context.Orders.Where(o => o.PhoneNumber == user.PhoneNumber);
+            int orderid2 = queryable2.Where(o => o.OrderStatus_Id == 1).FirstOrDefault().Id;
+            HttpContext.Session.SetInt32("OrderId",orderid2);
+            HttpContext.Session.SetInt32("IdTaiKhoan",user.Id);
             return RedirectToAction("Index");
+        }
+
+        public void ClearCart(int id)
+        {
+            Cart cart = _context.Carts.Where(c => c.Id == id).FirstOrDefault();
+            List<CartDetail> details = _context.CartDetails.Where(cd => cd.Cart_Id == id).ToList();
+            if (details != null)
+            {
+                foreach(CartDetail detail in details)
+                {
+                    _context.CartDetails.Remove(detail);
+                    _context.SaveChanges();
+                }
+            }
+            _context.Carts.Remove(cart);
+            _context.SaveChanges();
+        }
+
+        public void ClearAnoCart(int id)
+        {
+            AnoCart cart = _context.AnoCarts.Where(c => c.Id == id).FirstOrDefault();
+            List<AnoCartDetail> details = _context.AnoCartDetails.Where(cd => cd.Cart_Id == id).ToList();
+            if (details != null)
+            {
+                foreach(AnoCartDetail detail in details)
+                {
+                    _context.AnoCartDetails.Remove(detail);
+                    _context.SaveChanges();
+                }
+            }
+            _context.AnoCarts.Remove(cart);
+            _context.SaveChanges();
         }
 
         [HttpGet]

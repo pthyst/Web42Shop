@@ -108,7 +108,7 @@ namespace Web42Shop.Controllers
             if (product == null) return -1;
 
             //tai khoan chua dang nhap
-            if (HttpContext.Session.GetString("IdTaiKhoan") == null)
+            if (HttpContext.Session.GetInt32("IdTaiKhoan") == null)
             {
                 //khởi tạo cart lần đầu
                 if (HttpContext.Session.GetInt32("IdCart") == null)
