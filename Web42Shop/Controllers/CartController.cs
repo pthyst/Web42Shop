@@ -8,7 +8,6 @@ using Web42Shop.ViewModels;
 using Web42Shop.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Web42Shop.ModelsPayPal;
 
 namespace Web42Shop.Controllers
 {
@@ -69,19 +68,7 @@ namespace Web42Shop.Controllers
                 ProductTypes = _context.ProductTypes.ToList(),
                 CartItemViewModels = cartItem
             };
-            string Ten= HttpContext.Session.GetString("TenTaiKhoan");
-            string DiaChi = HttpContext.Session.GetString("diachi");
-            ViewBag.ten = Ten;
-            ViewBag.diachi = DiaChi;
-            PayPalConfig payPalConfig = PayPalService.GetPayPalConfig();
-            ViewBag.payPalConfig = payPalConfig;
             return View(vm);
-        }
-        [Route("Success")]
-        public IActionResult Success()
-        {
-            var result = PTDHolder.Success(Request.Query["tx"].ToString());
-            return View("Success");
         }
 
         // nhận từ ajax?

@@ -134,11 +134,8 @@ namespace Web42Shop.Controllers
 
                     int id = data.Id;
 
-                    string diachi = data.AddressStreet+ " , "+ data.AddressDistrict + " , " +data.AddressApartment + " , " +data.AddressCity;
-
                     HttpContext.Session.SetInt32("IdTaiKhoan",id);
                     HttpContext.Session.SetString("TenTaiKhoan",displayname);
-                    HttpContext.Session.SetString("diachi", diachi);
 
                     return RedirectToAction("Index","Home");
                 }
