@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Đơn đặt hàng";
+﻿@model Web42Shop.ViewModels.AdminOrdersOverviewViewModel
+@{
+    ViewData["Title"] = "Quản lý đơn đặt hàng";
     Layout = "~/Views/Admin/_AdminIndexLayout.cshtml";
 }
 
@@ -7,93 +8,49 @@
     <p class="overview__title">Đơn đặt hàng</p>
     <table class="overview__table overview__table--orders">
         <tr>
-            <th>Mã đơn hàng</th>
-            <th>Mã khách hàng</th>
-            <th>Thời điểm đặt hàng</th>
-            <th>Cập nhật mới nhất</th>
+            <th>Mã đơn</th>
+            <th>Mã khách</th>
+            <th>Ngày đặt</th>
+            <th>Cập nhật</th>
+            <th>Hình thức thanh toán</th>
             <th>Tình trạng</th>
-            <th></th>
         </tr>
-        <tr class="orders--waiting">
-            <td>01265</td>
-            <td>991251</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>Chờ xử lý</td>
-            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
-        </tr>
-        <tr class="orders--waiting">
-            <td>01266</td>
-            <td>991252</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>Chờ xử lý</td>
-            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
-        </tr>
-        <tr class="orders--waiting">
-            <td>01265</td>
-            <td>991251</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>Chờ xử lý</td>
-            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
-        </tr>
-        <tr class="orders--waiting">
-            <td>01267</td>
-            <td>991254</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>Chờ xử lý</td>
-            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
-        </tr>
-        <tr class="orders--deliverying">
-            <td>01262</td>
-            <td>991251</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>Đang giao</td>
-            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
-        </tr>
-        <tr class="orders--deliverying">
-            <td>01261</td>
-            <td>991251</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>Đang giao</td>
-            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
-        </tr>
-        <tr class="orders--delivered">
-            <td>01260</td>
-            <td>991251</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>Đã giao</td>
-            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
-        </tr>
-        <tr class="orders--delivered">
-            <td>01259</td>
-            <td>991251</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>Đã giao</td>
-            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
-        </tr>
-        <tr class="orders--delivered">
-            <td>01258</td>
-            <td>991251</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>Đã giao</td>
-            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
-        </tr>
-        <tr class="orders--delivered">
-            <td>01257</td>
-            <td>991251</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>18:00:20 18/10/2019</td>
-            <td>Đã giao</td>
-            <td><a asp-controller="Admin" asp-action="OrdersOverview">Chi tiết</a></td>
-        </tr>
+        @foreach (var item in Model.Orders)
+        {
+            string tr_class = "";
+            switch(item.OrderStatus_Id)
+            {
+                case 1: tr_class = "orders--waiting";      break;
+                case 2: tr_class = "orders--delivering";     break;
+                case 3: tr_class = "orders--delivering"; break;
+                case 4: tr_class = "orders--delivered";    break;
+            }
+            string paytype = "";
+            switch(item.PayType_Id)
+            {
+                case 1: paytype = "Tiền mặt"; break;
+                case 2: paytype = "Paypal"; break;
+                case 3: paytype = "Ngân lượng"; break;
+            }
+
+            <tr class=@tr_class>
+                <td><a asp-controller="Admin" asp-action="OrderCheck" asp-route-id="@item.Id">
+                    @item.Id
+                </a></td>
+                <td>@item.User_Id</td>
+                <td>@item.DateCreate.ToString("dd/MM/yyyy")</td>
+                <td>@item.DateModify.ToString("dd/MM/yyyy")</td>
+                <td>@paytype</td>
+                @if (item.PayStatus_Id == 1)
+                {
+                    <td>Chưa thanh toán</td>
+                }
+                else
+                {
+                    <td>Đã thanh toán</td>
+                }
+            </tr>
+        }
     </table>
 
     <div class="row">

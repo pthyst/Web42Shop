@@ -819,7 +819,12 @@ namespace Web42Shop.Controllers
         #endregion
        
         #region Nhóm trang đơn đặt hàng
-         // Trang tổng quát các đơn hàng
+        public IActionResult Session()
+        {
+            return View();
+        }
+        
+        // Trang tổng quát các đơn hàng
         public IActionResult OrdersOverview()
         {
             if (IsLogedIn() == true)
@@ -827,8 +832,7 @@ namespace Web42Shop.Controllers
                 return View(
                     new AdminOrdersOverviewViewModel()
                     {
-                        Orders = _context.Orders.OrderBy(o => o.OrderStatus_Id).ToList(),
-                        OrderStatus = _context.OrderStatuses.ToList()
+                        Orders = _context.Orders.OrderByDescending(o => o.Id).OrderBy(o => o.OrderStatus_Id).ThenByDescending(o => o.PayType_Id).ThenBy(o => o.PayStatus_Id).ToList()
                     }
                 );
             }
